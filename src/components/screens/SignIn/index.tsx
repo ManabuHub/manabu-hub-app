@@ -1,20 +1,18 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Box, Spacer, Text, VStack, HStack, Pressable } from "native-base";
 import * as React from "react";
-import { useState } from "react";
 import { Color } from "../../../constants/Color";
 import { ScreenName } from "../../../constants/ScreenName";
 import { CapsuleButton } from "../../atoms/CapsuleButton";
 import { CapsuleInput } from "../../atoms/CapsuleInput";
+import { useSignIn } from "./hooks";
 
 interface SignInScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
 }
 
 export const SignIn: React.FC<SignInScreenProps> = ({ navigation }) => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
+  const { email, password, setEmail, setPassword } = useSignIn();
   return (
     <Box
       style={{

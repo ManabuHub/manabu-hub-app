@@ -6,15 +6,15 @@ import { Color } from "../../../constants/Color";
 import { ScreenName } from "../../../constants/ScreenName";
 import { CapsuleButton } from "../../atoms/CapsuleButton";
 import { CapsuleInput } from "../../atoms/CapsuleInput";
+import { useSignUp } from "./hooks";
 
 export interface SignUpScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
 }
 
 export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
+  const { email, password, rePassword, setEmail, setPassword, setRePassword } =
+    useSignUp();
 
   return (
     <Box
