@@ -5,6 +5,7 @@ import { Color } from "../../../constants/Color";
 import { ButtonColorScheme } from "../../../constants/ButtonColorScheme";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ScreenName } from "../../../constants/ScreenName";
+import LOGO from '../../../constants/Image/Logo.svg';
 
 export interface HomeScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
@@ -22,14 +23,10 @@ export const Welcome: React.FC<HomeScreenProps> = ({ navigation }) => {
       safeArea
     >
       <Spacer />
-      <Text
-        fontSize="3xl"
-        fontFamily="body"
-        fontWeight={700}
-        color={Color.MAIN}
-      >
-        まなぶHUB
-      </Text>
+      <img src={
+      LOGO
+    }  />
+        
       <Spacer />
       <VStack space={8}>
         <CapsuleButton
