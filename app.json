@@ -4,10 +4,10 @@
     "slug": "manabu-hub-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "image": "./assets/splashexample_numasawa.png",
+      "resizeMode": "stretch",
       "backgroundColor": "#ffffff"
     },
     "updates": {
