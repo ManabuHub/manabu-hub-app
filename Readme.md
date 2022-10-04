@@ -1,9 +1,8 @@
-# NativeBase TypeScript Expo Template　　
-
-The official NativeBase TypeScript template for [Expo](https://docs.expo.io/)
-
-## Usage
-
-```sh
-expo init my-app --template @native-base/expo-template-typescript
-```
+### ブランチ名の付け方  
+新たにブランチを切る前に、その該当部分の内容を簡単に記したイシューをGithub Issuesで発行してください。  
+その後、  
+新機能タスクの場合は、  
+feature/<イシューのナンバー>  
+機能改善タスクの場合は、 
+fix/<イシューのナンバー>　　
+の規則に従いブランチを切るようお願いします。
