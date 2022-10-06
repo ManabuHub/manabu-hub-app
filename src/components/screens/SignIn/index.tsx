@@ -12,7 +12,8 @@ interface SignInScreenProps {
 }
 
 export const SignIn: React.FC<SignInScreenProps> = ({ navigation }) => {
-  const { email, password, setEmail, setPassword } = useSignIn();
+  const { email, password, setEmail, setPassword, handleSignin } = useSignIn();
+
   return (
     <Box
       style={{
@@ -52,7 +53,7 @@ export const SignIn: React.FC<SignInScreenProps> = ({ navigation }) => {
           />
         </VStack>
         <VStack alignItems="center" space="24px">
-          <CapsuleButton text="ログイン" onPress={() => {}} />
+          <CapsuleButton text="ログイン" onPress={handleSignin} />
           <HStack alignItems="center" space="12px">
             <Box
               width="24px"

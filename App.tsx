@@ -5,6 +5,7 @@ import { extendTheme, NativeBaseProvider } from "native-base";
 import { Start } from "./src/screens/Start";
 import { useFonts } from "expo-font";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import AuthProvider from "./src/providers/AuthProvider/AuthProvider";
 
 // Define the config
 const config = {
@@ -55,7 +56,9 @@ export default function App() {
     <SafeAreaProvider>
       <NavigationContainer>
         <NativeBaseProvider theme={theme}>
-          <Start />
+          <AuthProvider>
+            <Start />
+          </AuthProvider>
           {/**<Tab.Navigator>
         <Tab.Screen name="Home" component={Home} />
       </Tab.Navigator> */}
