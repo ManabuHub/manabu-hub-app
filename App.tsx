@@ -2,10 +2,11 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { extendTheme, NativeBaseProvider } from "native-base";
-import { Start } from "./src/screens/Start";
+import { Start } from "./src/screen_groups/Start";
 import { useFonts } from "expo-font";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AuthProvider from "./src/providers/AuthProvider/AuthProvider";
+import { Main } from "./src/screen_groups/Main";
 
 // Define the config
 const config = {
@@ -57,7 +58,8 @@ export default function App() {
       <NavigationContainer>
         <NativeBaseProvider theme={theme}>
           <AuthProvider>
-            <Start />
+            {/* <Start /> */}
+            <Main />
           </AuthProvider>
           {/**<Tab.Navigator>
         <Tab.Screen name="Home" component={Home} />
