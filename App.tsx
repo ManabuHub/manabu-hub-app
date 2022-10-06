@@ -61,9 +61,6 @@ export default function App() {
             {/* <Start /> */}
             <Main />
           </AuthProvider>
-          {/**<Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
-      </Tab.Navigator> */}
         </NativeBaseProvider>
       </NavigationContainer>
     </SafeAreaProvider>
