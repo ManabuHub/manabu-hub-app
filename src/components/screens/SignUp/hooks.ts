@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Firebase from "../../../firebase";
 
 export const useSignUp = () => {
   const [email, setEmail] = useState("");
