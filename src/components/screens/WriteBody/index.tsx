@@ -17,7 +17,7 @@ export const WriteBody: React.FC = () => {
               console.log("戻るボタンが押されました");
             }}
           />
-          {/**IconButtonの実装方法が分からなかったため、見た目だけのアイコンを表示させた}
+          {/**IconButtonの実装方法が分からなかったため、見た目だけのアイコンを表示させた**/}
           {/** ButtonColorScheme.PRIMARY をcolorに適用させる方法が分からなかかったため、カラーコードを直に書き込んだ */}
         </Box>
         <Box mr={1} mb={2}>
@@ -37,7 +37,8 @@ export const WriteBody: React.FC = () => {
         placeholder="タイトル"
         w="100%"
         h="13%"
-        style={{ fontWeight: "bold", fontSize: "18px" }}
+        fontSize="18px"
+        style={{ fontWeight: "bold" }}
       />
       <TextArea
         borderTopWidth={0}
@@ -45,14 +46,9 @@ export const WriteBody: React.FC = () => {
         h={260}
         placeholder="ノートを書く"
         w="100%"
-        style={{ fontWeight: "bold", fontSize: "12px" }}
+        fontSize="12px"
+        style={{ fontWeight: "bold" }}
       />
     </Box>
   );
 };
-
-//34行目 styleの型のエラー
-// 型 '{ fontWeight: "bold"; fontSize: string; }' を型 'StyleProp<TextStyle>' に割り当てることはできません。
-//   プロパティ 'fontSize' の型に互換性がありません。
-//     型 'string' を型 'number' に割り当てることはできません。ts(2322)
-// index.d.ts(1682, 5): 予期された型は、型 'IntrinsicAttributes & InterfaceInputProps & Partial<{}> & Partial<Record<string, any>>' に対してここで宣言されたプロパティ 'style' から取得されています
