@@ -2,6 +2,8 @@ import * as React from "react";
 import { Icon, Input, VStack, Text } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Color } from "../../../constants/Color";
+import { AntDesign } from '@expo/vector-icons';
+
 
 interface CapsuleInputProps {
   value: string;
