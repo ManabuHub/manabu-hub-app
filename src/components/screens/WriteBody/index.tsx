@@ -1,11 +1,16 @@
 import { ArrowBackIcon, Box, Input, TextArea } from "native-base";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ScreenName } from "../../../constants/ScreenName";
 import * as React from "react";
 import { View } from "react-native";
 import { ButtonColorScheme } from "../../../constants/ButtonColorScheme";
 import { CapsuleButton } from "../../atoms/CapsuleButton";
 
+interface WriteBodyScreenProps {
+  navigation: NativeStackNavigationProp<any, any>;
+}
 // 投稿テキスト入力画面UI
-export const WriteBody: React.FC = () => {
+export const WriteBody: React.FC<WriteBodyScreenProps> = ({ navigation }) => {
   return (
     <Box mt={10} mx={5}>
       <View style={{ flexDirection: "row" }}>
@@ -24,7 +29,7 @@ export const WriteBody: React.FC = () => {
           <CapsuleButton
             text="次へ"
             colorScheme={ButtonColorScheme.PRIMARY}
-            onPress={() => {}}
+            onPress={() => {navigation.navigate(ScreenName.SELECT_HASHTAG)}}
           />
         </Box>
       </View>
