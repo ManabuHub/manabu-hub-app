@@ -13,8 +13,15 @@ export interface SignUpScreenProps {
 }
 
 export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
-  const { email, password, rePassword, setEmail, setPassword, setRePassword } =
-    useSignUp();
+  const {
+    email,
+    password,
+    rePassword,
+    setEmail,
+    setPassword,
+    setRePassword,
+    handleSignup,
+  } = useSignUp();
 
   return (
     <Box
@@ -71,7 +78,12 @@ export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
           </VStack>
         </VStack>
         <VStack alignItems="center" space="24px">
-          <CapsuleButton text="登録" onPress={() => {}} />
+          <CapsuleButton
+            text="登録"
+            onPress={() => {
+              handleSignup;
+            }}
+          />
           <HStack alignItems="center" space="12px">
             <Box
               width="24px"
