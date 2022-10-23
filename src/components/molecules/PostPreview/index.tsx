@@ -55,7 +55,7 @@ const PostPreview: React.FC<PostPreviewProps> = ({
             </Text>
           </HStack>
         </Box>
-        <Divider my={2} />
+        <Divider my={2} bgColor={Color.MAIN}/>
         <Box margin="5px">
           <Text numberOfLines={2} ellipsizeMode="tail"
             fontFamily="body"
@@ -65,7 +65,7 @@ const PostPreview: React.FC<PostPreviewProps> = ({
             {title}
           </Text>
         </Box>
-        <Divider my={2} />
+        <Divider my={2} bgColor={Color.MAIN}/>
         <Box margin="5px">
           <Text numberOfLines={2}
             fontFamily="body"
