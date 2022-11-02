@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactNode } from "react";
-import { Text } from "native-base";
+import { Text, Box, View } from "native-base";
 import { Color, ColorType } from "../../../constants/Color";
 import { FontType, FontStyles } from "../../../constants/Font";
 import { Linking } from "react-native";
@@ -19,7 +19,16 @@ const CustomText: React.FC<TextProps> = ({
   style = {},
 }) => {
   return (
-    <Text style={{ color: color, ...FontStyles[fontType], ...style }}>
+    <Text
+      flex={1}
+      flexWrap="wrap"
+      style={{
+        color: color,
+        ...FontStyles[fontType],
+        ...style,
+        display: "flex",
+      }}
+    >
       {children}
     </Text>
   );

@@ -4,7 +4,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Color } from "../../../constants/Color";
 import { CustomText } from "../../atoms/Text";
 import { FontType } from "../../../constants/Font";
-import { StyleSheet } from "react-native";
 
 interface CapsuleInputProps {
   value: string;
