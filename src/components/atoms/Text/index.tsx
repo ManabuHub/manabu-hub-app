@@ -7,15 +7,19 @@ interface TextProps {
   fontType?: FontType;
   color?: ColorType;
   children: React.ReactNode;
+  style?: Object;
 }
 
 const CustomText: React.FC<TextProps> = ({
   fontType = FontType.MAIN,
   color = Color.WHITE_100,
   children,
+  style = {},
 }) => {
   return (
-    <Text style={{ color: color, ...FontStyles[fontType] }}>{children}</Text>
+    <Text style={{ color: color, ...FontStyles[fontType], ...style }}>
+      {children}
+    </Text>
   );
 };
 

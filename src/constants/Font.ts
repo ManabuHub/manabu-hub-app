@@ -16,6 +16,8 @@ interface FontStyle {
   fontFamily: string;
   fontSize: number;
   fontWeight: "normal" | "bold";
+  letterSpacing?: number;
+  lineHeight?: number;
 }
 
 export const FontStyles: { [index in FontType]: FontStyle } = {
@@ -43,6 +45,8 @@ export const FontStyles: { [index in FontType]: FontStyle } = {
     fontFamily: "Noto-Sans-JP",
     fontSize: 16,
     fontWeight: "normal",
+    letterSpacing: 2,
+    lineHeight: 20,
   },
   [FontType.MAIN_BOLD]: {
     fontFamily: "Noto-Sans-JP",

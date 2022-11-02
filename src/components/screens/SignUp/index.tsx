@@ -4,8 +4,8 @@ import * as React from "react";
 import { useState } from "react";
 import { Color } from "../../../constants/Color";
 import { ScreenName } from "../../../constants/ScreenName";
-import { CapsuleButton } from "../../atoms/CapsuleButton";
-import { CapsuleInput } from "../../atoms/CapsuleInput";
+import { CapsuleButton } from "../../molecules/CapsuleButton";
+import { CapsuleInput } from "../../molecules/CapsuleInput";
 import { useSignUp } from "./hooks";
 
 export interface SignUpScreenProps {

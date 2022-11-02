@@ -6,6 +6,7 @@ import {
 } from "../../../constants/ButtonColorScheme";
 import { FontType } from "../../../constants/Font";
 import { IconName } from "../../../constants/IconName";
+import { ActivityIndicator } from "react-native";
 
 interface CapsuleButtonProps {
   text: string;
@@ -22,6 +23,7 @@ const CapsuleButton: React.FC<CapsuleButtonProps> = ({
   text,
   colorScheme = ButtonColorScheme.PRIMARY,
   isDisabled = false,
+  isLoading = false,
   onPress,
 }) => {
   return (
@@ -39,14 +41,18 @@ const CapsuleButton: React.FC<CapsuleButtonProps> = ({
       shadow={3}
       disabled={isDisabled}
     >
-      <Text
-        fontFamily="body"
-        fontWeight={700}
-        color={ButtonStyles[colorScheme].itemColor}
-        fontSize="xl"
-      >
-        {text}
-      </Text>
+      {isLoading ? (
+        <ActivityIndicator size="small" />
+      ) : (
+        <Text
+          fontFamily="body"
+          fontWeight={700}
+          color={ButtonStyles[colorScheme].itemColor}
+          fontSize="xl"
+        >
+          {text}
+        </Text>
+      )}
     </Pressable>
   );
 };

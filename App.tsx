@@ -38,7 +38,6 @@ declare module "native-base" {
   interface ICustomTheme extends MyThemeType {}
 }
 export default function App() {
-  console.log(process.env.FIREBASE_API_KEY);
   const [fontsLoaded] = useFonts({
     "NotoSansJP-Black": require("./assets/fonts/NotoSansJP-Black.otf"),
     "NotoSansJP-Bold": require("./assets/fonts/NotoSansJP-Bold.otf"),
