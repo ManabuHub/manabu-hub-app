@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase";
+import { auth } from "../../../config/firebase";
 import { useAuth } from "../../../providers/AuthProvider/hooks";
 
 export const useSignIn = () => {
