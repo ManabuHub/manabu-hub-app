@@ -15,17 +15,19 @@ interface CapsuleButtonProps {
   colorScheme?: ButtonColorScheme;
   iconSize?: number;
   isLoading?: boolean;
-  isDisabled?: boolean;
+  disabled?: boolean;
   onPress: () => void;
 }
 
 const CapsuleButton: React.FC<CapsuleButtonProps> = ({
   text,
   colorScheme = ButtonColorScheme.PRIMARY,
-  isDisabled = false,
+  disabled = false,
   isLoading = false,
   onPress,
 }) => {
+  const scheme = disabled ? ButtonColorScheme.DISABLED : colorScheme;
+
   return (
     <Pressable
       onPress={onPress}
@@ -36,10 +38,10 @@ const CapsuleButton: React.FC<CapsuleButtonProps> = ({
       justifyContent="center"
       borderRadius={22}
       borderWidth={1}
-      borderColor={ButtonStyles[colorScheme].borderColor}
-      backgroundColor={ButtonStyles[colorScheme].bgColor}
+      borderColor={ButtonStyles[scheme].borderColor}
+      backgroundColor={ButtonStyles[scheme].bgColor}
       shadow={3}
-      disabled={isDisabled}
+      disabled={disabled}
     >
       {isLoading ? (
         <ActivityIndicator size="small" />
@@ -47,7 +49,7 @@ const CapsuleButton: React.FC<CapsuleButtonProps> = ({
         <Text
           fontFamily="body"
           fontWeight={700}
-          color={ButtonStyles[colorScheme].itemColor}
+          color={ButtonStyles[scheme].itemColor}
           fontSize="xl"
         >
           {text}

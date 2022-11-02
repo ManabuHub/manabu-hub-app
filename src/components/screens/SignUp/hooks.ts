@@ -9,6 +9,7 @@ export const useSignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [isConsent, setIsConsent] = useState<boolean>(false);
 
   const validateInput = useCallback(() => {
     if (email.trim().length === 0 || password.trim().length === 0) {
@@ -42,9 +43,11 @@ export const useSignUp = () => {
     email,
     password,
     rePassword,
+    isConsent,
     setEmail,
     setPassword,
     setRePassword,
+    setIsConsent,
     handleSignup,
   };
 };

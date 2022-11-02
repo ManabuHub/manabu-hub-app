@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Box, Spacer, Text, VStack, HStack, Pressable } from "native-base";
+import { Divider, Spacer, Text, VStack, HStack, Pressable } from "native-base";
 import * as React from "react";
 import { Color } from "../../../constants/Color";
 import { ScreenName } from "../../../constants/ScreenName";
@@ -15,12 +15,10 @@ export const SignIn: React.FC<SignInScreenProps> = ({ navigation }) => {
   const { email, password, setEmail, setPassword, handleSignin } = useSignIn();
 
   return (
-    <Box
-      style={{
-        flex: 1,
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
+    <VStack
+      flex={1}
+      justifyContent="space-between"
+      alignItems="center"
       bg={Color.BASE}
       safeArea
     >
@@ -34,15 +32,17 @@ export const SignIn: React.FC<SignInScreenProps> = ({ navigation }) => {
       >
         ログイン
       </Text>
-      <VStack display="flex" alignItems="center" space="36px">
-        <VStack space="24px">
-          <CapsuleInput
-            value={email}
-            iconName="mail"
-            label="メールアドレス"
-            placeholder="manabu@example.com"
-            onChange={setEmail}
-          />
+      <VStack display="flex" alignItems="center" space="36px" width="100%">
+        <VStack space={6} paddingX={10} width="100%">
+          <VStack>
+            <CapsuleInput
+              value={email}
+              iconName="mail"
+              label="メールアドレス"
+              placeholder="manabu@example.com"
+              onChange={setEmail}
+            />
+          </VStack>
 
           <CapsuleInput
             value={password}
@@ -52,23 +52,24 @@ export const SignIn: React.FC<SignInScreenProps> = ({ navigation }) => {
             onChange={setPassword}
           />
         </VStack>
+
         <VStack alignItems="center" space="24px">
           <CapsuleButton text="ログイン" onPress={handleSignin} />
           <HStack alignItems="center" space="12px">
-            <Box
-              width="24px"
-              height="3px"
+            <Divider
+              width="6"
+              height="0"
               borderBottomColor={Color.TEXT}
-              borderBottomWidth="1px"
+              borderBottomWidth="1"
             />
             <Text fontFamily="body" color={Color.TEXT}>
               or
             </Text>
-            <Box
-              width="24px"
-              height="3px"
+            <Divider
+              width="6"
+              height="0"
               borderBottomColor={Color.TEXT}
-              borderBottomWidth="1px"
+              borderBottomWidth="1"
             />
           </HStack>
           <Pressable
@@ -88,6 +89,6 @@ export const SignIn: React.FC<SignInScreenProps> = ({ navigation }) => {
         </VStack>
       </VStack>
       <Spacer />
-    </Box>
+    </VStack>
   );
 };

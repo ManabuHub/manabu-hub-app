@@ -1,9 +1,19 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Box, Spacer, Text, VStack, HStack, Pressable } from "native-base";
+import {
+  Spacer,
+  Text,
+  VStack,
+  HStack,
+  Pressable,
+  Divider,
+  Checkbox,
+  Box,
+} from "native-base";
 import * as React from "react";
-import { useState } from "react";
 import { Color } from "../../../constants/Color";
+import { FontType } from "../../../constants/Font";
 import { ScreenName } from "../../../constants/ScreenName";
+import { CustomText, LinkSpan } from "../../atoms/Text";
 import { CapsuleButton } from "../../molecules/CapsuleButton";
 import { CapsuleInput } from "../../molecules/CapsuleInput";
 import { useSignUp } from "./hooks";
@@ -17,19 +27,19 @@ export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
     email,
     password,
     rePassword,
+    isConsent,
     setEmail,
     setPassword,
     setRePassword,
+    setIsConsent,
     handleSignup,
   } = useSignUp();
 
   return (
-    <Box
-      style={{
-        flex: 1,
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
+    <VStack
+      flex={1}
+      justifyContent="space-between"
+      alignItems="center"
       bg={Color.BASE}
       safeArea
     >
@@ -43,8 +53,8 @@ export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
       >
         新規登録
       </Text>
-      <VStack display="flex" alignItems="center" space="36px">
-        <VStack space="24px">
+      <VStack display="flex" alignItems="center" space={9} width="100%">
+        <VStack space={6} paddingX={10} width="100%">
           <CapsuleInput
             value={email}
             iconName="mail"
@@ -53,52 +63,68 @@ export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
             onChange={setEmail}
           />
 
+          <VStack space={1}>
+            <CapsuleInput
+              value={password}
+              iconName="lock"
+              label="パスワード"
+              placeholder="xxxxxxxx"
+              onChange={setPassword}
+            />
+            <CustomText color={Color.TEXT} fontType={FontType.EXSMALL}>
+              ・半角英数字8文字以上{"\n"}
+              ・大文字、小文字、数字のうち少なくとも2種類が混在している必要があります。
+            </CustomText>
+          </VStack>
+
           <CapsuleInput
-            value={password}
+            value={rePassword}
             iconName="lock"
-            label="パスワード"
+            label="パスワード(再入力)"
             placeholder="xxxxxxxx"
-            onChange={setPassword}
+            onChange={setRePassword}
           />
 
-          <VStack width="300px">
-            <CapsuleInput
-              value={rePassword}
-              iconName="lock"
-              label="パスワード(再入力)"
-              placeholder="xxxxxxxx"
-              onChange={setRePassword}
+          <HStack alignItems="center" space={2}>
+            <Checkbox
+              isChecked={isConsent}
+              colorScheme="blue"
+              value={""}
+              onChange={setIsConsent}
+              accessibilityLabel="consent"
             />
-            <Text fontFamily="body" fontSize="xs" marginTop="6px">
-              ・半角英数字8文字以上
-            </Text>
-            <Text fontFamily="body" fontSize="xs">
-              ・大文字、小文字、数字のうち少なくとも2種類が混在している必要があります。
-            </Text>
-          </VStack>
+            <HStack>
+              <CustomText color={Color.TEXT} fontType={FontType.EXSMALL}>
+                <LinkSpan url={"https://apple.com"}>利用規約</LinkSpan>、
+                <LinkSpan url={"https://apple.com"}>
+                  プライバシーボリシー
+                </LinkSpan>
+                を読み、同意しました。
+              </CustomText>
+            </HStack>
+          </HStack>
         </VStack>
         <VStack alignItems="center" space="24px">
           <CapsuleButton
             text="登録"
-            onPress={() => {
-              handleSignup;
-            }}
+            onPress={handleSignup}
+            disabled={!isConsent}
           />
           <HStack alignItems="center" space="12px">
-            <Box
-              width="24px"
-              height="3px"
+            <Divider
+              width="6"
+              height="0"
               borderBottomColor={Color.TEXT}
-              borderBottomWidth="1px"
+              borderBottomWidth="1"
             />
             <Text fontFamily="body" color={Color.TEXT}>
               or
             </Text>
-            <Box
-              width="24px"
-              height="3px"
+            <Divider
+              width="6"
+              height="0"
               borderBottomColor={Color.TEXT}
-              borderBottomWidth="1px"
+              borderBottomWidth="1"
             />
           </HStack>
           <Pressable
@@ -118,6 +144,6 @@ export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
         </VStack>
       </VStack>
       <Spacer />
-    </Box>
+    </VStack>
   );
 };

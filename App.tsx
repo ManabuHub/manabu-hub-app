@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { extendTheme, NativeBaseProvider } from "native-base";
-import { Start } from "./src/screens/Start";
+import { Start } from "./src/screenGroups/Start";
 import { useFonts } from "expo-font";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AuthProvider from "./src/providers/AuthProvider/AuthProvider";
@@ -25,9 +25,7 @@ const config = {
     },
   },
   fonts: {
-    heading: "NotoSansJP",
-    body: "NotoSansJP",
-    mono: "NotoSansJP",
+    body: "NotoSansJP-Medium",
   },
 };
 
