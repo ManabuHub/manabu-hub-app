@@ -18,8 +18,9 @@ export const useSignUp = () => {
   const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);
   const [rePassword, setRePassword] = useState("");
   const [isConsent, setIsConsent] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const isValidate = useMemo(
+  const isFilled = useMemo(
     () => isPasswordLengthEnough && isPasswordValid && isConsent,
     [isPasswordLengthEnough, isPasswordValid, isConsent]
   );
@@ -45,11 +46,14 @@ export const useSignUp = () => {
     return false;
   }, []);
 
-  const onPasswordChange = useCallback((pass: string) => {
-    setIsPasswordLengthEnough(validateChars(pass));
-    setIsPasswordValid(validateMultipleChars(pass));
-    setPassword(pass);
-  }, []);
+  const onPasswordChange = useCallback(
+    (pass: string) => {
+      setIsPasswordLengthEnough(validateChars(pass));
+      setIsPasswordValid(validateMultipleChars(pass));
+      setPassword(pass);
+    },
+    [validateChars, validateMultipleChars]
+  );
 
   const validateInput = useCallback(() => {
     if (!email.match(EmailPattern)) {
@@ -96,7 +100,7 @@ export const useSignUp = () => {
 
   const validateRePassword = useCallback(() => {
     return password === rePassword ? true : false;
-  }, []);
+  }, [password, rePassword]);
 
   const handleSignup = useCallback(() => {
     const isInputValidate = validateInput();
@@ -104,16 +108,44 @@ export const useSignUp = () => {
     if (!isInputValidate || !isRePasswordValidate) {
       return;
     }
+    setIsSubmitting(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         setUserId(user.uid);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.error(error);
+        const title =
+          error.code === "auth/email-already-in-use"
+            ? "エラー"
+            : "システムエラー";
+        const message =
+          error.code === "auth/email-already-in-use"
+            ? "このメールアドレスは既に登録されています"
+            : "登録に失敗しました。再度お試しください。";
+        emitAlert({
+          title,
+          message,
+          buttons: [
+            {
+              text: "分かりました",
+              style: AlertButtonStyle.OK,
+            },
+          ],
+        });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
-  }, []);
+  }, [
+    email,
+    password,
+    emitAlert,
+    setUserId,
+    validateInput,
+    validateRePassword,
+  ]);
 
   return {
     email,
@@ -122,7 +154,8 @@ export const useSignUp = () => {
     isPasswordValid,
     rePassword,
     isConsent,
-    isValidate,
+    isFilled,
+    isSubmitting,
     setEmail,
     onPasswordChange,
     setRePassword,

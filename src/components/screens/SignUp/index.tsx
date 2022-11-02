@@ -34,7 +34,8 @@ export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
     isPasswordValid,
     rePassword,
     isConsent,
-    isValidate,
+    isFilled,
+    isSubmitting,
     setEmail,
     onPasswordChange,
     setRePassword,
@@ -150,7 +151,8 @@ export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
               <CapsuleButton
                 text="登録"
                 onPress={handleSignup}
-                disabled={!isValidate}
+                disabled={!isFilled}
+                isLoading={isSubmitting}
               />
               <HStack alignItems="center" space="12px">
                 <Divider
