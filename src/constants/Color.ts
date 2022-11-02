@@ -12,6 +12,7 @@ type ColorObject = {
   WHITE_30: ColorType;
   BUTTON_TEXT: ColorType;
   LINK_TEXT: ColorType;
+  INVALID: ColorType;
 };
 
 const Color: ColorObject = {
@@ -26,6 +27,7 @@ const Color: ColorObject = {
   WHITE_30: "rgba(255, 255, 255, 0.3)" as ColorType,
   BUTTON_TEXT: "#5B83EB" as ColorType,
   LINK_TEXT: "#5B83EB" as ColorType,
+  INVALID: "#F55F5F" as ColorType,
 };
 
 export { Color as Color };

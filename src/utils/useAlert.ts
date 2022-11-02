@@ -9,7 +9,7 @@ export enum AlertButtonStyle {
 
 export interface IAlertButton {
   text: string;
-  onPress: () => void;
+  onPress?: () => void;
   style: AlertButtonStyle;
 }
 

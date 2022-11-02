@@ -30,10 +30,13 @@ export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
   const {
     email,
     password,
+    isPasswordLengthEnough,
+    isPasswordValid,
     rePassword,
     isConsent,
+    isValidate,
     setEmail,
-    setPassword,
+    onPasswordChange,
     setRePassword,
     setIsConsent,
     handleSignup,
@@ -79,14 +82,20 @@ export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
                   iconName="lock"
                   label="パスワード"
                   placeholder="xxxxxxxx"
-                  onChange={setPassword}
+                  onChange={onPasswordChange}
                 />
                 <VStack space={0}>
                   <HStack alignItems="flex-start" space={1} width="100%">
                     <Icon
-                      as={<MaterialIcons name="check" />}
+                      as={
+                        <MaterialIcons
+                          name={isPasswordLengthEnough ? "check" : "close"}
+                        />
+                      }
                       size={4}
-                      color={Color.MAIN}
+                      color={
+                        isPasswordLengthEnough ? Color.MAIN : Color.INVALID
+                      }
                       mt={1}
                     />
                     <CustomText color={Color.TEXT} fontType={FontType.EXSMALL}>
@@ -95,9 +104,13 @@ export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
                   </HStack>
                   <HStack alignItems="flex-start" space={1} width="100%">
                     <Icon
-                      as={<MaterialIcons name="check" />}
+                      as={
+                        <MaterialIcons
+                          name={isPasswordValid ? "check" : "close"}
+                        />
+                      }
                       size={4}
-                      color={Color.MAIN}
+                      color={isPasswordValid ? Color.MAIN : Color.INVALID}
                       mt={1}
                     />
                     <CustomText color={Color.TEXT} fontType={FontType.EXSMALL}>
@@ -137,7 +150,7 @@ export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
               <CapsuleButton
                 text="登録"
                 onPress={handleSignup}
-                disabled={!isConsent}
+                disabled={!isValidate}
               />
               <HStack alignItems="center" space="12px">
                 <Divider
