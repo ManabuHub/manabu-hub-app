@@ -1,17 +1,18 @@
 import * as React from "react";
-import { Spacer, VStack, Text, Box } from "native-base";
-import { CapsuleButton } from "../../atoms/CapsuleButton";
+import { Spacer, VStack, Box } from "native-base";
+import { CapsuleButton } from "../../molecules/CapsuleButton";
 import { Color } from "../../../constants/Color";
 import { ButtonColorScheme } from "../../../constants/ButtonColorScheme";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ScreenName } from "../../../constants/ScreenName";
-import LOGO from "../../../constants/Image/Logo.svg";
+import LOGO from "../../../symbols/Logo.svg";
+import { SvgUri } from "react-native-svg";
 
 export interface HomeScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
 }
 
-export const Welcome: React.FC<HomeScreenProps> = ({ navigation }) => {
+export const WelcomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   return (
     <Box
       style={{
@@ -23,8 +24,7 @@ export const Welcome: React.FC<HomeScreenProps> = ({ navigation }) => {
       safeArea
     >
       <Spacer />
-      <img src={LOGO} />
-
+      <SvgUri uri={LOGO} width="200" height="200" />
       <Spacer />
       <VStack space={8}>
         <CapsuleButton
