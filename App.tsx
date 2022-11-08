@@ -1,11 +1,9 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { extendTheme, NativeBaseProvider } from "native-base";
-import { Start } from "./src/screenGroups/Start";
 import { useFonts } from "expo-font";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AuthProvider from "./src/providers/AuthProvider/AuthProvider";
+import { All } from "./src/screenGroups/All";
 
 // Define the config
 const config = {
@@ -33,7 +31,7 @@ const config = {
 export const theme = extendTheme({ config });
 type MyThemeType = typeof theme;
 declare module "native-base" {
-  interface ICustomTheme extends MyThemeType {}
+  type ICustomTheme = MyThemeType;
 }
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -44,7 +42,6 @@ export default function App() {
     "NotoSansJP-Thin": require("./assets/fonts/NotoSansJP-Thin.otf"),
     "NotoSansJP-Light": require("./assets/fonts/NotoSansJP-Light.otf"),
   });
-  const Tab = createBottomTabNavigator();
 
   if (!fontsLoaded) {
     return null;
@@ -52,16 +49,14 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <NativeBaseProvider theme={theme}>
-          <AuthProvider>
-            <Start />
-          </AuthProvider>
-          {/**<Tab.Navigator>
+      <NativeBaseProvider theme={theme}>
+        <AuthProvider>
+          <All />
+        </AuthProvider>
+        {/**<Tab.Navigator>
         <Tab.Screen name="Home" component={Home} />
       </Tab.Navigator> */}
-        </NativeBaseProvider>
-      </NavigationContainer>
+      </NativeBaseProvider>
     </SafeAreaProvider>
   );
 }

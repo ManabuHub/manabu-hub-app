@@ -12,7 +12,7 @@ export interface HomeScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
 }
 
-export const Welcome: React.FC<HomeScreenProps> = ({ navigation }) => {
+export const WelcomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   return (
     <Box
       style={{

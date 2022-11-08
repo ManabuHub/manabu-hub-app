@@ -4,6 +4,7 @@ import { auth } from "../../../config/firebase";
 import { useAuth } from "../../../providers/AuthProvider/hooks";
 import { EmailPattern } from "../../../constants/RegEx";
 import { AlertButtonStyle, useAlert } from "../../../utils/useAlert";
+import { UserRepository } from "../../../repositories/UserRepository";
 
 const RequiredPasswordLength = 8;
 
@@ -19,6 +20,7 @@ export const useSignUp = () => {
   const [rePassword, setRePassword] = useState("");
   const [isConsent, setIsConsent] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const userRepository = useMemo(() => new UserRepository(), []);
 
   const isFilled = useMemo(
     () => isPasswordLengthEnough && isPasswordValid && isConsent,
@@ -102,6 +104,49 @@ export const useSignUp = () => {
     return password === rePassword ? true : false;
   }, [password, rePassword]);
 
+  const createUser = useCallback(
+    async (id: string, email: string) => {
+      await userRepository.create({ id, email, userName: null });
+      setUserId(id);
+    },
+    [userRepository, setUserId]
+  );
+
+  const signUp = useCallback(
+    async (email: string, password: string) => {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          createUser(user.uid, email);
+        })
+        .catch((error) => {
+          console.error(error);
+          const title =
+            error.code === "auth/email-already-in-use"
+              ? "エラー"
+              : "システムエラー";
+          const message =
+            error.code === "auth/email-already-in-use"
+              ? "このメールアドレスは既に登録されています"
+              : "登録に失敗しました。再度お試しください。";
+          emitAlert({
+            title,
+            message,
+            buttons: [
+              {
+                text: "分かりました",
+                style: AlertButtonStyle.OK,
+              },
+            ],
+          });
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+        });
+    },
+    [createUser, emitAlert]
+  );
+
   const handleSignup = useCallback(() => {
     const isInputValidate = validateInput();
     const isRePasswordValidate = validateRePassword();
@@ -109,43 +154,8 @@ export const useSignUp = () => {
       return;
     }
     setIsSubmitting(true);
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setUserId(user.uid);
-      })
-      .catch((error) => {
-        console.error(error);
-        const title =
-          error.code === "auth/email-already-in-use"
-            ? "エラー"
-            : "システムエラー";
-        const message =
-          error.code === "auth/email-already-in-use"
-            ? "このメールアドレスは既に登録されています"
-            : "登録に失敗しました。再度お試しください。";
-        emitAlert({
-          title,
-          message,
-          buttons: [
-            {
-              text: "分かりました",
-              style: AlertButtonStyle.OK,
-            },
-          ],
-        });
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
-  }, [
-    email,
-    password,
-    emitAlert,
-    setUserId,
-    validateInput,
-    validateRePassword,
-  ]);
+    signUp(email, password);
+  }, [email, password, validateInput, validateRePassword, signUp]);
 
   return {
     email,

@@ -26,7 +26,7 @@ export interface SignUpScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
 }
 
-export const SignUp: React.FC<SignUpScreenProps> = ({ navigation }) => {
+export const SignUpScreen: React.FC<SignUpScreenProps> = ({ navigation }) => {
   const {
     email,
     password,

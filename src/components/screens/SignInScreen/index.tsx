@@ -21,7 +21,7 @@ interface SignInScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
 }
 
-export const SignIn: React.FC<SignInScreenProps> = ({ navigation }) => {
+export const SignInScreen: React.FC<SignInScreenProps> = ({ navigation }) => {
   const {
     email,
     password,

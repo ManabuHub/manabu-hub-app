@@ -10,6 +10,7 @@ import {
   FIREBASE_APP_ID,
   FIREBASE_MEASUREMENT_ID,
 } from "@env";
+import { getFirestore } from "firebase/firestore";
 
 const app = initializeApp({
   apiKey: FIREBASE_API_KEY,
@@ -22,4 +23,5 @@ const app = initializeApp({
 });
 
 export default app;
+export const db = getFirestore(app);
 export const auth = getAuth(app);

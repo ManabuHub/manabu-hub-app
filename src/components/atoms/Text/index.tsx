@@ -9,6 +9,7 @@ interface TextProps {
   fontType?: FontType;
   color?: ColorType;
   children: ReactNode;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   style?: Object;
 }
 

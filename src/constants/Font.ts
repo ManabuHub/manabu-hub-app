@@ -50,7 +50,7 @@ export const FontStyles: { [index in FontType]: FontStyle } = {
     lineHeight: 20,
   },
   [FontType.MAIN_BOLD]: {
-    fontFamily: "NotoSansJP-Medium",
+    fontFamily: "NotoSansJP-Bold",
     fontSize: 16,
     fontWeight: "bold",
   },
