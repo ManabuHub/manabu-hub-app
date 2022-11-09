@@ -4,7 +4,7 @@ import { ScreenName } from "../../../constants/ScreenName";
 import * as React from "react";
 import { View } from "react-native";
 import { ButtonColorScheme } from "../../../constants/ButtonColorScheme";
-import { CapsuleButton } from "../../atoms/CapsuleButton";
+import { CapsuleButton } from "../../molecules/CapsuleButton";
 
 interface WriteBodyScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
@@ -29,7 +29,9 @@ export const WriteBody: React.FC<WriteBodyScreenProps> = ({ navigation }) => {
           <CapsuleButton
             text="次へ"
             colorScheme={ButtonColorScheme.PRIMARY}
-            onPress={() => {navigation.navigate(ScreenName.SELECT_HASHTAG)}}
+            onPress={() => {
+              navigation.navigate(ScreenName.SELECT_HASHTAG);
+            }}
           />
         </Box>
       </View>

@@ -17,10 +17,10 @@ import { Color } from "../../../constants/Color";
 import { FontType } from "../../../constants/Font";
 import { CustomText } from "../../atoms/Text";
 import {
-  ProfileHeader,
+  ProfileTabbar,
   ProfileTab,
   ProfileTabColor,
-} from "../../organisms/ProfileHeader";
+} from "../../organisms/ProfileTabbar";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const CurrentCoin = 150;
@@ -72,7 +72,7 @@ export const ProfileScreen: React.FC = () => {
           width={120}
           alignSelf="center"
         />
-        <ProfileHeader
+        <ProfileTabbar
           currentTab={currentTab}
           onCurrentTabChange={setCurrentTab}
         />

@@ -1,16 +1,13 @@
 import * as React from "react";
-import {
-  ButtonColorScheme,
-  ButtonStyles,
-} from "../../../constants/ButtonColorScheme";
+import { ButtonColorScheme } from "../../../constants/ButtonColorScheme";
 import { FontType } from "../../../constants/Font";
 import { IconName } from "../../../constants/IconName";
-import { Box, Spacer, Text, VStack, HStack, Divider,Pressable } from "native-base";
+import { Box, Text, VStack, HStack, Divider } from "native-base";
 import { Color } from "../../../constants/Color";
 
 interface PostPreviewProps {
-    accountName:string;
-    postTitle:string;
+  accountName: string;
+  postTitle: string;
   text: string;
   fontType?: FontType;
   icon?: IconName;
@@ -18,7 +15,7 @@ interface PostPreviewProps {
   iconSize?: number;
   isLoading?: boolean;
   isDisabled?: boolean;
-//   onPress: () => void;
+  //   onPress: () => void;
 }
 
 const PostPreview: React.FC<PostPreviewProps> = ({
@@ -27,7 +24,7 @@ const PostPreview: React.FC<PostPreviewProps> = ({
   text,
   colorScheme = ButtonColorScheme.PRIMARY,
   isDisabled = false,
-//   onPress,押せる仕様にするかどうか。。。
+  //   onPress,押せる仕様にするかどうか。。。
 }) => {
   return (
     // <Pressable
@@ -53,19 +50,29 @@ const PostPreview: React.FC<PostPreviewProps> = ({
     //     {text}
     //   </Text>
     // </Pressable>
-    
-    <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" padding={5} _dark={{
+
+    <Box
+      maxW="80"
+      rounded="lg"
+      overflow="hidden"
+      borderColor="coolGray.200"
+      borderWidth="1"
+      padding={5}
+      _dark={{
         borderColor: "coolGray.600",
-        backgroundColor: "gray.700"
-      }} _web={{
+        backgroundColor: "gray.700",
+      }}
+      _web={{
         shadow: 2,
-        borderWidth: 0
-      }} _light={{
-        backgroundColor: "gray.50"
-      }}>
+        borderWidth: 0,
+      }}
+      _light={{
+        backgroundColor: "gray.50",
+      }}
+    >
       <VStack display="flex" alignItems="center" space="1px">
         <Box>
-          <HStack alignItems="flex-start" >
+          <HStack alignItems="flex-start">
             {/* <Avatar></Avatar> */}
             <Text
               fontFamily="body"
@@ -77,32 +84,24 @@ const PostPreview: React.FC<PostPreviewProps> = ({
             </Text>
           </HStack>
         </Box>
-      <Divider my={2}/>
+        <Divider my={2} />
         <Box>
-            <Text
-              fontFamily="body"
-              color={Color.MAIN}
-              fontWeight={500}
-              fontSize="3xl"
-            >
-              {postTitle}
-            </Text>
-
+          <Text
+            fontFamily="body"
+            color={Color.MAIN}
+            fontWeight={500}
+            fontSize="3xl"
+          >
+            {postTitle}
+          </Text>
         </Box>
-      <Divider my={2}/>
+        <Divider my={2} />
         <Box>
-            <Text
-              fontFamily="body"
-              color={Color.MAIN}
-              fontWeight={500}
-            >
+          <Text fontFamily="body" color={Color.MAIN} fontWeight={500}>
             {text}
-            </Text>
-
+          </Text>
         </Box>
-        
       </VStack>
-      
     </Box>
   );
 };

@@ -18,9 +18,13 @@ type ColorObject = {
   COIN: ColorType;
   COIN_BORDER: ColorType;
   POST_YELLOW: ColorType;
+  POST_YELLOW_SUB: ColorType;
   THREAD_PURPLE: ColorType;
+  THREAD_PURPLE_SUB: ColorType;
   LIKE_PINK: ColorType;
+  LIKE_PINK_SUB: ColorType;
   SAVE_GREEN: ColorType;
+  SAVE_GREEN_SUB: ColorType;
 };
 
 const Color: ColorObject = {
@@ -41,9 +45,13 @@ const Color: ColorObject = {
   COIN: "#F4E3A7" as ColorType,
   COIN_BORDER: "#EC9C46" as ColorType,
   POST_YELLOW: "#FFF7AD" as ColorType,
+  POST_YELLOW_SUB: "#FF8100" as ColorType,
   THREAD_PURPLE: "#E7E1FF" as ColorType,
+  THREAD_PURPLE_SUB: "#3D71D4" as ColorType,
   LIKE_PINK: "#FFE0F0" as ColorType,
+  LIKE_PINK_SUB: "#F65353" as ColorType,
   SAVE_GREEN: "#B2EEB1" as ColorType,
+  SAVE_GREEN_SUB: "#1FB48F" as ColorType,
 };
 
 export { Color as Color };

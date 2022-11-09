@@ -106,7 +106,15 @@ export const useSignUp = () => {
 
   const createUser = useCallback(
     async (id: string, email: string) => {
-      await userRepository.create({ id, email, userName: null });
+      await userRepository.create({
+        id,
+        email,
+        userName: null,
+        school: "",
+        grade: 0,
+        schoolChoice: "",
+        description: "",
+      });
       setUserId(id);
     },
     [userRepository, setUserId]
