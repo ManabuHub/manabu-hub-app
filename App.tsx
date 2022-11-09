@@ -1,8 +1,8 @@
 import React from "react";
 import { extendTheme, NativeBaseProvider } from "native-base";
-import { useFonts } from "expo-font";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AuthProvider from "./src/providers/AuthProvider/AuthProvider";
+import { useFonts } from "expo-font";
 import { All } from "./src/screenGroups/All";
 
 // Define the config

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactNode } from "react";
-import { Text, Box, View } from "native-base";
+import { Text } from "native-base";
 import { Color, ColorType } from "../../../constants/Color";
 import { FontType, FontStyles } from "../../../constants/Font";
 import { Linking } from "react-native";
