@@ -1,14 +1,26 @@
 import * as React from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
 import { Color } from "../../../constants/Color";
 import { ScreenName } from "../../../constants/ScreenName";
-import { Icon, Box, Text, VStack, HStack, Pressable, Input } from "native-base";
+import {
+  Icon,
+  Box,
+  HStack,
+  Pressable,
+  Input,
+  KeyboardAvoidingView,
+  ScrollView,
+  VStack,
+} from "native-base";
 import { CapsuleButton } from "../../molecules/CapsuleButton";
-import { PostPreview } from "../../organisms/PostPreview";
+import { PostCard } from "../../organisms/PostCard";
 import { MaterialIcons } from "@expo/vector-icons";
-import { AlignedHashtag } from "../../molecules/AlignedHashtag";
+import { AlignedHashtags } from "../../molecules/AlignedHashtags";
 import { useSelectedHashtag } from "./hooks";
+import { Platform } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { CustomText } from "../../atoms/Text";
+import { FontType } from "../../../constants/Font";
 
 interface SelectHashtagScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
@@ -20,12 +32,14 @@ export const SelectHashTag: React.FC<SelectHashtagScreenProps> = ({
 }) => {
   const {
     written,
-    setWritten,
     selectedTags,
-    setSelectedTags,
     notSelectedTags,
+    setWritten,
+    setSelectedTags,
     setNotSelectedTags,
   } = useSelectedHashtag();
+
+  const insets = useSafeAreaInsets();
 
   const handleAddTag = () => {
     for (let i = 0; i < selectedTags.length; i++) {
@@ -50,6 +64,7 @@ export const SelectHashTag: React.FC<SelectHashtagScreenProps> = ({
     );
     setSelectedTags(sT);
   };
+
   const choiceSelectedTag = (tName: string) => {
     const newNotSelectedTags = [...notSelectedTags];
     const nST = newNotSelectedTags.filter(
@@ -60,73 +75,51 @@ export const SelectHashTag: React.FC<SelectHashtagScreenProps> = ({
       return [...prevSelectedTags, { tagName: tName, isSelected: true }];
     });
   };
+
   return (
-    <Box
-      style={{
-        flex: 1,
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
+    <KeyboardAvoidingView
+      flex={1}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      bg={Color.WHITE_100}
     >
-      <Box
-        maxW="96"
-        padding="10"
-        style={{
-          flex: 1,
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-        bg={Color.WHITE_100}
-        safeArea
-      >
-        <VStack display="flex" alignItems="start">
-          <HStack>
+      <ScrollView bg={Color.WHITE_100} flex={1}>
+        <VStack marginTop={`${insets.top}px`}>
+          <HStack
+            alignItems="center"
+            space="32px"
+            marginTop="8px"
+            marginLeft="16px"
+          >
             <Pressable
               onPress={() => {
                 navigation.navigate(ScreenName.WRITE_BODY);
               }}
             >
               <Icon
-                as={<MaterialIcons name={"lock" as any} />}
-                size={5}
-                ml="2"
-                color={Color.MEDIUM_GRAY}
-                marginLeft="5"
+                as={<MaterialIcons name={"arrow-back"} />}
+                size="28px"
+                color={Color.MAIN}
               />
             </Pressable>
-            <Text
-              fontSize="2xl"
-              fontFamily="body"
-              fontWeight={400}
-              marginTop={0}
-              marginBottom={6}
-            >
+            <CustomText fontType={FontType.MAIN} color={Color.TEXT}>
               ハッシュタグを設定しよう
-            </Text>
+            </CustomText>
           </HStack>
-          <PostPreview
-            authorId="ピヨ子"
-            title="研究の仕方が全く分かりません！つらいです。右も左も分からない人に研究計画書書かせるとかありえなくな"
-            body="研究マジでつらいです。右も左も分からない人に研究計画書書かせるとかありえなくないですか？"
-            tags={selectedTags}
-            deleteTag={deleteSelectedTag}
-          />
-
+          <VStack padding="16px">
+            <PostCard
+              authorName="ピヨ子"
+              title="研究の仕方が全く分かりません！つらいです。右も左も分からない人に研究計画書書かせるとかありえなくないですか？"
+              body="研究マジでつらいです。右も左も分からない人に研究計画書書かせるとかありえなくないですか？研究マジでつらいです。右も左も分からない人に研究計画書書かせるとかありえなくないですか？"
+              tags={selectedTags}
+              onTagPress={deleteSelectedTag}
+            />
+          </VStack>
           <Box maxW="80" display="flex" flexDirection="column">
-            <AlignedHashtag
+            <AlignedHashtags
               tags={notSelectedTags}
-              onPress={() => {}}
-              deleteTag={choiceSelectedTag}
-              tagsHeight={10}
+              onPress={choiceSelectedTag}
               numOfRows={2}
             />
-            {/* <CapsuleInput
-          value={written}
-          iconName=""
-          label=""
-          placeholder="#を入力"
-          onChange={setWritten}
-        /> */}
             <Input
               placeholder="#を入力"
               height="40px"
@@ -142,16 +135,15 @@ export const SelectHashTag: React.FC<SelectHashtagScreenProps> = ({
               value={written}
               onChangeText={setWritten}
             />
-            <button onClick={handleAddTag}>add hashtag</button>
           </Box>
-          <HStack justifyContent={"right"}>
+          <HStack justifyContent="flex-end">
             <Box>
               <CapsuleButton text="きく" onPress={() => {}} />
               <CapsuleButton text="つたえる" onPress={() => {}} />
             </Box>
           </HStack>
         </VStack>
-      </Box>
-    </Box>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };

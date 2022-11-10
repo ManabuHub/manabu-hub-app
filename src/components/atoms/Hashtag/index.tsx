@@ -1,8 +1,9 @@
 import * as React from "react";
-import { Pressable, Text } from "native-base";
+import { Pressable } from "native-base";
 import { Color } from "../../../constants/Color";
 import { FontType } from "../../../constants/Font";
 import { IconName } from "../../../constants/IconName";
+import { CustomText } from "../Text";
 
 interface HashtagProps {
   text: string;
@@ -12,7 +13,6 @@ interface HashtagProps {
   isDisabled?: boolean;
   isSelected?: boolean;
   onPress: any;
-  tagsHeight: number;
 }
 
 const Hashtag: React.FC<HashtagProps> = ({
@@ -20,40 +20,28 @@ const Hashtag: React.FC<HashtagProps> = ({
   isDisabled = false,
   isSelected,
   onPress,
-  tagsHeight,
 }) => {
-  let tagColor = Color.WHITE_70;
-  let tagFontColor = Color.MAIN;
-  // let tagFont=
-  if (isSelected === true) {
-    tagColor = Color.MAIN;
-    tagFontColor = Color.BASE;
-  }
+  const backgroundColor = isSelected ? Color.MAIN : Color.WHITE_70;
+  const textColor = isSelected ? Color.BASE : Color.MAIN;
+
   return (
     <Pressable
       onPress={onPress}
-      //   width={54}
-      height={tagsHeight}
-      margin="5px"
-      padding={2}
+      paddingX="12px"
+      paddingY="5px"
       display="flex"
       alignItems="center"
       justifyContent="center"
-      borderRadius={22}
-      //   borderWidth={1}
-      //   borderColor={ButtonStyles[colorScheme].borderColor}
-      backgroundColor={tagColor}
-      shadow={3}
+      borderRadius="18px"
+      backgroundColor={backgroundColor}
+      shadow={1}
       disabled={isDisabled}
+      marginTop="6px"
+      marginRight="6px"
     >
-      <Text
-        fontFamily="body"
-        fontWeight={100}
-        color={tagFontColor}
-        // fontSize="lg"
-      >
+      <CustomText color={textColor} fontType={FontType.SMALL}>
         {"#" + text}
-      </Text>
+      </CustomText>
     </Pressable>
   );
 };

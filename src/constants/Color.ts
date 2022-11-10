@@ -25,6 +25,7 @@ type ColorObject = {
   LIKE_PINK_SUB: ColorType;
   SAVE_GREEN: ColorType;
   SAVE_GREEN_SUB: ColorType;
+  DASH: ColorType;
 };
 
 const Color: ColorObject = {
@@ -52,6 +53,7 @@ const Color: ColorObject = {
   LIKE_PINK_SUB: "#F65353" as ColorType,
   SAVE_GREEN: "#B2EEB1" as ColorType,
   SAVE_GREEN_SUB: "#1FB48F" as ColorType,
+  DASH: "#C3B8B8" as ColorType,
 };
 
 export { Color as Color };
