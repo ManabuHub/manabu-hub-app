@@ -1,31 +1,69 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useSelectedHashtag = () => {
-  const [selectedTags, setSelectedTags] = useState([
-    // {tagName:"research",isSelected:true},{tagName:"research",isSelected:true},
-    { tagName: "あ", isSelected: true },
+  const [selectedTags, setSelectedTags] = useState<string[]>([
+    "高校受験",
+    "英語",
   ]);
-  const [notSelectedTags, setNotSelectedTags] = useState([
-    { tagName: "い", isSelected: false },
-    { tagName: "う", isSelected: false },
-    { tagName: "え", isSelected: false },
-    { tagName: "お", isSelected: false },
-    { tagName: "就活", isSelected: false },
-    { tagName: "研究", isSelected: false },
-    { tagName: "研究生活", isSelected: false },
-    { tagName: "修士1年", isSelected: false },
-    { tagName: "修士2年", isSelected: false },
-    { tagName: "東京大学大学院", isSelected: false },
-    { tagName: "工学系研究科", isSelected: false },
-    { tagName: "物理工学専攻", isSelected: false },
-  ]);
-  const [written, setWritten] = useState<string>("");
+  const [candidateTags, setCandidateTags] = useState<string[]>([]);
+  const [newTag, setNewTag] = useState<string>("");
+
+  useEffect(() => {
+    // TODO: DBからよく使われるハッシュタグをフェッチ
+    setCandidateTags(["大学受験", "数学"]);
+  }, []);
+
+  const choiceTag = useCallback(
+    (tag: string) => {
+      if (selectedTags.includes(tag)) {
+        // TODO: 何らかのエラーハンドリング
+        return;
+      }
+      setCandidateTags((candidates) =>
+        candidates.filter((candidate) => candidate !== tag)
+      );
+      setSelectedTags((tags) => [...tags, tag]);
+    },
+    [selectedTags]
+  );
+
+  const addNewTag = useCallback(
+    (tag: string) => {
+      if (tag.trim().length === 0) {
+        // TODO: 何らかのエラーハンドリング
+        return;
+      }
+      if (selectedTags.includes(tag)) {
+        // TODO: 何らかのエラーハンドリング
+        return;
+      }
+      setCandidateTags((candidates) =>
+        candidates.filter((candidate) => candidate !== tag)
+      );
+      setSelectedTags((tags) => [...tags, tag]);
+
+      setNewTag("");
+    },
+    [selectedTags]
+  );
+
+  const deleteTag = useCallback(
+    (tag: string) => {
+      const currentTags = selectedTags.slice();
+      const targetIndex = currentTags.indexOf(tag);
+      currentTags.splice(targetIndex, 1);
+      setSelectedTags(currentTags);
+    },
+    [selectedTags]
+  );
+
   return {
     selectedTags,
-    setSelectedTags,
-    notSelectedTags,
-    setNotSelectedTags,
-    written,
-    setWritten,
+    candidateTags,
+    newTag,
+    choiceTag,
+    addNewTag,
+    deleteTag,
+    setNewTag,
   };
 };

@@ -1,23 +1,27 @@
 import * as React from "react";
 import { Box } from "native-base";
-import { Hashtag } from "../../atoms/Hashtag";
+import { Hashtag, HashTagDisplayMode } from "../../atoms/Hashtag";
 
 interface AlignedHashtagProps {
-  tags: any;
-  numOfRows: number;
-  onPress: (name: string) => void;
+  tags: string[];
+  displayMode: HashTagDisplayMode;
+  onTagPress: (tag: string) => void;
 }
 
-const AlignedHashtags: React.FC<AlignedHashtagProps> = ({ tags, onPress }) => {
+const AlignedHashtags: React.FC<AlignedHashtagProps> = ({
+  tags,
+  displayMode,
+  onTagPress,
+}) => {
   return (
     <Box display="flex" flexDirection="row" flexWrap="wrap" overflow="hidden">
       {tags.map((tag) => (
         <Hashtag
           onPress={() => {
-            onPress(tag.tagName);
+            onTagPress(tag);
           }}
-          text={tag.tagName}
-          isSelected={tag.isSelected}
+          displayMode={displayMode}
+          text={tag}
         />
       ))}
     </Box>

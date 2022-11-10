@@ -57,7 +57,7 @@ const CustomText: React.FC<TextProps> = ({
       {underline &&
         [...Array(numberOfLines).keys()].map((num) => (
           <>
-            <View position="absolute" top={`${16 + num * 21}px`} width="100%">
+            <View position="absolute" top={`${21 + num * 21}px`} width="100%">
               <DashedLine
                 dashLength={2}
                 dashThickness={1}

@@ -4,8 +4,14 @@ import { Color } from "../../../constants/Color";
 import { AlignedHashtags } from "../../molecules/AlignedHashtags";
 import { CustomText } from "../../atoms/Text";
 import { FontType } from "../../../constants/Font";
+import { HashTagDisplayMode } from "../../atoms/Hashtag";
+
+export enum PostCardType {
+  PREVIEW = "preview",
+}
 
 interface PostPreviewProps {
+  type: PostCardType;
   authorName: string;
   title: string;
   body: string;
@@ -13,12 +19,12 @@ interface PostPreviewProps {
   onTagPress: (name: string) => void;
 }
 
-enum PostType {
-  QUESTION = "question",
-  KNOWLEDGE = "knowledge",
-}
+const BackgroundColor = {
+  [PostCardType.PREVIEW]: Color.BASE,
+};
 
 const PostCard: React.FC<PostPreviewProps> = ({
+  type,
   authorName,
   title,
   body,
@@ -28,7 +34,7 @@ const PostCard: React.FC<PostPreviewProps> = ({
   return (
     <Box
       borderRadius="12px"
-      backgroundColor={Color.BASE}
+      backgroundColor={BackgroundColor[type]}
       padding={5}
       shadow={2}
       width="100%"
@@ -68,7 +74,11 @@ const PostCard: React.FC<PostPreviewProps> = ({
           </CustomText>
         </Box>
       </VStack>
-      <AlignedHashtags tags={tags} onPress={onTagPress} numOfRows={1} />
+      <AlignedHashtags
+        tags={tags}
+        onTagPress={onTagPress}
+        displayMode={HashTagDisplayMode.PRIMARY}
+      />
     </Box>
   );
 };

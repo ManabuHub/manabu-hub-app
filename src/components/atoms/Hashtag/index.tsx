@@ -2,27 +2,24 @@ import * as React from "react";
 import { Pressable } from "native-base";
 import { Color } from "../../../constants/Color";
 import { FontType } from "../../../constants/Font";
-import { IconName } from "../../../constants/IconName";
 import { CustomText } from "../Text";
+
+export enum HashTagDisplayMode {
+  PRIMARY = "primary",
+  SECONDARY = "secondary",
+}
 
 interface HashtagProps {
   text: string;
-  fontType?: FontType;
-  icon?: IconName;
-  iconSize?: number;
-  isDisabled?: boolean;
-  isSelected?: boolean;
+  displayMode: HashTagDisplayMode;
   onPress: any;
 }
 
-const Hashtag: React.FC<HashtagProps> = ({
-  text,
-  isDisabled = false,
-  isSelected,
-  onPress,
-}) => {
-  const backgroundColor = isSelected ? Color.MAIN : Color.WHITE_70;
-  const textColor = isSelected ? Color.BASE : Color.MAIN;
+const Hashtag: React.FC<HashtagProps> = ({ text, displayMode, onPress }) => {
+  const backgroundColor =
+    displayMode === HashTagDisplayMode.PRIMARY ? Color.MAIN : Color.WHITE_70;
+  const textColor =
+    displayMode === HashTagDisplayMode.PRIMARY ? Color.BASE : Color.MAIN;
 
   return (
     <Pressable
@@ -35,7 +32,6 @@ const Hashtag: React.FC<HashtagProps> = ({
       borderRadius="18px"
       backgroundColor={backgroundColor}
       shadow={1}
-      disabled={isDisabled}
       marginTop="6px"
       marginRight="6px"
     >
