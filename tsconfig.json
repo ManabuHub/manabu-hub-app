@@ -8,7 +8,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "alwaysStrict": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "typeRoots": ["../src/types"]
   },
   "includes": ["babel.config.cjs"],
   "exclude": ["node_modules"]

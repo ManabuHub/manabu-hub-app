@@ -6,7 +6,7 @@ import {
   getDoc,
   setDoc,
 } from "firebase/firestore";
-import { User } from "../types/User";
+import { User } from "../domain/types/User";
 import { StoreName } from "./StoreName";
 
 export class UserRepository {
