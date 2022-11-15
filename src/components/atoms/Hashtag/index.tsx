@@ -7,6 +7,8 @@ import { CustomText } from "../Text";
 export enum HashTagDisplayMode {
   PRIMARY = "primary",
   SECONDARY = "secondary",
+  TLNORMAL = "normal",
+  TLSPECIAL = "special",
 }
 
 interface HashtagProps {
@@ -16,10 +18,32 @@ interface HashtagProps {
 }
 
 const Hashtag: React.FC<HashtagProps> = ({ text, displayMode, onPress }) => {
-  const backgroundColor =
-    displayMode === HashTagDisplayMode.PRIMARY ? Color.MAIN : Color.WHITE_70;
-  const textColor =
-    displayMode === HashTagDisplayMode.PRIMARY ? Color.BASE : Color.MAIN;
+  const style = {
+    [HashTagDisplayMode.PRIMARY]: {
+      backgroundColor: Color.MAIN,
+      textColor: Color.BASE,
+      radiusSize: "18px",
+      shadowSize: 1,
+    },
+    [HashTagDisplayMode.SECONDARY]: {
+      backgroundColor: Color.WHITE_70,
+      textColor: Color.MAIN,
+      radiusSize: "18px",
+      shadowSize: 1,
+    },
+    [HashTagDisplayMode.TLNORMAL]: {
+      backgroundColor: Color.WHITE_100,
+      textColor: Color.THREAD_PURPLE_SUB,
+      radiusSize: "9px",
+      shadowSize: "none",
+    },
+    [HashTagDisplayMode.TLSPECIAL]: {
+      backgroundColor: Color.THREAD_PURPLE_SUB,
+      textColor: Color.WHITE_100,
+      radiusSize: "9px",
+      shadowSize: "none",
+    },
+  };
 
   return (
     <Pressable
@@ -29,13 +53,16 @@ const Hashtag: React.FC<HashtagProps> = ({ text, displayMode, onPress }) => {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      borderRadius="18px"
-      backgroundColor={backgroundColor}
-      shadow={1}
+      borderRadius={style[displayMode].radiusSize}
+      backgroundColor={style[displayMode].backgroundColor}
+      shadow={style[displayMode].shadowSize}
       marginTop="6px"
       marginRight="6px"
     >
-      <CustomText color={textColor} fontType={FontType.SMALL}>
+      <CustomText
+        color={style[displayMode].textColor}
+        fontType={FontType.SMALL}
+      >
         {"#" + text}
       </CustomText>
     </Pressable>

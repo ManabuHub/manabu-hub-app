@@ -76,6 +76,10 @@ export const SelectHashTag: React.FC<SelectHashtagScreenProps> = ({
             <PostCard
               type={PostCardType.PREVIEW}
               authorName="ピヨ子"
+              postTime={1}
+              likeNum={0}
+              commentNum={0}
+              saveNum={0}
               title="研究の仕方が全く分かりません！つらいです。右も左も分からない人に研究計画書書かせるとかありえなくないですか？"
               body="研究マジでつらいです。右も左も分からない人に研究計画書書かせるとかありえなくないですか？研究マジでつらいです。右も左も分からない人に研究計画書書かせるとかありえなくないですか？"
               tags={selectedTags}
