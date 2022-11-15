@@ -1,18 +1,29 @@
 import * as React from "react";
-import { Box, VStack, HStack, Divider } from "native-base";
+import { Box, VStack, HStack, Divider, Icon, Text, Spacer } from "native-base";
 import { Color } from "../../../constants/Color";
 import { AlignedHashtags } from "../../molecules/AlignedHashtags";
 import { CustomText } from "../../atoms/Text";
 import { FontType } from "../../../constants/Font";
 import { HashTagDisplayMode } from "../../atoms/Hashtag";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export enum PostCardType {
+  PLANE = "plane",
+  COMMENT = "comment",
+  LIKE = "like",
+  SAVE = "save",
   PREVIEW = "preview",
+  TL = "tl",
+  DETAIL = "detail",
 }
 
 interface PostPreviewProps {
   type: PostCardType;
   authorName: string;
+  postTime: number;
+  likeNum: number;
+  commentNum: number;
+  saveNum: number;
   title: string;
   body: string;
   tags?: any;
@@ -20,17 +31,30 @@ interface PostPreviewProps {
 }
 
 const BackgroundColor = {
+  [PostCardType.PLANE]: Color.WHITE_100,
+  [PostCardType.COMMENT]: Color.WHITE_100,
+  [PostCardType.LIKE]: Color.WHITE_100,
+  [PostCardType.SAVE]: Color.WHITE_100,
   [PostCardType.PREVIEW]: Color.BASE,
+  [PostCardType.TL]: Color.WHITE_100,
+  [PostCardType.DETAIL]: Color.WHITE_100,
 };
 
 const PostCard: React.FC<PostPreviewProps> = ({
   type,
   authorName,
+  postTime,
+  likeNum,
+  commentNum,
+  saveNum,
   title,
   body,
   tags,
   onTagPress,
 }) => {
+  const hashMode =(type===PostCardType.PREVIEW? HashTagDisplayMode.PRIMARY :HashTagDisplayMode.TLNORMAL)
+  const actionButtonSize=6
+
   return (
     <Box
       borderRadius="12px"
@@ -44,6 +68,51 @@ const PostCard: React.FC<PostPreviewProps> = ({
           <CustomText color={Color.TEXT} fontType={FontType.EXSMALL_BOLD}>
             {authorName}
           </CustomText>
+          <Box display="flex" flexDirection="row">
+            {postTime != 0 &&
+              <Text color={Color.TEXT} >
+                {postTime + "時間前"}
+                {/* TODO いい感じに表示を変える */}
+              </Text>
+            }
+            {type == "like" &&
+              <Icon
+                as={<MaterialIcons name={"favorite"} />}
+                size={actionButtonSize}
+                color={Color.MAIN}
+                mt="3px"
+                mr="4px"
+              />
+            }
+            {type == "like" && likeNum != 0 &&
+              <Text color={Color.TEXT} > {likeNum}</Text>
+            }
+            {type == "detail" &&
+              <Icon
+                as={<MaterialIcons name={"chat-bubble-outline"} />}
+                size={actionButtonSize}
+                color={Color.MAIN}
+                mt="3px"
+                mr="4px"
+              />
+            }
+            {type == "detail" && commentNum != 0 &&
+              <Text color={Color.TEXT} > {commentNum}</Text>
+            }
+            {(type == "save" || type == "tl") &&
+              <Icon
+                as={<MaterialIcons name={"turned-in-not"} />}
+                size={actionButtonSize}
+                color={Color.MAIN}
+                mt="3px"
+                mr="4px"
+              />
+            }
+            {type == "tl" && saveNum != 0 &&
+
+              <Text color={Color.TEXT} > {saveNum}</Text>
+            }
+          </Box>
         </HStack>
 
         <Divider
@@ -77,7 +146,7 @@ const PostCard: React.FC<PostPreviewProps> = ({
       <AlignedHashtags
         tags={tags}
         onTagPress={onTagPress}
-        displayMode={HashTagDisplayMode.PRIMARY}
+        displayMode={hashMode}
       />
     </Box>
   );
