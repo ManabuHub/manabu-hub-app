@@ -1,7 +1,7 @@
 import { Box, HStack, Icon, Pressable } from "native-base";
 import * as React from "react";
 import { Color } from "../../../constants/Color";
-import { Dimensions, View } from "react-native";
+import { Dimensions } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { CustomText } from "../../atoms/Text";
 import { FontType } from "../../../constants/Font";

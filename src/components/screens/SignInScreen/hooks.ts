@@ -61,8 +61,6 @@ export const useSignIn = () => {
         setUserId(user.uid);
       })
       .catch((error) => {
-        console.error(error);
-        console.log(error.code);
         const title =
           error.code === "auth/user-not-found" ||
           error.code === "auth/wrong-password" ||

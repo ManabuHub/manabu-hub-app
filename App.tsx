@@ -4,6 +4,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import AuthProvider from "./src/providers/AuthProvider/AuthProvider";
 import { useFonts } from "expo-font";
 import { All } from "./src/screenGroups/All";
+import "./src/config/firebase";
 
 // Define the config
 const config = {
