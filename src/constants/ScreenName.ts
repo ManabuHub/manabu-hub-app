@@ -4,4 +4,12 @@ export enum ScreenName {
   SIGN_IN = "signIn",
   WRITE_BODY = "writeBody",
   SELECT_HASHTAG = "selectHashTag",
+  HOME = "home",
+  CREATE_POST = "createPost",
+  PLACEHOLDER = "placeholder",
+  SEARCH = "search",
+  NOTIFICATION = "bell",
+  PROFILE = "user",
+  PROFILE_MAIN = "profileMain",
+  PROFILE_EDIT = "profileEdit",
 }

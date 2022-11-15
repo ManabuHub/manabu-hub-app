@@ -1,4 +1,6 @@
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import * as React from "react";
+import { useEffect } from "react";
 import { createContext, ReactNode, useState } from "react";
 
 export interface AuthContextValueType {
@@ -14,8 +16,15 @@ interface AuthProviderProps {
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [userId, setUserId] = useState<string | null>(null);
-
   const contextValue = { userId, setUserId };
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      console.log(user);
+      if (user) setUserId(user.uid);
+    });
+  }, []);
 
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>

@@ -1,13 +1,18 @@
-import { ArrowBackIcon, Box, IconButton, Input, TextArea } from "native-base";
+import { ArrowBackIcon, Box, Input, TextArea, IconButton } from "native-base";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ScreenName } from "../../../constants/ScreenName";
 import * as React from "react";
 import { View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ButtonColorScheme } from "../../../constants/ButtonColorScheme";
-import { CapsuleButton } from "../../atoms/CapsuleButton";
 import { useState } from "react";
+import { CapsuleButton } from "../../molecules/CapsuleButton";
 
-// 投稿テキスト入力画面UI
-export const WriteBody: React.FC = () => {
+interface WriteBodyScreenProps {
+  navigation: NativeStackNavigationProp<any, any>;
+}
+
+export const WriteBody: React.FC<WriteBodyScreenProps> = ({ navigation }) => {
   const [postTitle, setPostTitle] = useState<string>("");
   const [postBody, setPostBody] = useState<string>("");
   return (
@@ -32,6 +37,7 @@ export const WriteBody: React.FC = () => {
             onPress={() => {
               console.log(postTitle);
               console.log(postBody); //デバッグ用
+              navigation.navigate(ScreenName.SELECT_HASHTAG);
             }}
           />
         </Box>
