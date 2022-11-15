@@ -3,7 +3,7 @@ export interface User {
   email: string;
   userName: string | null;
   school: string;
-  grade: number;
+  grade: string;
   schoolChoice: string;
   description: string;
 }

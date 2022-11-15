@@ -3,11 +3,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
 import { Tabbar } from "../../components/organisms/Tabbar";
 import { HomeScreen } from "../../components/screens/HomeScreen";
-import { ProfileScreen } from "../../components/screens/ProfileScreen";
 import { ScreenName } from "../../constants/ScreenName";
-import { NewPost } from "../NewPost";
+import { NewPostStack } from "../NewPost";
+import { ProfileStack } from "../ProfileStack";
 
-export const Main: React.FC = () => {
+export const MainTab: React.FC = () => {
   const Tab = createBottomTabNavigator();
 
   return (
@@ -18,9 +18,9 @@ export const Main: React.FC = () => {
       >
         <Tab.Screen name={ScreenName.HOME} component={HomeScreen} />
         <Tab.Screen name={ScreenName.SEARCH} component={HomeScreen} />
-        <Tab.Screen name={ScreenName.PLACEHOLDER} component={NewPost} />
+        <Tab.Screen name={ScreenName.PLACEHOLDER} component={NewPostStack} />
         <Tab.Screen name={ScreenName.NOTIFICATION} component={HomeScreen} />
-        <Tab.Screen name={ScreenName.PROFILE} component={ProfileScreen} />
+        <Tab.Screen name={ScreenName.PROFILE} component={ProfileStack} />
       </Tab.Navigator>
     </NavigationContainer>
   );

@@ -4,7 +4,7 @@ import { ScreenName } from "../../constants/ScreenName";
 import { WriteBody } from "../../components/screens/WriteBody";
 import { SelectHashTag } from "../../components/screens/SelectHashtag";
 
-export const NewPost: React.FC = () => {
+export const NewPostStack: React.FC = () => {
   const NewPostStack = createNativeStackNavigator();
 
   return (

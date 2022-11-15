@@ -111,7 +111,7 @@ export const useSignUp = () => {
         email,
         userName: null,
         school: "",
-        grade: 0,
+        grade: "",
         schoolChoice: "",
         description: "",
       });

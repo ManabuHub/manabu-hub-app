@@ -81,6 +81,7 @@ export const ProfileTabbar: React.FC<ProfileTabbarProps> = ({
           display="flex"
           justifyContent="center"
           alignItems="center"
+          key={tab}
         >
           <HStack alignItems="center" space="4px">
             <Icon

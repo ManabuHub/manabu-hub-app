@@ -55,6 +55,7 @@ export const WriteBody: React.FC<WriteBodyScreenProps> = ({ navigation }) => {
         w="100%"
         fontSize="12px"
         style={{ fontWeight: "bold" }}
+        autoCompleteType=""
       />
     </Box>
   );

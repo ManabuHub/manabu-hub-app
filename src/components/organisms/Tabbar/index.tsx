@@ -78,6 +78,7 @@ export const Tabbar: React.FC<{
 
           return (
             <Pressable
+              key={index}
               onPress={onPress}
               height={16}
               display="flex"

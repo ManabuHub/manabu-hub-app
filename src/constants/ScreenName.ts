@@ -10,4 +10,6 @@ export enum ScreenName {
   SEARCH = "search",
   NOTIFICATION = "bell",
   PROFILE = "user",
+  PROFILE_MAIN = "profileMain",
+  PROFILE_EDIT = "profileEdit",
 }

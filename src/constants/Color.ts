@@ -26,6 +26,10 @@ type ColorObject = {
   SAVE_GREEN: ColorType;
   SAVE_GREEN_SUB: ColorType;
   DASH: ColorType;
+  USER_PINK: ColorType;
+  GRADE_GREEN: ColorType;
+  COLLEGE_ORANGE: ColorType;
+  DESCRIPTION_PURPLE: ColorType;
 };
 
 const Color: ColorObject = {
@@ -54,6 +58,10 @@ const Color: ColorObject = {
   SAVE_GREEN: "#B2EEB1" as ColorType,
   SAVE_GREEN_SUB: "#1FB48F" as ColorType,
   DASH: "#C3B8B8" as ColorType,
+  USER_PINK: "#FF9090" as ColorType,
+  GRADE_GREEN: "#5CC988" as ColorType,
+  COLLEGE_ORANGE: "#FF9120" as ColorType,
+  DESCRIPTION_PURPLE: "#BC67FF" as ColorType,
 };
 
 export { Color as Color };

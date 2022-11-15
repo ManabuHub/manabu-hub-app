@@ -6,7 +6,7 @@ import { SignInScreen } from "../../components/screens/SignInScreen";
 import { ScreenName } from "../../constants/ScreenName";
 import { NavigationContainer } from "@react-navigation/native";
 
-export const Start: React.FC = () => {
+export const StartStack: React.FC = () => {
   const AppStack = createNativeStackNavigator();
 
   return (
