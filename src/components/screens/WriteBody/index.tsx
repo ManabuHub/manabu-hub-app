@@ -1,18 +1,10 @@
-import {
-  ArrowBackIcon,
-  Box,
-  Icon,
-  IconButton,
-  Input,
-  TextArea,
-} from "native-base";
+import { ArrowBackIcon, Box, IconButton, Input, TextArea } from "native-base";
 import * as React from "react";
 import { View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ButtonColorScheme } from "../../../constants/ButtonColorScheme";
 import { CapsuleButton } from "../../atoms/CapsuleButton";
 import { useState } from "react";
-import { AntDesign } from "@expo/vector-icons";
 
 // 投稿テキスト入力画面UI
 export const WriteBody: React.FC = () => {
@@ -23,8 +15,6 @@ export const WriteBody: React.FC = () => {
       <View style={{ flexDirection: "row" }}>
         <Box mr="auto" mt={2}>
           <ArrowBackIcon size={6} color="#3D71D4" />
-          {/**IconButtonの実装方法が分からなかったため、見た目だけのアイコンを表示させた**/}
-          {/** ButtonColorScheme.PRIMARY をcolorに適用させる方法が分からなかかったため、カラーコードを直に書き込んだ */}
         </Box>
         <IconButton
           colorScheme="indigo"
@@ -32,7 +22,7 @@ export const WriteBody: React.FC = () => {
           variant={"ghost"}
           _icon={{
             as: MaterialIcons,
-            name: "arrowleft", //ここなぜアイコンが反映されないかわからない　関連リンクhttps://docs.nativebase.io/icon-button
+            name: "arrowleft",
           }}
         />
         <Box mr={1} mb={2}>
@@ -58,9 +48,10 @@ export const WriteBody: React.FC = () => {
         fontSize="18px"
         style={{ fontWeight: "bold" }}
         value={postTitle}
-        onChange={(e) => setPostTitle(e.target.value)}
+        onChangeText={setPostTitle}
       />
       <TextArea
+        autoCompleteType="off"
         borderTopWidth={0}
         borderRadius={0}
         h={260}
@@ -69,7 +60,7 @@ export const WriteBody: React.FC = () => {
         fontSize="12px"
         style={{ fontWeight: "bold" }}
         value={postBody}
-        onChange={(e) => setPostBody(e.target.value)} //https://docs.nativebase.io/textarea#page-title ここからはどうすれば左上始まりになるか読み取れなかった
+        onChangeText={setPostBody} //https://docs.nativebase.io/textarea#page-title ここからはどうすれば左上始まりになるか読み取れなかった
       />
     </Box>
   );
