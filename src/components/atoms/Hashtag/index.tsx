@@ -3,13 +3,12 @@ import { Pressable } from "native-base";
 import { Color } from "../../../constants/Color";
 import { FontType } from "../../../constants/Font";
 import { CustomText } from "../Text";
-import { color } from "native-base/lib/typescript/theme/styled-system";
 
 export enum HashTagDisplayMode {
   PRIMARY = "primary",
   SECONDARY = "secondary",
   TLNORMAL = "normal",
-  TLSPECIAL = "special"
+  TLSPECIAL = "special",
 }
 
 interface HashtagProps {
@@ -19,32 +18,32 @@ interface HashtagProps {
 }
 
 const Hashtag: React.FC<HashtagProps> = ({ text, displayMode, onPress }) => {
-  const style ={
-  [HashTagDisplayMode.PRIMARY]:
-  {"backgroundColor":Color.MAIN,
-  "textColor":Color.BASE,
-  "radiusSize":"18px",
-  "shadowSize":1,
-},
-  [HashTagDisplayMode.SECONDARY]:
-  {"backgroundColor":Color.WHITE_70,
-  "textColor":Color.MAIN,
-  "radiusSize":"18px",
-  "shadowSize":1,
-},
-  [HashTagDisplayMode.TLNORMAL]:
-  {"backgroundColor":Color.WHITE_100,
-  "textColor":Color.THREAD_PURPLE_SUB,
-  "radiusSize":"9px",
-  "shadowSize":"none",
-},
-  [HashTagDisplayMode.TLSPECIAL]:
-  {"backgroundColor":Color.THREAD_PURPLE_SUB,
-  "textColor":Color.WHITE_100,
-  "radiusSize":"9px",
-  "shadowSize":"none",
-}
-    } 
+  const style = {
+    [HashTagDisplayMode.PRIMARY]: {
+      backgroundColor: Color.MAIN,
+      textColor: Color.BASE,
+      radiusSize: "18px",
+      shadowSize: 1,
+    },
+    [HashTagDisplayMode.SECONDARY]: {
+      backgroundColor: Color.WHITE_70,
+      textColor: Color.MAIN,
+      radiusSize: "18px",
+      shadowSize: 1,
+    },
+    [HashTagDisplayMode.TLNORMAL]: {
+      backgroundColor: Color.WHITE_100,
+      textColor: Color.THREAD_PURPLE_SUB,
+      radiusSize: "9px",
+      shadowSize: "none",
+    },
+    [HashTagDisplayMode.TLSPECIAL]: {
+      backgroundColor: Color.THREAD_PURPLE_SUB,
+      textColor: Color.WHITE_100,
+      radiusSize: "9px",
+      shadowSize: "none",
+    },
+  };
 
   return (
     <Pressable
@@ -60,7 +59,10 @@ const Hashtag: React.FC<HashtagProps> = ({ text, displayMode, onPress }) => {
       marginTop="6px"
       marginRight="6px"
     >
-      <CustomText color={style[displayMode].textColor} fontType={FontType.SMALL}>
+      <CustomText
+        color={style[displayMode].textColor}
+        fontType={FontType.SMALL}
+      >
         {"#" + text}
       </CustomText>
     </Pressable>

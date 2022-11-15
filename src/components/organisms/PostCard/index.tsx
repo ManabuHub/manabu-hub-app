@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, VStack, HStack, Divider, Icon, Text, Spacer } from "native-base";
+import { Box, VStack, HStack, Divider, Icon, Text } from "native-base";
 import { Color } from "../../../constants/Color";
 import { AlignedHashtags } from "../../molecules/AlignedHashtags";
 import { CustomText } from "../../atoms/Text";
@@ -52,8 +52,11 @@ const PostCard: React.FC<PostPreviewProps> = ({
   tags,
   onTagPress,
 }) => {
-  const hashMode =(type===PostCardType.PREVIEW? HashTagDisplayMode.PRIMARY :HashTagDisplayMode.TLNORMAL)
-  const actionButtonSize=6
+  const hashMode =
+    type === PostCardType.PREVIEW
+      ? HashTagDisplayMode.PRIMARY
+      : HashTagDisplayMode.TLNORMAL;
+  const actionButtonSize = 6;
 
   return (
     <Box
@@ -69,13 +72,13 @@ const PostCard: React.FC<PostPreviewProps> = ({
             {authorName}
           </CustomText>
           <Box display="flex" flexDirection="row">
-            {postTime != 0 &&
-              <Text color={Color.TEXT} >
+            {postTime != 0 && (
+              <Text color={Color.TEXT}>
                 {postTime + "時間前"}
                 {/* TODO いい感じに表示を変える */}
               </Text>
-            }
-            {type == "like" &&
+            )}
+            {type == "like" && (
               <Icon
                 as={<MaterialIcons name={"favorite"} />}
                 size={actionButtonSize}
@@ -83,11 +86,11 @@ const PostCard: React.FC<PostPreviewProps> = ({
                 mt="3px"
                 mr="4px"
               />
-            }
-            {type == "like" && likeNum != 0 &&
-              <Text color={Color.TEXT} > {likeNum}</Text>
-            }
-            {type == "detail" &&
+            )}
+            {type == "like" && likeNum != 0 && (
+              <Text color={Color.TEXT}> {likeNum}</Text>
+            )}
+            {type == "detail" && (
               <Icon
                 as={<MaterialIcons name={"chat-bubble-outline"} />}
                 size={actionButtonSize}
@@ -95,11 +98,11 @@ const PostCard: React.FC<PostPreviewProps> = ({
                 mt="3px"
                 mr="4px"
               />
-            }
-            {type == "detail" && commentNum != 0 &&
-              <Text color={Color.TEXT} > {commentNum}</Text>
-            }
-            {(type == "save" || type == "tl") &&
+            )}
+            {type == "detail" && commentNum != 0 && (
+              <Text color={Color.TEXT}> {commentNum}</Text>
+            )}
+            {(type == "save" || type == "tl") && (
               <Icon
                 as={<MaterialIcons name={"turned-in-not"} />}
                 size={actionButtonSize}
@@ -107,11 +110,10 @@ const PostCard: React.FC<PostPreviewProps> = ({
                 mt="3px"
                 mr="4px"
               />
-            }
-            {type == "tl" && saveNum != 0 &&
-
-              <Text color={Color.TEXT} > {saveNum}</Text>
-            }
+            )}
+            {type == "tl" && saveNum != 0 && (
+              <Text color={Color.TEXT}> {saveNum}</Text>
+            )}
           </Box>
         </HStack>
 
