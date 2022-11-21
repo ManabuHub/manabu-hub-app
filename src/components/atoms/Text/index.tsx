@@ -39,18 +39,23 @@ const CustomText: React.FC<TextProps> = ({
   );
 
   return (
-    <View flex={1} position="relative">
+    <View position="relative" flexShrink={1}>
       <Text
         style={{
           color: color,
-          ...FontStyles[fontType],
           ...style,
-          display: "flex",
         }}
         numberOfLines={lineLimit ?? undefined}
         ellipsizeMode="tail"
         onTextLayout={onTextLayout}
-        lineHeight={underline ? "21px" : undefined}
+        flexShrink={1}
+        justifyContent="center"
+        fontSize={FontStyles[fontType].fontSize}
+        fontFamily={FontStyles[fontType].fontFamily}
+        fontWeight={FontStyles[fontType].fontWeight}
+        lineHeight={FontStyles[fontType].lineHeight}
+        alignSelf="center"
+        display="flex"
       >
         {children}
       </Text>

@@ -1,11 +1,12 @@
 import * as React from "react";
-import { Box, VStack, HStack, Divider, Icon, Text } from "native-base";
+import { Box, VStack, HStack, Divider, Text } from "native-base";
 import { Color } from "../../../constants/Color";
 import { AlignedHashtags } from "../../molecules/AlignedHashtags";
 import { CustomText } from "../../atoms/Text";
 import { FontType } from "../../../constants/Font";
 import { HashTagDisplayMode } from "../../atoms/Hashtag";
-import { MaterialIcons } from "@expo/vector-icons";
+import { IconName } from "../../../constants/IconName";
+import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
 
 export enum PostCardType {
   PLANE = "plane",
@@ -56,7 +57,7 @@ const PostCard: React.FC<PostPreviewProps> = ({
     type === PostCardType.PREVIEW
       ? HashTagDisplayMode.PRIMARY
       : HashTagDisplayMode.TLNORMAL;
-  const actionButtonSize = 6;
+  const actionButtonSize = "6px";
 
   return (
     <Box
@@ -79,36 +80,30 @@ const PostCard: React.FC<PostPreviewProps> = ({
               </Text>
             )}
             {type == "like" && (
-              <Icon
-                as={<MaterialIcons name={"favorite"} />}
+              <CustomMaterialIcon
+                name={IconName.LIKE}
                 size={actionButtonSize}
                 color={Color.MAIN}
-                mt="3px"
-                mr="4px"
               />
             )}
             {type == "like" && likeNum != 0 && (
               <Text color={Color.TEXT}> {likeNum}</Text>
             )}
             {type == "detail" && (
-              <Icon
-                as={<MaterialIcons name={"chat-bubble-outline"} />}
+              <CustomMaterialIcon
+                name={IconName.CHAT}
                 size={actionButtonSize}
                 color={Color.MAIN}
-                mt="3px"
-                mr="4px"
               />
             )}
             {type == "detail" && commentNum != 0 && (
               <Text color={Color.TEXT}> {commentNum}</Text>
             )}
             {(type == "save" || type == "tl") && (
-              <Icon
-                as={<MaterialIcons name={"turned-in-not"} />}
+              <CustomMaterialIcon
+                name={IconName.SAVE}
                 size={actionButtonSize}
                 color={Color.MAIN}
-                mt="3px"
-                mr="4px"
               />
             )}
             {type == "tl" && saveNum != 0 && (
@@ -116,7 +111,6 @@ const PostCard: React.FC<PostPreviewProps> = ({
             )}
           </Box>
         </HStack>
-
         <Divider
           width="100%"
           height="0"

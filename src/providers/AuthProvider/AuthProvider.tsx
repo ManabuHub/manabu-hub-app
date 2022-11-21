@@ -22,6 +22,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) setUserId(user.uid);
+      else setUserId(null);
     });
   }, []);
 

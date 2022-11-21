@@ -1,19 +1,22 @@
 import * as React from "react";
 import { Color } from "../../../constants/Color";
-import { Pressable, Icon, View, VStack, Box, HStack } from "native-base";
+import { Pressable, View, VStack, Box, HStack } from "native-base";
 import { CustomText } from "../../atoms/Text";
-import { MaterialIcons } from "@expo/vector-icons";
 import { FontType } from "../../../constants/Font";
 import { Dimensions } from "react-native";
 import { ProfileTab, ProfileTabColor } from "../ProfileTabbar";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ScreenName } from "../../../constants/ScreenName";
+import { useBriefProfile } from "./hooks";
+import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
+import { IconName } from "../../../constants/IconName";
 
 export interface BriefProfileProps {
   navigation: NativeStackNavigationProp<any, any>;
 }
 
 export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
+  const { handleSignOut } = useBriefProfile();
   const screenWidth = Dimensions.get("window").width;
 
   return (
@@ -26,6 +29,7 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
         alignSelf="flex-end"
         display="flex"
         flexDirection="row"
+        alignItems="center"
         backgroundColor={Color.WHITE_100}
         paddingX="10px"
         paddingY="3px"
@@ -38,18 +42,16 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
           });
         }}
       >
-        <Icon
-          as={<MaterialIcons name={"edit"} />}
-          size={4}
-          color={Color.MAIN}
-          mt="3px"
-          mr="4px"
-        />
-        <View>
-          <CustomText fontType={FontType.EXSMALL} color={Color.MAIN}>
-            プロフィールを編集
-          </CustomText>
-        </View>
+        <Box mr="4px">
+          <CustomMaterialIcon
+            name={IconName.EDIT}
+            size="16px"
+            color={Color.MAIN}
+          />
+        </Box>
+        <CustomText fontType={FontType.EXSMALL} color={Color.MAIN}>
+          プロフィールを編集
+        </CustomText>
       </Pressable>
       <VStack space="10px">
         <Box display="flex" flexDirection="row" shadow={1}>
@@ -63,12 +65,16 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
             alignItems="center"
             justifyContent="center"
           >
-            <HStack display="flex" flexDirection="row" space="4px">
-              <Icon
-                as={<MaterialIcons name={"circle"} />}
-                size={4}
+            <HStack
+              display="flex"
+              flexDirection="row"
+              space="4px"
+              alignItems="center"
+            >
+              <CustomMaterialIcon
+                name={IconName.CIRCLE}
+                size="16px"
                 color={Color.MAIN}
-                mt={1}
               />
               <View>
                 <CustomText color={Color.MAIN} fontType={FontType.SMALL_BOLD}>
@@ -98,11 +104,10 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
             justifyContent="center"
           >
             <HStack display="flex" flexDirection="row" space="4px">
-              <Icon
-                as={<MaterialIcons name={"circle"} />}
-                size={4}
+              <CustomMaterialIcon
+                name={IconName.CIRCLE}
+                size="16px"
                 color={Color.MAIN}
-                mt={1}
               />
               <View>
                 <CustomText color={Color.MAIN} fontType={FontType.SMALL_BOLD}>
@@ -132,11 +137,10 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
             justifyContent="center"
           >
             <HStack display="flex" flexDirection="row" space="4px">
-              <Icon
-                as={<MaterialIcons name={"circle"} />}
-                size={4}
+              <CustomMaterialIcon
+                name={IconName.CIRCLE}
+                size="16px"
                 color={Color.MAIN}
-                mt={1}
               />
               <View>
                 <CustomText color={Color.MAIN} fontType={FontType.SMALL_BOLD}>
@@ -166,11 +170,10 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
             justifyContent="center"
           >
             <HStack display="flex" flexDirection="row" space="4px">
-              <Icon
-                as={<MaterialIcons name={"circle"} />}
-                size={4}
+              <CustomMaterialIcon
+                name={IconName.CIRCLE}
+                size="16px"
                 color={Color.MAIN}
-                mt={1}
               />
               <View>
                 <CustomText color={Color.MAIN} fontType={FontType.SMALL_BOLD}>
@@ -198,6 +201,9 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
           borderRadius="12px"
           marginBottom="24px"
         ></Box>
+        <Pressable onPress={handleSignOut}>
+          <CustomText color={Color.TEXT}>サインアウト</CustomText>
+        </Pressable>
       </VStack>
     </VStack>
   );

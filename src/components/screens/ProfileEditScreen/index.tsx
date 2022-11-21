@@ -4,10 +4,8 @@ import {
   VStack,
   HStack,
   Pressable,
-  Icon,
   Box,
 } from "native-base";
-import { MaterialIcons } from "@expo/vector-icons";
 import * as React from "react";
 import { Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -19,6 +17,8 @@ import { FontType } from "../../../constants/Font";
 import { ProfileInput } from "../../molecules/ProfileInput";
 import { useProfileEdit } from "./hooks";
 import { CapsuleButton } from "../../molecules/CapsuleButton";
+import { IconName } from "../../../constants/IconName";
+import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
 
 export interface ProfileEditScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
@@ -61,10 +61,10 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
                   });
                 }}
               >
-                <Icon
-                  as={<MaterialIcons name={"arrow-back"} />}
+                <CustomMaterialIcon
                   size="28px"
                   color={Color.MAIN}
+                  name={IconName.ARROW_BACK}
                 />
               </Pressable>
             </Box>
@@ -80,8 +80,8 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
                   プロフィール編集
                 </CustomText>
               </Box>
-              <Icon
-                as={<MaterialIcons name={"edit"} />}
+              <CustomMaterialIcon
+                name={IconName.EDIT}
                 size="16px"
                 color={Color.TEXT}
               />
@@ -90,7 +90,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
           <VStack space="16px" marginX="36px" marginTop="16px">
             <ProfileInput
               value={userName}
-              iconName="circle"
+              iconName={IconName.CIRCLE}
               iconColor={Color.USER_PINK}
               label="ユーザー名"
               placeholder="manabu1111"
@@ -98,7 +98,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
             />
             <ProfileInput
               value={grade}
-              iconName="import-contacts"
+              iconName={IconName.CONTACT}
               iconColor={Color.GRADE_GREEN}
               label="学年"
               placeholder="大学1年生"
@@ -106,7 +106,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
             />
             <ProfileInput
               value={schoolChoice}
-              iconName="flag"
+              iconName={IconName.FLAG}
               iconColor={Color.COLLEGE_ORANGE}
               label="志望校"
               placeholder="大学・学部"
@@ -114,7 +114,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
             />
             <ProfileInput
               value={school}
-              iconName="school"
+              iconName={IconName.SCHOOL}
               iconColor={Color.COLLEGE_ORANGE}
               label="大学"
               placeholder="大学・学部"
@@ -122,7 +122,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
             />
             <ProfileInput
               value={description}
-              iconName="accessibility"
+              iconName={IconName.ACCESSIBILITY}
               iconColor={Color.DESCRIPTION_PURPLE}
               label="自己紹介"
               placeholder="どのような情報を提供したいか（得意教科、大学のサークル活動など）"

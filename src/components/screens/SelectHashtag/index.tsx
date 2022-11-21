@@ -3,7 +3,6 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Color } from "../../../constants/Color";
 import { ScreenName } from "../../../constants/ScreenName";
 import {
-  Icon,
   Box,
   HStack,
   Pressable,
@@ -14,7 +13,6 @@ import {
 } from "native-base";
 import { CapsuleButton } from "../../molecules/CapsuleButton";
 import { PostCard, PostCardType } from "../../organisms/PostCard";
-import { MaterialIcons } from "@expo/vector-icons";
 import { AlignedHashtags } from "../../molecules/AlignedHashtags";
 import { useSelectedHashtag } from "./hooks";
 import { Platform } from "react-native";
@@ -22,6 +20,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CustomText } from "../../atoms/Text";
 import { FontType } from "../../../constants/Font";
 import { HashTagDisplayMode } from "../../atoms/Hashtag";
+import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
+import { IconName } from "../../../constants/IconName";
 
 interface SelectHashtagScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
@@ -62,8 +62,8 @@ export const SelectHashTag: React.FC<SelectHashtagScreenProps> = ({
                 navigation.navigate(ScreenName.WRITE_BODY);
               }}
             >
-              <Icon
-                as={<MaterialIcons name={"arrow-back"} />}
+              <CustomMaterialIcon
+                name={IconName.ARROW_BACK}
                 size="28px"
                 color={Color.MAIN}
               />
