@@ -29,10 +29,12 @@ export const WriteBody: React.FC<WriteBodyScreenProps> = ({ navigation }) => {
     title,
     body,
     displayNumberOfLines,
+    isFilled,
     setTitle,
     setBody,
     onBodyHeightChange,
-  } = useWriteBody();
+    handleNext,
+  } = useWriteBody(navigation);
   const insets = useSafeAreaInsets();
 
   return (
@@ -59,11 +61,8 @@ export const WriteBody: React.FC<WriteBodyScreenProps> = ({ navigation }) => {
               <CapsuleButton
                 text="次へ"
                 colorScheme={ButtonColorScheme.PRIMARY}
-                onPress={() => {
-                  navigation.navigate(ScreenName.NEW_POST, {
-                    screen: ScreenName.SELECT_HASHTAG,
-                  });
-                }}
+                onPress={handleNext}
+                disabled={!isFilled}
               />
             </Box>
           </HStack>

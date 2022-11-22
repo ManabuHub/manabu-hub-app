@@ -53,7 +53,9 @@ const CustomText: React.FC<TextProps> = ({
         fontSize={FontStyles[fontType].fontSize}
         fontFamily={FontStyles[fontType].fontFamily}
         fontWeight={FontStyles[fontType].fontWeight}
-        lineHeight={FontStyles[fontType].lineHeight}
+        lineHeight={`${
+          FontStyles[fontType].lineHeight + (underline ? 4 : 0)
+        }px`}
         display="flex"
       >
         {children}
@@ -61,7 +63,11 @@ const CustomText: React.FC<TextProps> = ({
       {underline &&
         [...Array(numberOfLines).keys()].map((num) => (
           <>
-            <View position="absolute" top={`${21 + num * 21}px`} width="100%">
+            <View
+              position="absolute"
+              top={`${(FontStyles[fontType].lineHeight + 4) * (num + 1)}px`}
+              width="100%"
+            >
               <DashedLine
                 dashLength={2}
                 dashThickness={1}

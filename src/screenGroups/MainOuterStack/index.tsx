@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ScreenName } from "../../constants/ScreenName";
 import { MainTab } from "../MainTab";
-import { NewPostStack } from "../NewPost";
+import { NewPostStack } from "../NewPostStack";
 
 const Stack = createNativeStackNavigator();
 

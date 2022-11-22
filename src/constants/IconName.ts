@@ -17,4 +17,5 @@ export enum IconName {
   COIN = "monetization-on",
   CHECK = "check",
   CLOSE = "close",
+  SEND = "send",
 }

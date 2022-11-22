@@ -17,6 +17,7 @@ const AlignedHashtags: React.FC<AlignedHashtagProps> = ({
     <Box display="flex" flexDirection="row" flexWrap="wrap" overflow="hidden">
       {tags.map((tag) => (
         <Hashtag
+          key={tag}
           onPress={() => {
             onTagPress(tag);
           }}

@@ -3,13 +3,14 @@ import "dotenv/config";
 export default {
   expo: {
     name: "manabu-hub-app",
-    slug: "manabu-hub-app",
+    slug: "manabu-hub",
+    owner: "manabu-hub",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/",
+    icon: "./assets/favicon.png",
     splash: {
-      image: "./assets/splashexample_numasawa.png",
-      resizeMode: "stretch",
+      image: "./assets/splash.png",
+      resizeMode: "cover",
       backgroundColor: "#ffffff",
     },
     updates: {

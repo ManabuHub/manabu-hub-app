@@ -20,13 +20,13 @@ export enum PostCardType {
 
 interface PostPreviewProps {
   type: PostCardType;
-  authorName: string;
-  postTime: number;
-  likeNum: number;
-  commentNum: number;
-  saveNum: number;
   title: string;
   body: string;
+  authorName: string;
+  postTime?: number;
+  likeNum?: number;
+  commentNum?: number;
+  saveNum?: number;
   tags?: any;
   onTagPress: (name: string) => void;
 }
@@ -68,48 +68,61 @@ const PostCard: React.FC<PostPreviewProps> = ({
       width="100%"
     >
       <VStack display="flex">
-        <HStack alignItems="center" height="36px">
-          <CustomText color={Color.TEXT} fontType={FontType.EXSMALL_BOLD}>
-            {authorName}
-          </CustomText>
-          <Box display="flex" flexDirection="row">
-            {postTime != 0 && (
+        <HStack
+          alignItems="center"
+          height="36px"
+          justifyContent="space-between"
+          mb="8px"
+        >
+          <HStack alignItems="center" space="8px">
+            <Box
+              height="32px"
+              width="32px"
+              borderRadius="16px"
+              backgroundColor={Color.MEDIUM_GRAY}
+            />
+            <CustomText color={Color.TEXT} fontType={FontType.EXSMALL_BOLD}>
+              {authorName}
+            </CustomText>
+          </HStack>
+          <HStack>
+            {postTime && (
               <Text color={Color.TEXT}>
                 {postTime + "時間前"}
                 {/* TODO いい感じに表示を変える */}
               </Text>
             )}
-            {type == "like" && (
+            {type == PostCardType.LIKE && (
               <CustomMaterialIcon
                 name={IconName.LIKE}
                 size={actionButtonSize}
                 color={Color.MAIN}
               />
             )}
-            {type == "like" && likeNum != 0 && (
+            {type == PostCardType.LIKE && likeNum && (
               <Text color={Color.TEXT}> {likeNum}</Text>
             )}
-            {type == "detail" && (
+            {type == PostCardType.DETAIL && (
               <CustomMaterialIcon
                 name={IconName.CHAT}
                 size={actionButtonSize}
                 color={Color.MAIN}
               />
             )}
-            {type == "detail" && commentNum != 0 && (
+            {type == PostCardType.DETAIL && commentNum && (
               <Text color={Color.TEXT}> {commentNum}</Text>
             )}
-            {(type == "save" || type == "tl") && (
+            {(type == PostCardType.SAVE || type == PostCardType.TL) && (
               <CustomMaterialIcon
                 name={IconName.SAVE}
                 size={actionButtonSize}
                 color={Color.MAIN}
               />
             )}
-            {type == "tl" && saveNum != 0 && (
+            {type == PostCardType.TL && saveNum && (
               <Text color={Color.TEXT}> {saveNum}</Text>
             )}
-          </Box>
+          </HStack>
         </HStack>
         <Divider
           width="100%"

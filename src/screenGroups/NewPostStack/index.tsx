@@ -4,8 +4,13 @@ import { ScreenName } from "../../constants/ScreenName";
 import { WriteBody } from "../../components/screens/WriteBody";
 import { SelectHashTag } from "../../components/screens/SelectHashtag";
 
+export type NewPostStackParamList = {
+  [ScreenName.WRITE_BODY]: undefined;
+  [ScreenName.SELECT_HASHTAG]: { title: string; body: string };
+};
+
 export const NewPostStack: React.FC = () => {
-  const NewPostStack = createNativeStackNavigator();
+  const NewPostStack = createNativeStackNavigator<NewPostStackParamList>();
 
   return (
     <NewPostStack.Navigator
