@@ -6,6 +6,7 @@ import {
   Pressable,
   Icon,
   Box,
+  Input,
 } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as React from "react";
@@ -19,28 +20,37 @@ import { FontType } from "../../../constants/Font";
 import { ProfileInput } from "../../molecules/ProfileInput";
 import { useProfileEdit } from "./hooks";
 import { CapsuleButton } from "../../molecules/CapsuleButton";
+import { CapsuleInput } from "../../molecules/CapsuleInput";
+export enum accountType {
+  MENTOR = "mentor",
+  MENTEE = "mentee",
+}
 
 export interface ProfileEditScreenProps {
+  type: accountType;
   navigation: NativeStackNavigationProp<any, any>;
 }
 
 export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
+  type = "mentee",
   navigation,
 }) => {
   const {
     userName,
-    school,
-    grade,
+    college,
+    mentORGrade,
+    mentEEGrade,
     schoolChoice,
     description,
     isSubmitting,
     setUserName,
-    setSchool,
-    setGrade,
+    setCollege,
+    setMentORGrade,
+    setMentEEGrade,
     setSchoolChoice,
     setDescription,
     saveProfile,
-  } = useProfileEdit(navigation);
+  } = useProfileEdit(type, navigation);
   const insets = useSafeAreaInsets();
 
   return (
@@ -96,30 +106,68 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
               placeholder="manabu1111"
               onChange={setUserName}
             />
-            <ProfileInput
-              value={grade}
-              iconName="import-contacts"
-              iconColor={Color.GRADE_GREEN}
-              label="学年"
-              placeholder="大学1年生"
-              onChange={setGrade}
-            />
-            <ProfileInput
-              value={schoolChoice}
-              iconName="flag"
-              iconColor={Color.COLLEGE_ORANGE}
-              label="志望校"
-              placeholder="大学・学部"
-              onChange={setSchoolChoice}
-            />
-            <ProfileInput
-              value={school}
-              iconName="school"
-              iconColor={Color.COLLEGE_ORANGE}
-              label="大学"
-              placeholder="大学・学部"
-              onChange={setSchool}
-            />
+            {type == "mentor" && (
+              <ProfileInput
+                value={mentORGrade}
+                iconName="import-contacts"
+                iconColor={Color.GRADE_GREEN}
+                label="学年"
+                placeholder="大学1年生"
+                onChange={setMentORGrade}
+              />
+            )}
+            {type == "mentee" && (
+              <ProfileInput
+                value={mentEEGrade}
+                iconName="import-contacts"
+                iconColor={Color.GRADE_GREEN}
+                label="学年"
+                placeholder="高校3年生"
+                onChange={setMentEEGrade}
+              />
+            )}
+            {type == "mentor" && (
+              <ProfileInput
+                value={college}
+                iconName="school"
+                iconColor={Color.COLLEGE_ORANGE}
+                label="大学"
+                placeholder="大学・学部"
+                onChange={setCollege}
+              />
+            )}
+            {type == "mentee" && (
+              <ProfileInput
+                value={schoolChoice}
+                iconName="baseline-apartment" //figmaのアイコン名が違う？
+                iconColor={Color.COLLEGE_ORANGE}
+                label="学校"
+                placeholder="都道府県・公立/私立"
+                onChange={setSchoolChoice}
+              />
+            )}
+
+            {type == "mentor" && (
+              <ProfileInput
+                value={schoolChoice}
+                iconName="flag"
+                iconColor={Color.COLLEGE_ORANGE}
+                label="出身校"
+                placeholder="都道府県・公立/私立"
+                onChange={setSchoolChoice}
+              />
+            )}
+
+            {type == "mentee" && (
+              <ProfileInput
+                value={college}
+                iconName="flag"
+                iconColor={Color.COLLEGE_ORANGE}
+                label="志望校"
+                placeholder="大学・学部"
+                onChange={setCollege}
+              />
+            )}
             <ProfileInput
               value={description}
               iconName="accessibility"
