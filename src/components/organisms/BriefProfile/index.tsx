@@ -16,7 +16,7 @@ export interface BriefProfileProps {
 }
 
 export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
-  const { handleSignOut } = useBriefProfile();
+  const { handleEditPress, handleSignOut } = useBriefProfile(navigation);
   const screenWidth = Dimensions.get("window").width;
 
   return (
@@ -36,12 +36,7 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
         borderRadius="20px"
         borderWidth="1px"
         borderColor={Color.MAIN}
-        onPress={() => {
-          navigation.navigate(ScreenName.MAIN, {
-            screen: ScreenName.PROFILE,
-            params: { screen: ScreenName.PROFILE_EDIT },
-          });
-        }}
+        onPress={handleEditPress}
       >
         <Box mr="4px">
           <CustomMaterialIcon

@@ -19,28 +19,35 @@ import { useProfileEdit } from "./hooks";
 import { CapsuleButton } from "../../molecules/CapsuleButton";
 import { IconName } from "../../../constants/IconName";
 import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
+import { AccountType } from "../../../domain/types/User";
+import { RouteProp } from "@react-navigation/native";
 
 export interface ProfileEditScreenProps {
+  route: RouteProp<any, any>;
   navigation: NativeStackNavigationProp<any, any>;
 }
 
 export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
+  route,
   navigation,
 }) => {
   const {
+    type,
     userName,
-    school,
-    grade,
+    college,
+    mentORGrade,
+    mentEEGrade,
     schoolChoice,
     description,
     isSubmitting,
     setUserName,
-    setSchool,
-    setGrade,
+    setCollege,
+    setMentORGrade,
+    setMentEEGrade,
     setSchoolChoice,
     setDescription,
     saveProfile,
-  } = useProfileEdit(navigation);
+  } = useProfileEdit(route, navigation);
   const insets = useSafeAreaInsets();
 
   return (
@@ -92,39 +99,77 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
             <ProfileInput
               value={userName}
               iconName={IconName.CIRCLE}
-              iconColor={Color.USER_PINK}
+              iconColor={Color.MAIN}
               label="ユーザー名"
               placeholder="manabu1111"
               onChange={setUserName}
             />
-            <ProfileInput
-              value={grade}
-              iconName={IconName.CONTACT}
-              iconColor={Color.GRADE_GREEN}
-              label="学年"
-              placeholder="大学1年生"
-              onChange={setGrade}
-            />
-            <ProfileInput
-              value={schoolChoice}
-              iconName={IconName.FLAG}
-              iconColor={Color.COLLEGE_ORANGE}
-              label="志望校"
-              placeholder="大学・学部"
-              onChange={setSchoolChoice}
-            />
-            <ProfileInput
-              value={school}
-              iconName={IconName.SCHOOL}
-              iconColor={Color.COLLEGE_ORANGE}
-              label="大学"
-              placeholder="大学・学部"
-              onChange={setSchool}
-            />
+            {type == AccountType.MENTOR && (
+              <ProfileInput
+                value={mentORGrade}
+                iconName={IconName.CONTACT}
+                iconColor={Color.MAIN}
+                label="学年"
+                placeholder="大学1年生"
+                onChange={setMentORGrade}
+              />
+            )}
+            {type == AccountType.MENTEE && (
+              <ProfileInput
+                value={mentEEGrade}
+                iconName={IconName.CONTACT}
+                iconColor={Color.MAIN}
+                label="学年"
+                placeholder="高校3年生"
+                onChange={setMentEEGrade}
+              />
+            )}
+            {type == AccountType.MENTOR && (
+              <ProfileInput
+                value={college}
+                iconName={IconName.SCHOOL}
+                iconColor={Color.MAIN}
+                label="大学"
+                placeholder="大学・学部"
+                onChange={setCollege}
+              />
+            )}
+            {type == AccountType.MENTEE && (
+              <ProfileInput
+                value={schoolChoice}
+                iconName={IconName.SCHOOL}
+                iconColor={Color.MAIN}
+                label="学校"
+                placeholder="都道府県・公立/私立"
+                onChange={setSchoolChoice}
+              />
+            )}
+
+            {type == AccountType.MENTOR && (
+              <ProfileInput
+                value={schoolChoice}
+                iconName={IconName.FLAG}
+                iconColor={Color.MAIN}
+                label="出身校"
+                placeholder="都道府県・公立/私立"
+                onChange={setSchoolChoice}
+              />
+            )}
+
+            {type == AccountType.MENTEE && (
+              <ProfileInput
+                value={college}
+                iconName={IconName.FLAG}
+                iconColor={Color.MAIN}
+                label="志望校"
+                placeholder="大学・学部"
+                onChange={setCollege}
+              />
+            )}
             <ProfileInput
               value={description}
               iconName={IconName.ACCESSIBILITY}
-              iconColor={Color.DESCRIPTION_PURPLE}
+              iconColor={Color.MAIN}
               label="自己紹介"
               placeholder="どのような情報を提供したいか（得意教科、大学のサークル活動など）"
               onChange={setDescription}
