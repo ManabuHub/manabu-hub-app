@@ -5,6 +5,8 @@ export enum ScreenName {
   WRITE_BODY = "writeBody",
   SELECT_HASHTAG = "selectHashTag",
   HOME = "home",
+  NEW_POST = "newPost",
+  MAIN = "main",
   CREATE_POST = "createPost",
   PLACEHOLDER = "placeholder",
   SEARCH = "search",

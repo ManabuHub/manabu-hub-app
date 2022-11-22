@@ -13,8 +13,9 @@ export const useProfileEdit = (
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const saveProfile = useCallback(() => {
-    navigation.navigate(ScreenName.PROFILE, {
-      screen: ScreenName.PROFILE_MAIN,
+    navigation.navigate(ScreenName.MAIN, {
+      screen: ScreenName.PROFILE,
+      params: { screen: ScreenName.PROFILE_MAIN },
     });
   }, [navigation]);
 

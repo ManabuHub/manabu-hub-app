@@ -37,8 +37,9 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
         borderWidth="1px"
         borderColor={Color.MAIN}
         onPress={() => {
-          navigation.navigate(ScreenName.PROFILE, {
-            screen: ScreenName.PROFILE_EDIT,
+          navigation.navigate(ScreenName.MAIN, {
+            screen: ScreenName.PROFILE,
+            params: { screen: ScreenName.PROFILE_EDIT },
           });
         }}
       >

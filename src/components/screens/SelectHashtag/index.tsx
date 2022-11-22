@@ -59,7 +59,9 @@ export const SelectHashTag: React.FC<SelectHashtagScreenProps> = ({
           >
             <Pressable
               onPress={() => {
-                navigation.navigate(ScreenName.WRITE_BODY);
+                navigation.navigate(ScreenName.NEW_POST, {
+                  screen: ScreenName.WRITE_BODY,
+                });
               }}
             >
               <CustomMaterialIcon

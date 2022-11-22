@@ -42,7 +42,9 @@ export const WriteBody: React.FC<WriteBodyScreenProps> = ({ navigation }) => {
                 text="次へ"
                 colorScheme={ButtonColorScheme.PRIMARY}
                 onPress={() => {
-                  navigation.navigate(ScreenName.SELECT_HASHTAG);
+                  navigation.navigate(ScreenName.NEW_POST, {
+                    screen: ScreenName.SELECT_HASHTAG,
+                  });
                 }}
               />
             </Box>

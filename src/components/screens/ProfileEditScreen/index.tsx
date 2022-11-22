@@ -56,8 +56,9 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
               <Pressable
                 position="relative"
                 onPress={() => {
-                  navigation.navigate(ScreenName.PROFILE, {
-                    screen: ScreenName.PROFILE_MAIN,
+                  navigation.navigate(ScreenName.MAIN, {
+                    screen: ScreenName.PROFILE,
+                    params: { screen: ScreenName.PROFILE_MAIN },
                   });
                 }}
               >
