@@ -7,9 +7,9 @@ import { ScreenName } from "../../constants/ScreenName";
 import { NewPostStack } from "../NewPost";
 import { ProfileStack } from "../ProfileStack";
 
-export const MainTab: React.FC = () => {
-  const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
+export const MainTab: React.FC = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator

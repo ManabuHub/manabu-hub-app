@@ -10,7 +10,11 @@ export const Tabbar: React.FC<{
   navigation: any;
 }> = ({ state, descriptors, navigation }) => {
   const insets = useSafeAreaInsets();
+  const focusedOptions = descriptors[state.routes[state.index].key].options;
 
+  if (focusedOptions?.tabBarStyle?.display === "none") {
+    return null;
+  }
   return (
     <Box backgroundColor={Color.MAIN}>
       <Box

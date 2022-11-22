@@ -11,10 +11,10 @@ export enum IconName {
   THREAD = "chat-bubble",
   SCHOOL = "school",
   ACCESSIBILITY = "accessibility",
-  FLAG = "FLAG",
+  FLAG = "flag",
   CONTACT = "import-contacts",
   ARROW_BACK = "arrow-back",
-  COIN = "manetization-on",
+  COIN = "monetization-on",
   CHECK = "check",
   CLOSE = "close",
 }

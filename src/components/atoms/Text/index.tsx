@@ -54,7 +54,6 @@ const CustomText: React.FC<TextProps> = ({
         fontFamily={FontStyles[fontType].fontFamily}
         fontWeight={FontStyles[fontType].fontWeight}
         lineHeight={FontStyles[fontType].lineHeight}
-        alignSelf="center"
         display="flex"
       >
         {children}
