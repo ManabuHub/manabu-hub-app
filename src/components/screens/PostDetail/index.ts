@@ -1,4 +1,3 @@
-import { Box } from "native-base";
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { Post } from "../../../domain/types/Post";
@@ -22,5 +21,6 @@ export const PostDetailScreen: React.FC = () => {
     setPostData(postData);
   }, []);
 
+  //型エラーが起きています
   return <></>;
 };
