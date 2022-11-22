@@ -1,15 +1,16 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ScreenName } from "../../../constants/ScreenName";
 import { AlertButtonStyle, useAlert } from "../../../utils/useAlert";
 import { getTextLength } from "../../../utils/getTextLength";
+import { RouteProp } from "@react-navigation/native";
+import { AccountType, User } from "../../../domain/types/User";
 
 export const useProfileEdit = (
-  type: string, //要確認
+  route: RouteProp<any, any>,
   navigation: NativeStackNavigationProp<any, any>
 ) => {
   const { emitAlert } = useAlert();
-
   const [userName, setUserName] = useState<string>("");
   const [college, setCollege] = useState<string>("");
   const [mentORGrade, setMentORGrade] = useState<string>("");
@@ -17,6 +18,9 @@ export const useProfileEdit = (
   const [schoolChoice, setSchoolChoice] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const user = route.params?.user as User;
+  const type = user.type;
 
   // useCallbackは、パフォーマンス改善のために使用しています（これを使わないと、画面が再レンダリングされたとき=自分か子のStateが変更されたときに、関数も毎回定義され直されます）
   const validateInput = useCallback(() => {
@@ -35,8 +39,8 @@ export const useProfileEdit = (
       return false;
     }
     if (
-      (type == "mentor" && mentORGrade == "") ||
-      (type == "mentee" && mentEEGrade == "")
+      (type == AccountType.MENTOR && mentORGrade == "") ||
+      (type == AccountType.MENTEE && mentEEGrade == "")
     ) {
       emitAlert({
         title: "学年を選択してください",
@@ -50,7 +54,7 @@ export const useProfileEdit = (
       });
       return false;
     }
-    if (type == "mentor" && college == "") {
+    if (type == AccountType.MENTOR && college == "") {
       emitAlert({
         title: "大学を入力してください",
         message: "",
@@ -64,7 +68,7 @@ export const useProfileEdit = (
       return false;
     }
 
-    if (type == "mentor" && schoolChoice == "") {
+    if (type == AccountType.MENTOR && schoolChoice == "") {
       emitAlert({
         title: "出身校を選択してください",
         message: "",
@@ -77,7 +81,7 @@ export const useProfileEdit = (
       });
       return false;
     }
-    if (type == "mentee" && schoolChoice == "") {
+    if (type == AccountType.MENTEE && schoolChoice == "") {
       emitAlert({
         title: "学校を選択してください",
         message: "",
@@ -90,7 +94,7 @@ export const useProfileEdit = (
       });
       return false;
     }
-    if (type == "mentee" && college == "") {
+    if (type == AccountType.MENTEE && college == "") {
       emitAlert({
         title: "志望校を入力してください",
         message: "",
@@ -130,7 +134,7 @@ export const useProfileEdit = (
       });
       return false;
     }
-    if (type == "mentor" && getTextLength(college) > 60) {
+    if (type == AccountType.MENTOR && getTextLength(college) > 60) {
       emitAlert({
         title: "大学が長すぎます！",
         message: "全角60字(半角120字)までです",
@@ -143,7 +147,7 @@ export const useProfileEdit = (
       });
       return false;
     }
-    if (type == "mentee" && getTextLength(college) > 60) {
+    if (type == AccountType.MENTEE && getTextLength(college) > 60) {
       emitAlert({
         title: "志望校が長すぎます！",
         message: "全角60字(半角120字)までです",
@@ -178,12 +182,16 @@ export const useProfileEdit = (
     if (!isValidate) {
       return;
     }
-    navigation.navigate(ScreenName.PROFILE, {
-      screen: ScreenName.PROFILE_MAIN,
+    navigation.navigate(ScreenName.MAIN, {
+      screen: ScreenName.PROFILE,
+      params: { screen: ScreenName.PROFILE_MAIN },
     });
   }, [navigation, validateInput]);
 
+  useEffect(() => {}, []);
+
   return {
+    type,
     userName,
     college,
     mentORGrade,

@@ -1,4 +1,4 @@
-import { Box, KeyboardAvoidingView, ScrollView, Icon } from "native-base";
+import { Box, KeyboardAvoidingView, ScrollView } from "native-base";
 import * as React from "react";
 import { useState } from "react";
 import { Platform } from "react-native";
@@ -7,9 +7,10 @@ import { Color } from "../../../constants/Color";
 import { FontType } from "../../../constants/Font";
 import { CustomText } from "../../atoms/Text";
 import { ProfileTabbar, ProfileTab } from "../../organisms/ProfileTabbar";
-import { MaterialIcons } from "@expo/vector-icons";
 import { BriefProfile } from "../../organisms/BriefProfile";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
+import { IconName } from "../../../constants/IconName";
 
 const CurrentCoin = 150;
 
@@ -52,12 +53,10 @@ export const ProfileMainScreen: React.FC<ProfileMainScreenProps> = ({
           flexDirection="row"
           alignItems="center"
         >
-          <Icon
-            as={<MaterialIcons name={"monetization-on"} />}
-            size={4}
+          <CustomMaterialIcon
+            name={IconName.COIN}
+            size="16px"
             color={Color.COIN_BORDER}
-            marginLeft="8px"
-            mt="1px"
           />
           <CustomText
             color={Color.TEXT}

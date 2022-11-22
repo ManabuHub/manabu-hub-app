@@ -9,10 +9,9 @@ import {
   Checkbox,
   ScrollView,
   KeyboardAvoidingView,
-  Icon,
 } from "native-base";
 import * as React from "react";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
 import { Color } from "../../../constants/Color";
 import { FontType } from "../../../constants/Font";
 import { ScreenName } from "../../../constants/ScreenName";
@@ -20,7 +19,8 @@ import { CustomText, LinkSpan } from "../../atoms/Text";
 import { CapsuleButton } from "../../molecules/CapsuleButton";
 import { CapsuleInput } from "../../molecules/CapsuleInput";
 import { useSignUp } from "./hooks";
-import { MaterialIcons } from "@expo/vector-icons";
+import { IconName } from "../../../constants/IconName";
+import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
 
 export interface SignUpScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
@@ -71,7 +71,7 @@ export const SignUpScreen: React.FC<SignUpScreenProps> = ({ navigation }) => {
             <VStack space={6} paddingX={10} width="100%">
               <CapsuleInput
                 value={email}
-                iconName="mail"
+                iconName={IconName.EMAIL}
                 label="メールアドレス"
                 placeholder="manabu@example.com"
                 onChange={setEmail}
@@ -80,50 +80,42 @@ export const SignUpScreen: React.FC<SignUpScreenProps> = ({ navigation }) => {
               <VStack space={1}>
                 <CapsuleInput
                   value={password}
-                  iconName="lock"
+                  iconName={IconName.LOCK}
                   label="パスワード"
                   placeholder="xxxxxxxx"
                   onChange={onPasswordChange}
                 />
-                <VStack space={0}>
-                  <HStack alignItems="flex-start" space={1} width="100%">
-                    <Icon
-                      as={
-                        <MaterialIcons
-                          name={isPasswordLengthEnough ? "check" : "close"}
-                        />
+                <View>
+                  <HStack alignItems="flex-start" space="4px">
+                    <CustomMaterialIcon
+                      name={
+                        isPasswordLengthEnough ? IconName.CHECK : IconName.CLOSE
                       }
-                      size={4}
                       color={
                         isPasswordLengthEnough ? Color.MAIN : Color.INVALID
                       }
-                      mt={1}
+                      size="16px"
                     />
                     <CustomText color={Color.TEXT} fontType={FontType.EXSMALL}>
                       半角英数字8文字以上
                     </CustomText>
                   </HStack>
-                  <HStack alignItems="flex-start" space={1} width="100%">
-                    <Icon
-                      as={
-                        <MaterialIcons
-                          name={isPasswordValid ? "check" : "close"}
-                        />
-                      }
-                      size={4}
+                  <HStack alignItems="flex-start" space="4px">
+                    <CustomMaterialIcon
+                      name={isPasswordValid ? IconName.CHECK : IconName.CLOSE}
                       color={isPasswordValid ? Color.MAIN : Color.INVALID}
-                      mt={1}
+                      size="16px"
                     />
                     <CustomText color={Color.TEXT} fontType={FontType.EXSMALL}>
                       大文字、小文字、数字のうち少なくとも2種類が混在している必要があります。
                     </CustomText>
                   </HStack>
-                </VStack>
+                </View>
               </VStack>
 
               <CapsuleInput
                 value={rePassword}
-                iconName="lock"
+                iconName={IconName.LOCK}
                 label="パスワード(再入力)"
                 placeholder="xxxxxxxx"
                 onChange={setRePassword}

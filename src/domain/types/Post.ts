@@ -1,4 +1,10 @@
+export enum PostType {
+  ASK = "ask",
+  TELL = "tell",
+}
+
 export interface Post {
+  type: PostType;
   authorId: string;
   title: string;
   body: string;

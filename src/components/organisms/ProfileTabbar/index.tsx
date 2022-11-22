@@ -1,10 +1,11 @@
-import { Box, HStack, Icon, Pressable } from "native-base";
+import { Box, HStack, Pressable } from "native-base";
 import * as React from "react";
 import { Color } from "../../../constants/Color";
 import { Dimensions } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import { CustomText } from "../../atoms/Text";
 import { FontType } from "../../../constants/Font";
+import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
+import { IconName } from "../../../constants/IconName";
 
 export enum ProfileTab {
   PROFILE = "profile",
@@ -31,11 +32,11 @@ const tabs = [
 ];
 
 const ProfileTabIcon = {
-  [ProfileTab.PROFILE]: "account-circle" as const,
-  [ProfileTab.POST]: "edit" as const,
-  [ProfileTab.THREAD]: "chat-bubble" as const,
-  [ProfileTab.LIKE]: "favorite" as const,
-  [ProfileTab.SAVE]: "bookmark" as const,
+  [ProfileTab.PROFILE]: IconName.PROFILE,
+  [ProfileTab.POST]: IconName.POST,
+  [ProfileTab.THREAD]: IconName.THREAD,
+  [ProfileTab.LIKE]: IconName.LIKE,
+  [ProfileTab.SAVE]: IconName.SAVE,
 };
 
 const ProfileTabIconColor = {
@@ -84,11 +85,12 @@ export const ProfileTabbar: React.FC<ProfileTabbarProps> = ({
           key={tab}
         >
           <HStack alignItems="center" space="4px">
-            <Icon
-              as={<MaterialIcons name={ProfileTabIcon[tab]} />}
+            <CustomMaterialIcon
               size="24px"
               color={ProfileTabIconColor[tab]}
+              name={ProfileTabIcon[tab]}
             />
+
             {currentTab === tab && (
               <Box>
                 <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>

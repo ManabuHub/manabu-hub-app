@@ -3,6 +3,7 @@ import { Box, Pressable, View } from "native-base";
 import { Color } from "../../../constants/Color";
 import { Feather } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ScreenName } from "../../../constants/ScreenName";
 
 export const Tabbar: React.FC<{
   state: any;
@@ -10,7 +11,11 @@ export const Tabbar: React.FC<{
   navigation: any;
 }> = ({ state, descriptors, navigation }) => {
   const insets = useSafeAreaInsets();
+  const focusedOptions = descriptors[state.routes[state.index].key].options;
 
+  if (focusedOptions?.tabBarStyle?.display === "none") {
+    return null;
+  }
   return (
     <Box backgroundColor={Color.MAIN}>
       <Box
@@ -29,17 +34,21 @@ export const Tabbar: React.FC<{
             });
 
             if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name);
+              navigation.navigate(ScreenName.MAIN, { screen: route.name });
             }
           };
 
-          if (route.name == "placeholder") {
+          const onNewPostPress = () => {
+            navigation.navigate(ScreenName.NEW_POST);
+          };
+
+          if (route.name == ScreenName.PLACEHOLDER) {
             return (
               <Pressable
                 position="relative"
                 width={16}
                 key={index}
-                onPress={onPress}
+                onPress={onNewPostPress}
               >
                 <View
                   position="absolute"

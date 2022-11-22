@@ -12,6 +12,7 @@ import {
 import * as React from "react";
 import { Platform } from "react-native";
 import { Color } from "../../../constants/Color";
+import { IconName } from "../../../constants/IconName";
 import { ScreenName } from "../../../constants/ScreenName";
 import { CapsuleButton } from "../../molecules/CapsuleButton";
 import { CapsuleInput } from "../../molecules/CapsuleInput";
@@ -61,7 +62,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({ navigation }) => {
               <VStack>
                 <CapsuleInput
                   value={email}
-                  iconName="mail"
+                  iconName={IconName.EMAIL}
                   label="メールアドレス"
                   placeholder="manabu@example.com"
                   onChange={setEmail}
@@ -70,7 +71,7 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({ navigation }) => {
 
               <CapsuleInput
                 value={password}
-                iconName="lock"
+                iconName={IconName.LOCK}
                 label="パスワード"
                 placeholder="xxxxxxxx"
                 onChange={setPassword}

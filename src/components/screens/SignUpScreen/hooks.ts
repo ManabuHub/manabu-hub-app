@@ -5,6 +5,7 @@ import { useAuth } from "../../../providers/AuthProvider/hooks";
 import { EmailPattern } from "../../../constants/RegEx";
 import { AlertButtonStyle, useAlert } from "../../../utils/useAlert";
 import { UserRepository } from "../../../repositories/UserRepository";
+import { AccountType } from "../../../domain/types/User";
 
 const RequiredPasswordLength = 8;
 
@@ -108,6 +109,7 @@ export const useSignUp = () => {
     async (id: string, email: string) => {
       await userRepository.create({
         id,
+        type: AccountType.MENTEE,
         email,
         userName: null,
         school: "",

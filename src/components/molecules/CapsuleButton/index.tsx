@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Pressable, Text } from "native-base";
+import { ReactNode } from "react";
+import { HStack, Pressable, Text } from "native-base";
 import {
   ButtonColorScheme,
   ButtonStyles,
@@ -16,6 +17,7 @@ interface CapsuleButtonProps {
   iconSize?: number;
   isLoading?: boolean;
   disabled?: boolean;
+  rightIcon?: ReactNode;
   onPress: () => void;
 }
 
@@ -24,6 +26,7 @@ const CapsuleButton: React.FC<CapsuleButtonProps> = ({
   colorScheme = ButtonColorScheme.PRIMARY,
   disabled = false,
   isLoading = false,
+  rightIcon,
   onPress,
 }) => {
   const scheme = disabled ? ButtonColorScheme.DISABLED : colorScheme;
@@ -31,8 +34,8 @@ const CapsuleButton: React.FC<CapsuleButtonProps> = ({
   return (
     <Pressable
       onPress={onPress}
-      width={154}
-      height={44}
+      width="154px"
+      height="44px"
       display="flex"
       alignItems="center"
       justifyContent="center"
@@ -42,18 +45,27 @@ const CapsuleButton: React.FC<CapsuleButtonProps> = ({
       backgroundColor={ButtonStyles[scheme].bgColor}
       shadow={3}
       disabled={disabled}
+      paddingX="24px"
     >
       {isLoading ? (
         <ActivityIndicator size="small" />
       ) : (
-        <Text
-          fontFamily="body"
-          fontWeight={700}
-          color={ButtonStyles[scheme].itemColor}
-          fontSize="xl"
+        <HStack
+          alignItems="center"
+          justifyContent={rightIcon ? "space-between" : "center"}
+          width="100%"
+          position="relative"
         >
-          {text}
-        </Text>
+          <Text
+            fontFamily="body"
+            fontWeight={700}
+            color={ButtonStyles[scheme].itemColor}
+            fontSize="xl"
+          >
+            {text}
+          </Text>
+          {rightIcon && rightIcon}
+        </HStack>
       )}
     </Pressable>
   );

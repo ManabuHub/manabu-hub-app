@@ -4,11 +4,8 @@ import {
   VStack,
   HStack,
   Pressable,
-  Icon,
   Box,
-  Input,
 } from "native-base";
-import { MaterialIcons } from "@expo/vector-icons";
 import * as React from "react";
 import { Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -20,22 +17,22 @@ import { FontType } from "../../../constants/Font";
 import { ProfileInput } from "../../molecules/ProfileInput";
 import { useProfileEdit } from "./hooks";
 import { CapsuleButton } from "../../molecules/CapsuleButton";
-import { CapsuleInput } from "../../molecules/CapsuleInput";
-export enum accountType {
-  MENTOR = "mentor",
-  MENTEE = "mentee",
-}
+import { IconName } from "../../../constants/IconName";
+import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
+import { AccountType } from "../../../domain/types/User";
+import { RouteProp } from "@react-navigation/native";
 
 export interface ProfileEditScreenProps {
-  type: accountType;
+  route: RouteProp<any, any>;
   navigation: NativeStackNavigationProp<any, any>;
 }
 
 export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
-  type = "mentee",
+  route,
   navigation,
 }) => {
   const {
+    type,
     userName,
     college,
     mentORGrade,
@@ -50,7 +47,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
     setSchoolChoice,
     setDescription,
     saveProfile,
-  } = useProfileEdit(type, navigation);
+  } = useProfileEdit(route, navigation);
   const insets = useSafeAreaInsets();
 
   return (
@@ -66,15 +63,16 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
               <Pressable
                 position="relative"
                 onPress={() => {
-                  navigation.navigate(ScreenName.PROFILE, {
-                    screen: ScreenName.PROFILE_MAIN,
+                  navigation.navigate(ScreenName.MAIN, {
+                    screen: ScreenName.PROFILE,
+                    params: { screen: ScreenName.PROFILE_MAIN },
                   });
                 }}
               >
-                <Icon
-                  as={<MaterialIcons name={"arrow-back"} />}
+                <CustomMaterialIcon
                   size="28px"
                   color={Color.MAIN}
+                  name={IconName.ARROW_BACK}
                 />
               </Pressable>
             </Box>
@@ -90,8 +88,8 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
                   プロフィール編集
                 </CustomText>
               </Box>
-              <Icon
-                as={<MaterialIcons name={"edit"} />}
+              <CustomMaterialIcon
+                name={IconName.EDIT}
                 size="16px"
                 color={Color.TEXT}
               />
@@ -100,69 +98,69 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
           <VStack space="16px" marginX="36px" marginTop="16px">
             <ProfileInput
               value={userName}
-              iconName="circle"
-              iconColor={Color.USER_PINK}
+              iconName={IconName.CIRCLE}
+              iconColor={Color.MAIN}
               label="ユーザー名"
               placeholder="manabu1111"
               onChange={setUserName}
             />
-            {type == "mentor" && (
+            {type == AccountType.MENTOR && (
               <ProfileInput
                 value={mentORGrade}
-                iconName="import-contacts"
-                iconColor={Color.GRADE_GREEN}
+                iconName={IconName.CONTACT}
+                iconColor={Color.MAIN}
                 label="学年"
                 placeholder="大学1年生"
                 onChange={setMentORGrade}
               />
             )}
-            {type == "mentee" && (
+            {type == AccountType.MENTEE && (
               <ProfileInput
                 value={mentEEGrade}
-                iconName="import-contacts"
-                iconColor={Color.GRADE_GREEN}
+                iconName={IconName.CONTACT}
+                iconColor={Color.MAIN}
                 label="学年"
                 placeholder="高校3年生"
                 onChange={setMentEEGrade}
               />
             )}
-            {type == "mentor" && (
+            {type == AccountType.MENTOR && (
               <ProfileInput
                 value={college}
-                iconName="school"
-                iconColor={Color.COLLEGE_ORANGE}
+                iconName={IconName.SCHOOL}
+                iconColor={Color.MAIN}
                 label="大学"
                 placeholder="大学・学部"
                 onChange={setCollege}
               />
             )}
-            {type == "mentee" && (
+            {type == AccountType.MENTEE && (
               <ProfileInput
                 value={schoolChoice}
-                iconName="baseline-apartment" //figmaのアイコン名が違う？
-                iconColor={Color.COLLEGE_ORANGE}
+                iconName={IconName.SCHOOL}
+                iconColor={Color.MAIN}
                 label="学校"
                 placeholder="都道府県・公立/私立"
                 onChange={setSchoolChoice}
               />
             )}
 
-            {type == "mentor" && (
+            {type == AccountType.MENTOR && (
               <ProfileInput
                 value={schoolChoice}
-                iconName="flag"
-                iconColor={Color.COLLEGE_ORANGE}
+                iconName={IconName.FLAG}
+                iconColor={Color.MAIN}
                 label="出身校"
                 placeholder="都道府県・公立/私立"
                 onChange={setSchoolChoice}
               />
             )}
 
-            {type == "mentee" && (
+            {type == AccountType.MENTEE && (
               <ProfileInput
                 value={college}
-                iconName="flag"
-                iconColor={Color.COLLEGE_ORANGE}
+                iconName={IconName.FLAG}
+                iconColor={Color.MAIN}
                 label="志望校"
                 placeholder="大学・学部"
                 onChange={setCollege}
@@ -170,8 +168,8 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
             )}
             <ProfileInput
               value={description}
-              iconName="accessibility"
-              iconColor={Color.DESCRIPTION_PURPLE}
+              iconName={IconName.ACCESSIBILITY}
+              iconColor={Color.MAIN}
               label="自己紹介"
               placeholder="どのような情報を提供したいか（得意教科、大学のサークル活動など）"
               onChange={setDescription}
