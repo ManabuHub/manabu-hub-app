@@ -14,4 +14,8 @@ export enum ScreenName {
   PROFILE = "user",
   PROFILE_MAIN = "profileMain",
   PROFILE_EDIT = "profileEdit",
+  SETTING = "setting",
+  SETTING_MAIN = "settingMain",
+  SETTING_ACCOUNT = "settingAccount",
+  SETTING_MUTE_ACCOUNT = "settingMuteAccount",
 }
