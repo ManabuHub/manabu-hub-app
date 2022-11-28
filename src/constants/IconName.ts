@@ -25,4 +25,5 @@ export enum IconName {
   INFO = "info",
   DELETE = "delete",
   LOGOUT = "logout",
+  SETTING = "settings",
 }
