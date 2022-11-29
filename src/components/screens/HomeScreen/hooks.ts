@@ -11,7 +11,7 @@ export const useHomeScreen = () => {
       const fetchedPosts = await postRepository.getWithTag("英語");
       setPosts(fetchedPosts);
     })();
-  }, []);
+  }, [postRepository]);
 
   return { posts };
 };

@@ -28,7 +28,7 @@ interface PostPreviewProps {
   commentNum?: number;
   saveNum?: number;
   tags?: any;
-  onTagPress: (name: string) => void;
+  onTagPress?: (name: string) => void;
 }
 
 const BackgroundColor = {

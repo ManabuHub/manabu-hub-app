@@ -265,7 +265,23 @@ export const useProfileEdit = (
       screen: ScreenName.PROFILE,
       params: { screen: ScreenName.PROFILE_MAIN },
     });
-  }, [navigation, validateInput]);
+  }, [
+    user,
+
+    accountType,
+    userName,
+    menteeGrade,
+    mentorGrade,
+    currentSchoolArea,
+    schoolOfChoice,
+    college,
+    formerSchoolArea,
+    description,
+    userRepository,
+    validateInput,
+    setUser,
+    navigation,
+  ]);
 
   useEffect(() => {
     if (!user) return;
@@ -281,7 +297,7 @@ export const useProfileEdit = (
       setFormerSchoolArea(user.formerSchoolArea as string);
     }
     setDescription(user.description);
-  }, []);
+  }, [user]);
 
   return {
     accountType,

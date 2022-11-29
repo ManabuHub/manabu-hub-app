@@ -20,7 +20,7 @@ export const useSelectAccountTypeScreen = (
         },
       },
     });
-  }, [accountType]);
+  }, [accountType, navigation]);
 
   return { accountType, setAccountType, handleNext };
 };

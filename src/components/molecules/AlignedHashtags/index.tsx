@@ -5,7 +5,7 @@ import { Hashtag, HashTagDisplayMode } from "../../atoms/Hashtag";
 interface AlignedHashtagProps {
   tags: string[];
   displayMode: HashTagDisplayMode;
-  onTagPress: (tag: string) => void;
+  onTagPress?: (tag: string) => void;
 }
 
 const AlignedHashtags: React.FC<AlignedHashtagProps> = ({
@@ -19,7 +19,7 @@ const AlignedHashtags: React.FC<AlignedHashtagProps> = ({
         <Hashtag
           key={tag}
           onPress={() => {
-            onTagPress(tag);
+            onTagPress?.(tag);
           }}
           displayMode={displayMode}
           text={tag}

@@ -1,6 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ScreenName } from "../../../constants/ScreenName";
 import { Post, PostType } from "../../../domain/types/Post";
 import { useAuth } from "../../../providers/AuthProvider/hooks";
@@ -22,7 +22,7 @@ export const useSelectedHashtag = (
   const [newTag, setNewTag] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const postRepository = new PostRepository();
+  const postRepository = useMemo(() => new PostRepository(), []);
   const { userId } = useAuth();
 
   const { emitAlert } = useAlert();
@@ -32,7 +32,7 @@ export const useSelectedHashtag = (
     setTitle(route.params?.title);
     setBody(route.params?.body);
     setCandidateTags(["大学受験", "数学"]);
-  }, []);
+  }, [route.params?.body, route.params?.title]);
 
   const choiceTag = useCallback(
     (tag: string) => {
@@ -71,7 +71,7 @@ export const useSelectedHashtag = (
     setSelectedTags((tags) => [...tags, newTag]);
 
     setNewTag("");
-  }, [selectedTags, newTag]);
+  }, [newTag, selectedTags, emitAlert]);
 
   const deleteTag = useCallback(
     (tag: string) => {
@@ -83,27 +83,30 @@ export const useSelectedHashtag = (
     [selectedTags]
   );
 
-  const handleCreatePost = useCallback(async (type: PostType) => {
-    if (!userId) {
-      return;
-    }
-    const newPost: Post = {
-      type,
-      authorId: userId,
-      title,
-      body,
-      likeCount: 0,
-      saveCount: 0,
-      commentCount: 0,
-      tags: selectedTags,
-      nGrams: nGram(3)(body),
-      createdAt: new Date(),
-    };
-    setIsSubmitting(true);
-    await postRepository.create(newPost);
-    setIsSubmitting(false);
-    navigation.navigate(ScreenName.MAIN);
-  }, []);
+  const handleCreatePost = useCallback(
+    async (type: PostType) => {
+      if (!userId) {
+        return;
+      }
+      const newPost: Post = {
+        type,
+        authorId: userId,
+        title,
+        body,
+        likeCount: 0,
+        saveCount: 0,
+        commentCount: 0,
+        tags: selectedTags,
+        nGrams: nGram(3)(body),
+        createdAt: new Date(),
+      };
+      setIsSubmitting(true);
+      await postRepository.create(newPost);
+      setIsSubmitting(false);
+      navigation.navigate(ScreenName.MAIN);
+    },
+    [body, navigation, postRepository, selectedTags, title, userId]
+  );
 
   return {
     title,

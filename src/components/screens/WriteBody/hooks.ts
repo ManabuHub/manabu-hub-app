@@ -37,7 +37,7 @@ export const useWriteBody = (
       screen: ScreenName.SELECT_HASHTAG,
       params: { title, body },
     });
-  }, [title, body]);
+  }, [navigation, title, body]);
 
   return {
     title,
