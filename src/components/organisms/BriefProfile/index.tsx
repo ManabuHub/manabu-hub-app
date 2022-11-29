@@ -6,10 +6,19 @@ import { FontType } from "../../../constants/Font";
 import { Dimensions } from "react-native";
 import { ProfileTab, ProfileTabColor } from "../ProfileTabbar";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ScreenName } from "../../../constants/ScreenName";
 import { useBriefProfile } from "./hooks";
 import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
 import { IconName } from "../../../constants/IconName";
+import { useAuth } from "../../../providers/AuthProvider/hooks";
+import { AccountType } from "../../../domain/types/User";
+import {
+  MenteeGradeLabel,
+  MentorGradeLabel,
+} from "../../screens/ProfileEditScreen";
+import {
+  MenteeGrade,
+  MentorGrade,
+} from "../../screens/ProfileEditScreen/hooks";
 
 export interface BriefProfileProps {
   navigation: NativeStackNavigationProp<any, any>;
@@ -18,6 +27,7 @@ export interface BriefProfileProps {
 export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
   const { handleEditPress, handleSignOut } = useBriefProfile(navigation);
   const screenWidth = Dimensions.get("window").width;
+  const { user } = useAuth();
 
   return (
     <VStack
@@ -69,7 +79,7 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
             >
               <CustomMaterialIcon
                 name={IconName.CIRCLE}
-                size="16px"
+                size="18px"
                 color={Color.MAIN}
               />
               <View>
@@ -79,14 +89,20 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
               </View>
             </HStack>
           </Box>
-          <Box
+          <HStack
             backgroundColor={Color.WHITE_100}
             width={`${screenWidth - 156}px`}
             height="40px"
             borderRightRadius="12px"
             borderWidth="1px"
             borderColor={Color.MEDIUM_BASE}
-          ></Box>
+            alignItems="center"
+            paddingLeft="8px"
+          >
+            <CustomText color={Color.TEXT} fontType={FontType.SMALL}>
+              {user?.userName}
+            </CustomText>
+          </HStack>
         </Box>
         <Box display="flex" flexDirection="row" shadow={1}>
           <Box
@@ -101,8 +117,8 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
           >
             <HStack display="flex" flexDirection="row" space="4px">
               <CustomMaterialIcon
-                name={IconName.CIRCLE}
-                size="16px"
+                name={IconName.BOOK}
+                size="18px"
                 color={Color.MAIN}
               />
               <View>
@@ -112,14 +128,22 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
               </View>
             </HStack>
           </Box>
-          <Box
+          <HStack
             backgroundColor={Color.WHITE_100}
             width={`${screenWidth - 156}px`}
             height="40px"
             borderRightRadius="12px"
             borderWidth="1px"
             borderColor={Color.MEDIUM_BASE}
-          ></Box>
+            alignItems="center"
+            paddingLeft="8px"
+          >
+            <CustomText color={Color.TEXT} fontType={FontType.SMALL}>
+              {user?.type === AccountType.MENTEE
+                ? MenteeGradeLabel[user?.grade as MenteeGrade]
+                : MentorGradeLabel[user?.grade as MentorGrade]}
+            </CustomText>
+          </HStack>
         </Box>
         <Box display="flex" flexDirection="row" shadow={1}>
           <Box
@@ -134,25 +158,33 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
           >
             <HStack display="flex" flexDirection="row" space="4px">
               <CustomMaterialIcon
-                name={IconName.CIRCLE}
-                size="16px"
+                name={IconName.APARTMENT}
+                size="18px"
                 color={Color.MAIN}
               />
               <View>
                 <CustomText color={Color.MAIN} fontType={FontType.SMALL_BOLD}>
-                  学校
+                  {user?.type === AccountType.MENTEE ? "学校" : "大学"}
                 </CustomText>
               </View>
             </HStack>
           </Box>
-          <Box
+          <HStack
             backgroundColor={Color.WHITE_100}
             width={`${screenWidth - 156}px`}
             height="40px"
             borderRightRadius="12px"
             borderWidth="1px"
             borderColor={Color.MEDIUM_BASE}
-          ></Box>
+            alignItems="center"
+            paddingLeft="8px"
+          >
+            <CustomText color={Color.TEXT} fontType={FontType.SMALL}>
+              {user?.type === AccountType.MENTEE
+                ? user?.currentSchoolArea
+                : user?.college}
+            </CustomText>
+          </HStack>
         </Box>
         <Box display="flex" flexDirection="row" shadow={1}>
           <Box
@@ -167,25 +199,72 @@ export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
           >
             <HStack display="flex" flexDirection="row" space="4px">
               <CustomMaterialIcon
-                name={IconName.CIRCLE}
-                size="16px"
+                name={IconName.FLAG}
+                size="18px"
                 color={Color.MAIN}
               />
               <View>
                 <CustomText color={Color.MAIN} fontType={FontType.SMALL_BOLD}>
-                  志望校
+                  {user?.type === AccountType.MENTEE ? "志望校" : "出身校"}
                 </CustomText>
               </View>
             </HStack>
           </Box>
-          <Box
+          <HStack
             backgroundColor={Color.WHITE_100}
             width={`${screenWidth - 156}px`}
             height="40px"
             borderRightRadius="12px"
             borderWidth="1px"
             borderColor={Color.MEDIUM_BASE}
-          ></Box>
+            alignItems="center"
+            paddingLeft="8px"
+          >
+            <CustomText color={Color.TEXT} fontType={FontType.SMALL}>
+              {user?.type === AccountType.MENTEE
+                ? user?.schoolOfChoice
+                : user?.formerSchoolArea}
+            </CustomText>
+          </HStack>
+        </Box>
+        <Box display="flex" flexDirection="row" shadow={1}>
+          <Box
+            backgroundColor={Color.MEDIUM_BASE}
+            width="108px"
+            height="120px"
+            borderLeftRadius="12px"
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <HStack display="flex" flexDirection="row" space="4px">
+              <CustomMaterialIcon
+                name={IconName.DESCRIPTION}
+                size="18px"
+                color={Color.MAIN}
+              />
+              <View>
+                <CustomText color={Color.MAIN} fontType={FontType.SMALL_BOLD}>
+                  自己紹介
+                </CustomText>
+              </View>
+            </HStack>
+          </Box>
+          <HStack
+            backgroundColor={Color.WHITE_100}
+            width={`${screenWidth - 156}px`}
+            height="120px"
+            borderRightRadius="12px"
+            borderWidth="1px"
+            borderColor={Color.MEDIUM_BASE}
+            alignItems="center"
+            paddingLeft="8px"
+          >
+            <CustomText color={Color.TEXT} fontType={FontType.SMALL}>
+              {user?.description}
+            </CustomText>
+          </HStack>
         </Box>
         <Box
           shadow={1}

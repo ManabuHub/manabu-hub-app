@@ -50,10 +50,6 @@ export const SelectHashTag: React.FC<SelectHashtagScreenProps> = ({
     handleCreatePost,
   } = useSelectedHashtag(navigation, route);
 
-  useEffect(() => {
-    console.log(route.params);
-  }, [route]);
-
   const insets = useSafeAreaInsets();
 
   return (

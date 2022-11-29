@@ -49,32 +49,35 @@ export const useSignIn = () => {
     return true;
   }, [email, password, emitAlert]);
 
-  const handleSigninError = useCallback((error: any) => {
-    const title =
-      error.code === "auth/user-not-found" ||
-      error.code === "auth/wrong-password" ||
-      error.code === "auth/too-many-requests"
-        ? "エラー"
-        : "システムエラー";
-    const message =
-      error.code === "auth/user-not-found"
-        ? "このメールアドレスは登録されていません。"
-        : error.code === "auth/wrong-password"
-        ? "パスワードが間違っています。"
-        : error.code === "auth/too-many-requests"
-        ? "ログインに一定数失敗しました。時間を置いてから、再度お試しください。"
-        : "登録に失敗しました。再度お試しください。";
-    emitAlert({
-      title,
-      message,
-      buttons: [
-        {
-          text: "分かりました",
-          style: AlertButtonStyle.OK,
-        },
-      ],
-    });
-  }, []);
+  const handleSigninError = useCallback(
+    (error: any) => {
+      const title =
+        error.code === "auth/user-not-found" ||
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/too-many-requests"
+          ? "エラー"
+          : "システムエラー";
+      const message =
+        error.code === "auth/user-not-found"
+          ? "このメールアドレスは登録されていません。"
+          : error.code === "auth/wrong-password"
+          ? "パスワードが間違っています。"
+          : error.code === "auth/too-many-requests"
+          ? "ログインに一定数失敗しました。時間を置いてから、再度お試しください。"
+          : "登録に失敗しました。再度お試しください。";
+      emitAlert({
+        title,
+        message,
+        buttons: [
+          {
+            text: "分かりました",
+            style: AlertButtonStyle.OK,
+          },
+        ],
+      });
+    },
+    [emitAlert]
+  );
 
   const handleSignin = useCallback(() => {
     const isValidate = validateInput();
@@ -93,7 +96,7 @@ export const useSignIn = () => {
       .finally(() => {
         setIsSubmitting(false);
       });
-  }, [email, password, emitAlert, setUserId, validateInput]);
+  }, [email, password, setUserId, handleSigninError, validateInput]);
 
   return {
     email,

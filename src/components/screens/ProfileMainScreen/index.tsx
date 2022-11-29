@@ -11,6 +11,8 @@ import { BriefProfile } from "../../organisms/BriefProfile";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
 import { IconName } from "../../../constants/IconName";
+import { useAuth } from "../../../providers/AuthProvider/hooks";
+import { SelectAccountTypeScreen } from "../SelectAccountTypeScreen";
 
 const CurrentCoin = 150;
 
@@ -21,10 +23,11 @@ export interface ProfileMainScreenProps {
 export const ProfileMainScreen: React.FC<ProfileMainScreenProps> = ({
   navigation,
 }) => {
+  const { user } = useAuth();
   const insets = useSafeAreaInsets();
   const [currentTab, setCurrentTab] = useState<ProfileTab>(ProfileTab.PROFILE);
 
-  const mainPane = () => {
+  const getMainPane = () => {
     switch (currentTab) {
       case ProfileTab.PROFILE:
         return <BriefProfile navigation={navigation} />;
@@ -32,6 +35,10 @@ export const ProfileMainScreen: React.FC<ProfileMainScreenProps> = ({
         return <></>;
     }
   };
+
+  if (!user?.isProfileFilled) {
+    return <SelectAccountTypeScreen navigation={navigation} />;
+  }
 
   return (
     <KeyboardAvoidingView
@@ -77,7 +84,7 @@ export const ProfileMainScreen: React.FC<ProfileMainScreenProps> = ({
           currentTab={currentTab}
           onCurrentTabChange={setCurrentTab}
         />
-        {mainPane()}
+        {getMainPane()}
       </ScrollView>
     </KeyboardAvoidingView>
   );

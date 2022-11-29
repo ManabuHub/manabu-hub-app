@@ -38,5 +38,6 @@ export default {
       firebaseAppId: process.env.FIREBASE_APP_ID,
       measurementId: process.env.FIREBASE_MEASUREMENT_ID,
     },
+    userInterfaceStyle: "light",
   },
 };
