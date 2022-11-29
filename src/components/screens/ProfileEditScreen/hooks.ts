@@ -1,10 +1,11 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { ScreenName } from "../../../constants/ScreenName";
 import { AlertButtonStyle, useAlert } from "../../../utils/useAlert";
 import { getTextLength } from "../../../utils/getTextLength";
 import { AccountType } from "../../../domain/types/User";
 import { useAuth } from "../../../providers/AuthProvider/hooks";
+import { RouteProp } from "@react-navigation/native";
 
 export enum MenteeGrade {
   GRADE_1 = "grade-1",
@@ -37,6 +38,7 @@ export const MentorGradeList = [
 ];
 
 export const useProfileEdit = (
+  route: RouteProp<any, any>,
   navigation: NativeStackNavigationProp<any, any>
 ) => {
   const { user } = useAuth();
@@ -50,6 +52,11 @@ export const useProfileEdit = (
   const [formerSchoolArea, setFormerSchoolArea] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const accountType = useMemo(
+    () => (user?.isProfileFilled ? user?.type : route.params?.accountType),
+    [user]
+  );
 
   // useCallbackは、パフォーマンス改善のために使用しています（これを使わないと、画面が再レンダリングされたとき=自分か子のStateが変更されたときに、関数も毎回定義され直されます）
   const validateInput = useCallback(() => {
@@ -245,6 +252,7 @@ export const useProfileEdit = (
   }, [navigation, validateInput]);
 
   return {
+    accountType,
     userName,
     mentorGrade,
     menteeGrade,

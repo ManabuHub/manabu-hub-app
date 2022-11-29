@@ -6,7 +6,6 @@ import {
   Pressable,
   Box,
   Select,
-  CheckIcon,
 } from "native-base";
 import * as React from "react";
 import { Platform } from "react-native";
@@ -30,8 +29,10 @@ import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
 import { AccountType } from "../../../domain/types/User";
 import { useAuth } from "../../../providers/AuthProvider/hooks";
 import { Prefectures } from "../../../constants/Prefectures";
+import { RouteProp } from "@react-navigation/native";
 
 export interface ProfileEditScreenProps {
+  route: RouteProp<any, any>;
   navigation: NativeStackNavigationProp<any, any>;
 }
 
@@ -51,10 +52,11 @@ const MentorGradeLabel = {
 };
 
 export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
+  route,
   navigation,
 }) => {
-  const { user } = useAuth();
   const {
+    accountType,
     userName,
     mentorGrade,
     menteeGrade,
@@ -73,8 +75,10 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
     setFormerSchoolArea,
     setDescription,
     saveProfile,
-  } = useProfileEdit(navigation);
+  } = useProfileEdit(route, navigation);
   const insets = useSafeAreaInsets();
+
+  const { user } = useAuth();
 
   return (
     <KeyboardAvoidingView
@@ -111,7 +115,9 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
             >
               <Box>
                 <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
-                  プロフィール編集
+                  {user?.isProfileFilled
+                    ? "プロフィール編集"
+                    : "プロフィール作成"}
                 </CustomText>
               </Box>
               <CustomMaterialIcon
@@ -140,7 +146,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
                 学年
               </CustomText>
             </HStack>
-            {user?.type === AccountType.MENTOR ? (
+            {accountType === AccountType.MENTOR ? (
               <Select
                 selectedValue={mentorGrade}
                 placeholder="学年を選択"
@@ -186,7 +192,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
               </Select>
             )}
 
-            {user?.type == AccountType.MENTEE && (
+            {accountType == AccountType.MENTEE && (
               <>
                 <HStack alignItems="center" space="6px" flexDirection="row">
                   <CustomMaterialIcon
@@ -221,7 +227,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
                 </Select>
               </>
             )}
-            {user?.type == AccountType.MENTEE && (
+            {accountType === AccountType.MENTEE && (
               <ProfileInput
                 value={schoolOfChoice}
                 iconName={IconName.FLAG}
@@ -231,7 +237,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
                 onChange={setSchoolOfChoice}
               />
             )}
-            {user?.type == AccountType.MENTOR && (
+            {accountType === AccountType.MENTOR && (
               <ProfileInput
                 value={college}
                 iconName={IconName.SCHOOL}
@@ -241,7 +247,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
                 onChange={setCollege}
               />
             )}
-            {user?.type == AccountType.MENTOR && (
+            {accountType === AccountType.MENTOR && (
               <ProfileInput
                 value={formerSchoolArea}
                 iconName={IconName.FLAG}
