@@ -3,21 +3,12 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../../config/firebase";
 import { ScreenName } from "../../../constants/ScreenName";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { AccountType, User } from "../../../domain/types/User";
+import { useAuth } from "../../../providers/AuthProvider/hooks";
 
 export const useBriefProfile = (
   navigation: NativeStackNavigationProp<any, any>
 ) => {
-  const tempUser: User = {
-    id: "",
-    type: AccountType.MENTEE,
-    email: "",
-    userName: "hello",
-    school: "",
-    grade: "",
-    schoolChoice: "",
-    description: "",
-  };
+  const { user } = useAuth();
 
   const handleEditPress = useCallback(() => {
     navigation.navigate(ScreenName.MAIN, {
@@ -25,7 +16,7 @@ export const useBriefProfile = (
       params: {
         screen: ScreenName.PROFILE_EDIT,
         params: {
-          user: tempUser,
+          user: user,
         },
       },
     });

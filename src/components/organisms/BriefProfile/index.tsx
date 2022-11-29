@@ -6,16 +6,17 @@ import { FontType } from "../../../constants/Font";
 import { Dimensions } from "react-native";
 import { ProfileTab, ProfileTabColor } from "../ProfileTabbar";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ScreenName } from "../../../constants/ScreenName";
 import { useBriefProfile } from "./hooks";
 import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
 import { IconName } from "../../../constants/IconName";
+import { useAuth } from "../../../providers/AuthProvider/hooks";
 
 export interface BriefProfileProps {
   navigation: NativeStackNavigationProp<any, any>;
 }
 
 export const BriefProfile: React.FC<BriefProfileProps> = ({ navigation }) => {
+  const { user } = useAuth();
   const { handleEditPress, handleSignOut } = useBriefProfile(navigation);
   const screenWidth = Dimensions.get("window").width;
 

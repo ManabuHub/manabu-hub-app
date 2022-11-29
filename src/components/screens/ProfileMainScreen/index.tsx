@@ -24,7 +24,7 @@ export const ProfileMainScreen: React.FC<ProfileMainScreenProps> = ({
   const insets = useSafeAreaInsets();
   const [currentTab, setCurrentTab] = useState<ProfileTab>(ProfileTab.PROFILE);
 
-  const mainPane = () => {
+  const getMainPane = () => {
     switch (currentTab) {
       case ProfileTab.PROFILE:
         return <BriefProfile navigation={navigation} />;
@@ -77,7 +77,7 @@ export const ProfileMainScreen: React.FC<ProfileMainScreenProps> = ({
           currentTab={currentTab}
           onCurrentTabChange={setCurrentTab}
         />
-        {mainPane()}
+        {getMainPane()}
       </ScrollView>
     </KeyboardAvoidingView>
   );
