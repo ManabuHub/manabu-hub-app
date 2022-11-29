@@ -27,4 +27,8 @@ export class UserRepository {
       return snap.data() as User;
     }
   }
+
+  async replace(user: User) {
+    await setDoc(doc(this.collectionRef, user.id), user);
+  }
 }

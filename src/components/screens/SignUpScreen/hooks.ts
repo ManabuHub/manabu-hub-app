@@ -108,16 +108,17 @@ export const useSignUp = () => {
   const createUser = useCallback(
     async (id: string, email: string) => {
       const initialUser = {
+        id,
         email,
         isProfileFilled: false,
-        userName: null,
+        userName: "",
         type: AccountType.MENTEE,
         grade: null,
         currentSchoolArea: null,
         schoolOfChoice: null,
         college: null,
         formerSchoolArea: null,
-        description: null,
+        description: "",
         followingTags: [],
       };
       await userRepository.create(initialUser);

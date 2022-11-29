@@ -25,6 +25,7 @@ export const Tabbar: React.FC<{
         borderTopRadius={16}
         justifyContent="space-around"
         marginBottom={`${insets.bottom}px`}
+        marginTop="4px"
       >
         {state.routes.map((route: any, index: number) => {
           const onPress = () => {
@@ -86,16 +87,27 @@ export const Tabbar: React.FC<{
           const isFocused = state.index === index;
 
           return (
-            <Pressable
+            <Box
               key={index}
-              onPress={onPress}
-              height={16}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
+              width="64px"
+              backgroundColor={isFocused ? Color.WHITE_100 : "rgba(0,0,0,0)"}
+              marginBottom={`${-insets.bottom}px`}
+              borderTopRadius="32px"
             >
-              <Feather name={label} size={32} color={Color.WHITE_100} />
-            </Pressable>
+              <Pressable
+                onPress={onPress}
+                height={16}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Feather
+                  name={label}
+                  size={32}
+                  color={isFocused ? Color.MAIN : Color.WHITE_100}
+                />
+              </Pressable>
+            </Box>
           );
         })}
       </Box>

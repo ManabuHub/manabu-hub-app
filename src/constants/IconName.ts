@@ -1,4 +1,5 @@
 export enum IconName {
+  APARTMENT = "apartment",
   EMAIL = "mail",
   LOCK = "lock",
   EDIT = "edit",
@@ -18,4 +19,6 @@ export enum IconName {
   CHECK = "check",
   CLOSE = "close",
   SEND = "send",
+  BOOK = "menu-book",
+  DESCRIPTION = "portrait",
 }

@@ -36,7 +36,7 @@ export interface ProfileEditScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
 }
 
-const MenteeGradeLabel = {
+export const MenteeGradeLabel = {
   [MenteeGrade.GRADE_1]: "高校1年生",
   [MenteeGrade.GRADE_2]: "高校2年生",
   [MenteeGrade.GRADE_3]: "高校3年生",
@@ -44,7 +44,7 @@ const MenteeGradeLabel = {
   [MenteeGrade.BELOW]: "中学生以下",
 };
 
-const MentorGradeLabel = {
+export const MentorGradeLabel = {
   [MentorGrade.GRADE_1]: "大学1年生",
   [MentorGrade.GRADE_2]: "大学2年生",
   [MentorGrade.GRADE_3]: "大学3年生",
@@ -133,7 +133,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
               iconName={IconName.CIRCLE}
               iconColor={Color.MAIN}
               label="ユーザー名"
-              placeholder="manabu1111"
+              placeholder="例) manabu1111"
               onChange={setUserName}
             />
             <HStack alignItems="center" space="6px" flexDirection="row">
@@ -248,14 +248,39 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
               />
             )}
             {accountType === AccountType.MENTOR && (
-              <ProfileInput
-                value={formerSchoolArea}
-                iconName={IconName.FLAG}
-                iconColor={Color.MAIN}
-                label="出身校"
-                placeholder="都道府県・公立/私立"
-                onChange={setFormerSchoolArea}
-              />
+              <>
+                <HStack alignItems="center" space="6px" flexDirection="row">
+                  <CustomMaterialIcon
+                    name={IconName.SCHOOL}
+                    size="16px"
+                    color={Color.MAIN}
+                  />
+                  <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
+                    出身校(都道府県)
+                  </CustomText>
+                </HStack>
+                <Select
+                  selectedValue={formerSchoolArea}
+                  placeholder="通っていた学校の都道府県を選択"
+                  onValueChange={setFormerSchoolArea}
+                  borderRadius="10px"
+                  backgroundColor={Color.WHITE_100}
+                  borderWidth="0px"
+                  height="40px"
+                  shadow={2}
+                  placeholderTextColor={Color.MEDIUM_GRAY}
+                  fontWeight={600}
+                  marginTop="-8px"
+                >
+                  {Prefectures.map((prefecture) => (
+                    <Select.Item
+                      key={prefecture}
+                      label={prefecture}
+                      value={prefecture}
+                    />
+                  ))}
+                </Select>
+              </>
             )}
             <ProfileInput
               value={description}
@@ -269,7 +294,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
           </VStack>
           <Box alignSelf="center" marginTop="24px">
             <CapsuleButton
-              text="保存"
+              text={user?.isProfileFilled ? "保存" : "作成"}
               onPress={saveProfile}
               isLoading={isSubmitting}
             />
