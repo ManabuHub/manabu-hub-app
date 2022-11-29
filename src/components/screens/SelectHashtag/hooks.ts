@@ -6,6 +6,7 @@ import { Post, PostType } from "../../../domain/types/Post";
 import { useAuth } from "../../../providers/AuthProvider/hooks";
 import { PostRepository } from "../../../repositories/PostRepository";
 import { AlertButtonStyle, useAlert } from "../../../utils/useAlert";
+import { nGram } from "n-gram";
 
 export const useSelectedHashtag = (
   navigation: NativeStackNavigationProp<any, any>,
@@ -91,10 +92,12 @@ export const useSelectedHashtag = (
       authorId: userId,
       title,
       body,
-      hashTags: selectedTags,
-      likes: [],
+      likeCount: 0,
+      saveCount: 0,
+      commentCount: 0,
+      tags: selectedTags,
+      nGrams: nGram(3)(body),
       createdAt: new Date(),
-      comments: [],
     };
     setIsSubmitting(true);
     await postRepository.create(newPost);
