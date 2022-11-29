@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useEffect } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Color } from "../../../constants/Color";
 import { ScreenName } from "../../../constants/ScreenName";

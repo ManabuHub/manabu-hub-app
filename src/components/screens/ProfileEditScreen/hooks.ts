@@ -57,7 +57,7 @@ export const useProfileEdit = (
 
   const accountType = useMemo(
     () => (user?.isProfileFilled ? user?.type : route.params?.accountType),
-    [user]
+    [route.params?.accountType, user?.isProfileFilled, user?.type]
   );
 
   // useCallbackは、パフォーマンス改善のために使用しています（これを使わないと、画面が再レンダリングされたとき=自分か子のStateが変更されたときに、関数も毎回定義され直されます）
@@ -204,11 +204,9 @@ export const useProfileEdit = (
     return true;
   }, [
     accountType,
-    user,
     userName,
     mentorGrade,
     menteeGrade,
-    currentSchoolArea,
     schoolOfChoice,
     college,
     formerSchoolArea,

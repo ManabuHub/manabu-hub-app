@@ -14,7 +14,7 @@ export const useBriefProfile = (
         screen: ScreenName.PROFILE_EDIT,
       },
     });
-  }, []);
+  }, [navigation]);
 
   // Debug purpose
   const handleSignOut = useCallback(() => {
