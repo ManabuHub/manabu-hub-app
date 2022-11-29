@@ -29,14 +29,14 @@ export const SettingMain: React.FC<SettingMainProps> = ({ navigation }) => {
     <KeyboardAvoidingView
       flex={1}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      bg={Color.BASE}
+      bg={Color.WHITE_100}
     >
-      <ScrollView bg={Color.BASE}>
+      <ScrollView bg={Color.WHITE_100}>
         <VStack
           flex={1}
-          space={12}
+          space="50px"
           justifyContent="space-between"
-          bg={Color.BASE}
+          bg={Color.WHITE_100}
           safeArea
         >
           <HStack marginY="10px" position="relative">
@@ -44,10 +44,7 @@ export const SettingMain: React.FC<SettingMainProps> = ({ navigation }) => {
               <Pressable
                 position="relative"
                 onPress={() => {
-                  navigation.navigate(ScreenName.MAIN, {
-                    screen: ScreenName.PROFILE,
-                    params: { screen: ScreenName.PROFILE_MAIN },
-                  });
+                  navigation.navigate(ScreenName.HOME);
                 }}
               >
                 <CustomMaterialIcon
@@ -65,16 +62,14 @@ export const SettingMain: React.FC<SettingMainProps> = ({ navigation }) => {
               zIndex={1}
             >
               <Box>
-                <CustomText fontType={FontType.LARGE_BOLD} color={Color.TEXT}>
+                <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
                   設定
                 </CustomText>
               </Box>
             </HStack>
           </HStack>
-          <VStack space={5}>
+          <VStack space="15px" mx={sideMargin}>
             <Pressable
-              ml={sideMargin}
-              mr={sideMargin}
               onPress={() => {
                 navigation.navigate(ScreenName.SETTING, {
                   screen: ScreenName.SETTING_ACCOUNT,
@@ -92,7 +87,7 @@ export const SettingMain: React.FC<SettingMainProps> = ({ navigation }) => {
                     color={Color.TEXT}
                     name={IconName.PERSON}
                   />
-                  <CustomText color={Color.TEXT} fontType={FontType.LARGE}>
+                  <CustomText color={Color.TEXT} fontType={FontType.SMALL_BOLD}>
                     アカウント設定
                   </CustomText>
                 </HStack>
@@ -106,8 +101,6 @@ export const SettingMain: React.FC<SettingMainProps> = ({ navigation }) => {
             </Pressable>
 
             <Pressable
-              ml={sideMargin}
-              mr={sideMargin}
               onPress={() => {
                 navigation.navigate(ScreenName.SETTING, {
                   screen: ScreenName.SETTING_MAIN,
@@ -125,7 +118,7 @@ export const SettingMain: React.FC<SettingMainProps> = ({ navigation }) => {
                     color={Color.TEXT}
                     name={IconName.BELL}
                   />
-                  <CustomText color={Color.TEXT} fontType={FontType.LARGE}>
+                  <CustomText color={Color.TEXT} fontType={FontType.SMALL_BOLD}>
                     通知
                   </CustomText>
                 </HStack>
@@ -139,8 +132,6 @@ export const SettingMain: React.FC<SettingMainProps> = ({ navigation }) => {
             </Pressable>
 
             <Pressable
-              ml={sideMargin}
-              mr={sideMargin}
               onPress={() => {
                 navigation.navigate(ScreenName.SETTING, {
                   screen: ScreenName.SETTING_MUTE_ACCOUNT,
@@ -158,7 +149,7 @@ export const SettingMain: React.FC<SettingMainProps> = ({ navigation }) => {
                     color={Color.TEXT}
                     name={IconName.MUTE}
                   />
-                  <CustomText color={Color.TEXT} fontType={FontType.LARGE}>
+                  <CustomText color={Color.TEXT} fontType={FontType.SMALL_BOLD}>
                     ミュート中のユーザー
                   </CustomText>
                 </HStack>
@@ -172,8 +163,6 @@ export const SettingMain: React.FC<SettingMainProps> = ({ navigation }) => {
             </Pressable>
 
             <Pressable
-              ml={sideMargin}
-              mr={sideMargin}
               onPress={() => {
                 navigation.navigate(ScreenName.SETTING, {
                   screen: ScreenName.SETTING_MAIN,
@@ -191,7 +180,7 @@ export const SettingMain: React.FC<SettingMainProps> = ({ navigation }) => {
                     color={Color.TEXT}
                     name={IconName.INFO}
                   />
-                  <CustomText color={Color.TEXT} fontType={FontType.LARGE}>
+                  <CustomText color={Color.TEXT} fontType={FontType.SMALL_BOLD}>
                     まなぶHUBについて
                   </CustomText>
                 </HStack>

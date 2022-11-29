@@ -11,7 +11,7 @@ export type SettingParamList = {
   [ScreenName.SETTING_MUTE_ACCOUNT]: undefined;
 };
 
-export const Setting: React.FC = () => {
+export const SettingStack: React.FC = () => {
   const Setting = createNativeStackNavigator<SettingParamList>();
 
   return (

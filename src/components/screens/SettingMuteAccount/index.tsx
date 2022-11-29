@@ -30,14 +30,14 @@ export const SettingMuteAccount: React.FC<SettingMuteAccountProps> = ({
     <KeyboardAvoidingView
       flex={1}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      bg={Color.BASE}
+      bg={Color.WHITE_100}
     >
-      <ScrollView bg={Color.BASE}>
+      <ScrollView bg={Color.WHITE_100}>
         <VStack
           flex={1}
-          space={12}
+          space="50px"
           justifyContent="space-between"
-          bg={Color.BASE}
+          bg={Color.WHITE_100}
           safeArea
         >
           <HStack marginY="10px" position="relative">
@@ -45,9 +45,8 @@ export const SettingMuteAccount: React.FC<SettingMuteAccountProps> = ({
               <Pressable
                 position="relative"
                 onPress={() => {
-                  navigation.navigate(ScreenName.MAIN, {
-                    screen: ScreenName.PROFILE,
-                    params: { screen: ScreenName.PROFILE_MAIN },
+                  navigation.navigate(ScreenName.SETTING, {
+                    screen: ScreenName.SETTING_MAIN,
                   });
                 }}
               >
@@ -66,7 +65,7 @@ export const SettingMuteAccount: React.FC<SettingMuteAccountProps> = ({
               zIndex={1}
             >
               <Box>
-                <CustomText fontType={FontType.LARGE_BOLD} color={Color.TEXT}>
+                <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
                   ミュート中のユーザー
                 </CustomText>
               </Box>
@@ -74,12 +73,12 @@ export const SettingMuteAccount: React.FC<SettingMuteAccountProps> = ({
           </HStack>
           <VStack space={5}>
             <Box ml="30px" mr="30px">
-              <CustomText fontType={FontType.LARGE_BOLD} color={Color.TEXT}>
+              <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
                 ミュート中のユーザー数：１
               </CustomText>
             </Box>
             <HStack ml={sideMargin} mr={sideMargin}>
-              <CustomText fontType={FontType.LARGE_BOLD} color={Color.TEXT}>
+              <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
                 ピヨ子
               </CustomText>
               <Spacer />

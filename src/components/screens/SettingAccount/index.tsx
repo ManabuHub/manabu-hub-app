@@ -32,14 +32,14 @@ export const SettingAccount: React.FC<SettingAccountProps> = ({
     <KeyboardAvoidingView
       flex={1}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      bg={Color.BASE}
+      bg={Color.WHITE_100}
     >
-      <ScrollView bg={Color.BASE}>
+      <ScrollView bg={Color.WHITE_100}>
         <VStack
           flex={1}
-          space={12}
+          space="50px"
           justifyContent="space-between"
-          bg={Color.BASE}
+          bg={Color.WHITE_100}
           safeArea
         >
           <HStack marginY="10px" position="relative">
@@ -67,18 +67,16 @@ export const SettingAccount: React.FC<SettingAccountProps> = ({
               zIndex={1}
             >
               <Box>
-                <CustomText fontType={FontType.LARGE_BOLD} color={Color.TEXT}>
+                <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
                   アカウント設定
                 </CustomText>
               </Box>
             </HStack>
           </HStack>
-          <VStack space={5}>
+          <VStack space="15px" mx={sideMargin}>
             <VStack
-              ml={sideMargin}
-              mr={sideMargin}
-              // space="6px"
-              // justifyContent="space-between"
+            // space="6px"
+            // justifyContent="space-between"
             >
               <HStack alignItems="center">
                 <CustomMaterialIcon
@@ -86,7 +84,7 @@ export const SettingAccount: React.FC<SettingAccountProps> = ({
                   color={Color.TEXT}
                   name={IconName.PERSON}
                 />
-                <CustomText color={Color.TEXT} fontType={FontType.LARGE}>
+                <CustomText color={Color.TEXT} fontType={FontType.SMALL_BOLD}>
                   ユーザーステータス
                 </CustomText>
               </HStack>
@@ -101,12 +99,12 @@ export const SettingAccount: React.FC<SettingAccountProps> = ({
                 }}
               >
                 <Radio value="mentee" my="1">
-                  <CustomText fontType={FontType.LARGE} color={Color.TEXT}>
+                  <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
                     高校生/浪人生
                   </CustomText>
                 </Radio>
                 <Radio value="mentor" my="1">
-                  <CustomText fontType={FontType.LARGE} color={Color.TEXT}>
+                  <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
                     大学生
                   </CustomText>
                 </Radio>
@@ -114,8 +112,6 @@ export const SettingAccount: React.FC<SettingAccountProps> = ({
             </VStack>
 
             <Pressable
-              ml={sideMargin}
-              mr={sideMargin}
               onPress={() => {
                 navigation.navigate(ScreenName.SETTING, {
                   screen: ScreenName.SETTING_MAIN,
@@ -133,7 +129,7 @@ export const SettingAccount: React.FC<SettingAccountProps> = ({
                     color={Color.TEXT}
                     name={IconName.LOGOUT}
                   />
-                  <CustomText color={Color.TEXT} fontType={FontType.LARGE}>
+                  <CustomText color={Color.TEXT} fontType={FontType.SMALL_BOLD}>
                     ログアウト
                   </CustomText>
                 </HStack>
@@ -141,8 +137,6 @@ export const SettingAccount: React.FC<SettingAccountProps> = ({
             </Pressable>
 
             <Pressable
-              ml={sideMargin}
-              mr={sideMargin}
               onPress={() => {
                 navigation.navigate(ScreenName.SETTING, {
                   screen: ScreenName.SETTING_MAIN,
@@ -160,7 +154,7 @@ export const SettingAccount: React.FC<SettingAccountProps> = ({
                     color={Color.TEXT}
                     name={IconName.DELETE}
                   />
-                  <CustomText color={Color.TEXT} fontType={FontType.LARGE}>
+                  <CustomText color={Color.TEXT} fontType={FontType.SMALL_BOLD}>
                     アカウントを削除する
                   </CustomText>
                 </HStack>
