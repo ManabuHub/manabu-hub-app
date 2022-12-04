@@ -97,7 +97,7 @@ export const WriteBody: React.FC<WriteBodyScreenProps> = ({ navigation }) => {
               lineHeight={`${LineHeight}px`}
               height={`${displayNumberOfLines * LineHeight}px`}
               value={body}
-              onChangeText={setBody} //https://docs.nativebase.io/textarea#page-title ここからはどうすれば左上始まりになるか読み取れなかった
+              onChangeText={setBody}
             />
             {body.length === 0 && (
               <Box position="absolute" top="9px" left="80px" opacity={30}>

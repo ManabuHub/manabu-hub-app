@@ -17,4 +17,10 @@ export interface User {
   description: string; // 自己紹介
   followingTags: string[];
   userNameNGrams: string[];
+  settings: Settings;
+}
+
+export interface Settings {
+  blockedUserIds: string[];
+  isNotificationOn: boolean;
 }

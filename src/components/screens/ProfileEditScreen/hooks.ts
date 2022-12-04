@@ -13,7 +13,7 @@ export enum MenteeGrade {
   GRADE_1 = "grade-1",
   GRADE_2 = "grade-2",
   GRADE_3 = "grade-3",
-  PREPARE = "prepare", // 浪人に対応する英語がない...
+  PREPARE = "prepare",
   BELOW = "below",
 }
 
@@ -256,6 +256,7 @@ export const useProfileEdit = (
       description,
       followingTags: [],
       userNameNGrams: nGram(3)(userName),
+      settings: user.settings,
     };
     setIsSubmitting(true);
     await userRepository.replace(newUser);

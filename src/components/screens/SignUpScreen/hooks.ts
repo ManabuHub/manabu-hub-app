@@ -120,6 +120,11 @@ export const useSignUp = () => {
         formerSchoolArea: null,
         description: "",
         followingTags: [],
+        userNameNGrams: [],
+        settings: {
+          blockedUserIds: [],
+          isNotificationOn: true,
+        },
       };
       await userRepository.create(initialUser);
       setUser(initialUser);
