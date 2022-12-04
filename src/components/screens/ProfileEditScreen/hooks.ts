@@ -7,6 +7,7 @@ import { AccountType } from "../../../domain/types/User";
 import { useAuth } from "../../../providers/AuthProvider/hooks";
 import { RouteProp } from "@react-navigation/native";
 import { UserRepository } from "../../../repositories/UserRepository";
+import { nGram } from "n-gram";
 
 export enum MenteeGrade {
   GRADE_1 = "grade-1",
@@ -254,6 +255,7 @@ export const useProfileEdit = (
       formerSchoolArea: formerSchoolArea !== "" ? formerSchoolArea : null,
       description,
       followingTags: [],
+      userNameNGrams: nGram(3)(userName),
     };
     setIsSubmitting(true);
     await userRepository.replace(newUser);
@@ -265,7 +267,6 @@ export const useProfileEdit = (
     });
   }, [
     user,
-
     accountType,
     userName,
     menteeGrade,

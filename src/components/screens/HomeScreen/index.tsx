@@ -13,8 +13,8 @@ import { Color } from "../../../constants/Color";
 import { IconName } from "../../../constants/IconName";
 import { ScreenName } from "../../../constants/ScreenName";
 import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
-import { PostCard, PostCardType } from "../../organisms/PostCard";
-import { useHomeScreen } from "./hooks";
+// import { PostCard, PostCardType } from "../../organisms/PostCard";
+// import { useHomeScreen } from "./hooks";
 
 export interface HomeScreenProps {
   navigation: NativeStackNavigationProp<any, any>;
@@ -22,7 +22,7 @@ export interface HomeScreenProps {
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const insets = useSafeAreaInsets();
-  const { posts } = useHomeScreen();
+  // const { posts } = useHomeScreen();
 
   return (
     <KeyboardAvoidingView
@@ -48,18 +48,6 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               />
             </Pressable>
           </HStack>
-          <VStack paddingX="16px">
-            {posts.map((post, index) => (
-              <PostCard
-                type={PostCardType.TL}
-                authorName={"hoge"}
-                key={index}
-                title={post.title}
-                tags={post.tags}
-                body={post.body}
-              />
-            ))}
-          </VStack>
         </VStack>
       </ScrollView>
     </KeyboardAvoidingView>

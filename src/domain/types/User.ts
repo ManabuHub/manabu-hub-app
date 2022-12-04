@@ -16,4 +16,5 @@ export interface User {
   formerSchoolArea: string | null; // メンター限定、学校の地域
   description: string; // 自己紹介
   followingTags: string[];
+  userNameNGrams: string[];
 }
