@@ -1,56 +1,47 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
 import { Post, PostType } from "../../../domain/types/Post";
 import { CustomText } from "../../atoms/Text";
 import {
   ArrowBackIcon,
   Box,
   Text,
-  Input,
-  TextArea,
   VStack,
   HStack,
   KeyboardAvoidingView,
   ScrollView,
   ThreeDotsIcon,
-  Icon,
   Divider,
 } from "native-base";
 import { Color } from "../../../constants/Color";
 import { Platform, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { FontType } from "../../../constants/Font";
+import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
+import { IconName } from "../../../constants/IconName";
+
+// ミリセカンド換算
+const oneMinute = 60000;
+const oneHour = oneMinute * 60;
+const oneDay = oneHour * 24;
+const oneMonth = oneDay * 31;
+const oneYear = oneDay * 365;
 
 // コメントがどれくらい前のものか計算する関数
 function calculateAgeOfComment(date: Date) {
   const currentTime = new Date();
-  const yearDifference = currentTime.getFullYear() - date.getFullYear();
-  if (yearDifference > 0) {
-    return `${yearDifference}年前`;
-  } else {
-    const monthDifference = currentTime.getMonth() - date.getMonth();
-    if (monthDifference > 0) {
-      return `${monthDifference}ヶ月前`;
-    } else {
-      const dateDifference = currentTime.getDate() - date.getDate();
-      if (dateDifference > 0) {
-        return `${dateDifference}日前`;
-      } else {
-        const hourDifference = currentTime.getHours() - date.getHours();
-        if (hourDifference > 0) {
-          return `${hourDifference}時間前`;
-        } else {
-          const minuteDifference = currentTime.getMinutes() - date.getMinutes();
-          if (minuteDifference > 0) {
-            `${minuteDifference}分前`;
-          } else {
-            return "数秒前";
-          }
-        }
-      }
-    }
-  }
+  const difference = currentTime.getTime() - date.getTime();
+  if (difference < oneMinute) {
+    return "たった今";
+  } else if (difference >= oneMinute && difference < oneHour) {
+    return `${Math.floor(difference / oneMinute)}分前`;
+  } else if (difference >= oneHour && difference < oneDay) {
+    return `${Math.floor(difference / oneHour)}時間前`;
+  } else if (difference >= oneDay && difference < oneMonth) {
+    return `${Math.floor(difference / oneDay)}日前`;
+  } else if (difference >= oneMonth && difference < oneYear) {
+    return `${Math.floor(difference / oneMonth)}ヶ月前`;
+  } else return `${Math.floor(difference / oneYear)}年前`;
 }
 
 export const PostDetailScreen: React.FC = () => {
@@ -63,11 +54,12 @@ export const PostDetailScreen: React.FC = () => {
     saveCount: 0,
     commentCount: 0,
     tags: [],
-    nGrams:[],
-    createdAt: new Date(2021),
+    nGrams: [],
+    createdAt: new Date(2021, 5, 0),
   });
 
   const insets = useSafeAreaInsets();
+  const actionButtonSize = "6";
 
   useEffect(() => {
     //データを取ってくる関数 型注釈てきとーです
@@ -90,36 +82,45 @@ export const PostDetailScreen: React.FC = () => {
               <ThreeDotsIcon />
             </Box>
           </View>
-          <HStack mt="5">
-            <CustomText color={Color.TEXT} fontType={FontType.EXSMALL_BOLD}>
-              {"ぴよ子"}
-            </CustomText>
-            <Box display="flex" flexDirection="row">
+          <HStack mt="5" alignItems="center">
+            <Box
+              display="flex"
+              flexDirection="row"
+              mr="auto"
+              alignItems="center"
+            >
+              <Box
+                height="32px"
+                width="32px"
+                borderRadius="16px"
+                backgroundColor={Color.MEDIUM_GRAY}
+              />
+              <Box>
+                <CustomText color={Color.TEXT} fontType={FontType.EXSMALL_BOLD}>
+                  {"ぴよ子"}
+                </CustomText>
+              </Box>
+            </Box>
+            <Box display="flex" flexDirection="row" ml="auto">
               <Text color={Color.TEXT}>
-                {postData.createdAt.getHours() + "時間前"}
+                {calculateAgeOfComment(postData.createdAt)}
               </Text>
-              <Icon
-                as={<MaterialIcons name={"favorite-outline"} />}
-                size={6}
+              <CustomMaterialIcon
+                name={IconName.LIKE}
+                size={actionButtonSize}
                 color={Color.MAIN}
-                mt="3px"
-                mr="4px"
               />
               <Text color={Color.TEXT}> {postData.likeCount}</Text>
-              <Icon
-                as={<MaterialIcons name={"chat-bubble-outline"} />}
-                size={6}
+              <CustomMaterialIcon
+                name={IconName.CHAT}
+                size={actionButtonSize}
                 color={Color.MAIN}
-                mt="3px"
-                mr="4px"
               />
               <Text color={Color.TEXT}> {postData.commentCount}</Text>
-              <Icon
-                as={<MaterialIcons name={"turned-in-not"} />}
-                size={6}
+              <CustomMaterialIcon
+                name={IconName.SAVE}
+                size={actionButtonSize}
                 color={Color.MAIN}
-                mt="3px"
-                mr="4px"
               />
               <Text color={Color.TEXT}> {postData.saveCount}</Text>
             </Box>
