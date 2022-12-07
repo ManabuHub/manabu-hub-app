@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Post } from "../../../domain/types/Post";
+import { Post, PostType } from "../../../domain/types/Post";
 import { CustomText } from "../../atoms/Text";
 import {
   ArrowBackIcon,
@@ -55,13 +55,16 @@ function calculateAgeOfComment(date: Date) {
 
 export const PostDetailScreen: React.FC = () => {
   const [postData, setPostData] = useState<Post>({
+    type: PostType.ASK,
     authorId: "",
     title: "東大文系赤本17ページの第三問意見交換",
     body: "東大文科赤本の17ページ第三問の筆者の意見を述べよの答えが納得行かないのですが、みなさんはどのように回答しましたか？私的には筆者は主人公の死を嘆いている様にしか感じられないのですが、、赤本には逆のことが書いてありますよね。その部分の解説のお願いします。",
-    likes: [],
-    hashTags: [],
+    likeCount: 0,
+    saveCount: 0,
+    commentCount: 0,
+    tags: [],
+    nGrams:[],
     createdAt: new Date(2021),
-    comments: [],
   });
 
   const insets = useSafeAreaInsets();
@@ -71,7 +74,6 @@ export const PostDetailScreen: React.FC = () => {
     const fetchData = async (): Promise<Post | any> => {};
   }, []);
 
-  //型エラーが起きています
   return (
     <KeyboardAvoidingView
       flex={1}
@@ -103,7 +105,7 @@ export const PostDetailScreen: React.FC = () => {
                 mt="3px"
                 mr="4px"
               />
-              <Text color={Color.TEXT}> {postData.likes.length}</Text>
+              <Text color={Color.TEXT}> {postData.likeCount}</Text>
               <Icon
                 as={<MaterialIcons name={"chat-bubble-outline"} />}
                 size={6}
@@ -111,7 +113,7 @@ export const PostDetailScreen: React.FC = () => {
                 mt="3px"
                 mr="4px"
               />
-              <Text color={Color.TEXT}> {postData.comments.length}</Text>
+              <Text color={Color.TEXT}> {postData.commentCount}</Text>
               <Icon
                 as={<MaterialIcons name={"turned-in-not"} />}
                 size={6}
@@ -119,7 +121,7 @@ export const PostDetailScreen: React.FC = () => {
                 mt="3px"
                 mr="4px"
               />
-              <Text color={Color.TEXT}> {0}</Text>
+              <Text color={Color.TEXT}> {postData.saveCount}</Text>
             </Box>
           </HStack>
           <Divider
@@ -140,11 +142,7 @@ export const PostDetailScreen: React.FC = () => {
             borderBottomWidth="1"
           />
           <Box marginBottom="12px">
-            <CustomText
-              color={Color.TEXT}
-              fontType={FontType.SMALL}
-              underline
-            >
+            <CustomText color={Color.TEXT} fontType={FontType.SMALL} underline>
               {postData.body}
             </CustomText>
           </Box>
