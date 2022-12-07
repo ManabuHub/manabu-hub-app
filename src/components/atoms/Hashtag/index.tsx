@@ -48,16 +48,17 @@ const Hashtag: React.FC<HashtagProps> = ({ text, displayMode, onPress }) => {
   return (
     <Pressable
       onPress={onPress}
-      paddingX="12px"
-      paddingY="5px"
+      paddingX="13px"
+      paddingY="7px"
       display="flex"
       alignItems="center"
       justifyContent="center"
       borderRadius={style[displayMode].radiusSize}
       backgroundColor={style[displayMode].backgroundColor}
-      shadow={style[displayMode].shadowSize}
       marginTop="6px"
       marginRight="6px"
+      borderWidth={displayMode === HashTagDisplayMode.SECONDARY ? "1px" : "0px"}
+      borderColor={Color.MEDIUM_GRAY}
     >
       <CustomText
         color={style[displayMode].textColor}

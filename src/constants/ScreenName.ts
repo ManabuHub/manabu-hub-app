@@ -5,6 +5,8 @@ export enum ScreenName {
   WRITE_BODY = "writeBody",
   SELECT_HASHTAG = "selectHashTag",
   HOME = "home",
+  NEW_POST = "newPost",
+  MAIN = "main",
   CREATE_POST = "createPost",
   PLACEHOLDER = "placeholder",
   SEARCH = "search",
@@ -12,4 +14,8 @@ export enum ScreenName {
   PROFILE = "user",
   PROFILE_MAIN = "profileMain",
   PROFILE_EDIT = "profileEdit",
+  SETTING = "setting",
+  SETTING_MAIN = "settingMain",
+  SETTING_ACCOUNT = "settingAccount",
+  SETTING_MUTE_ACCOUNT = "settingMuteAccount",
 }

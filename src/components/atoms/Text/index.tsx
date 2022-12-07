@@ -39,32 +39,41 @@ const CustomText: React.FC<TextProps> = ({
   );
 
   return (
-    <View flex={1} position="relative">
+    <View position="relative" flexShrink={1}>
       <Text
         style={{
           color: color,
-          ...FontStyles[fontType],
           ...style,
-          display: "flex",
         }}
         numberOfLines={lineLimit ?? undefined}
         ellipsizeMode="tail"
         onTextLayout={onTextLayout}
-        lineHeight={underline ? "21px" : undefined}
+        flexShrink={1}
+        justifyContent="center"
+        fontSize={FontStyles[fontType].fontSize}
+        fontFamily={FontStyles[fontType].fontFamily}
+        fontWeight={FontStyles[fontType].fontWeight}
+        lineHeight={`${
+          FontStyles[fontType].lineHeight + (underline ? 4 : 0)
+        }px`}
+        display="flex"
       >
         {children}
       </Text>
       {underline &&
         [...Array(numberOfLines).keys()].map((num) => (
-          <>
-            <View position="absolute" top={`${21 + num * 21}px`} width="100%">
-              <DashedLine
-                dashLength={2}
-                dashThickness={1}
-                dashColor={Color.DASH}
-              />
-            </View>
-          </>
+          <View
+            position="absolute"
+            top={`${(FontStyles[fontType].lineHeight + 4) * (num + 1)}px`}
+            width="100%"
+            key={num}
+          >
+            <DashedLine
+              dashLength={2}
+              dashThickness={1}
+              dashColor={Color.DASH}
+            />
+          </View>
         ))}
     </View>
   );

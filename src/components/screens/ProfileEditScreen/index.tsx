@@ -4,10 +4,9 @@ import {
   VStack,
   HStack,
   Pressable,
-  Icon,
   Box,
+  Select,
 } from "native-base";
-import { MaterialIcons } from "@expo/vector-icons";
 import * as React from "react";
 import { Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -17,31 +16,69 @@ import { ScreenName } from "../../../constants/ScreenName";
 import { CustomText } from "../../atoms/Text";
 import { FontType } from "../../../constants/Font";
 import { ProfileInput } from "../../molecules/ProfileInput";
-import { useProfileEdit } from "./hooks";
+import {
+  MenteeGrade,
+  MenteeGradeList,
+  MentorGrade,
+  MentorGradeList,
+  useProfileEdit,
+} from "./hooks";
 import { CapsuleButton } from "../../molecules/CapsuleButton";
+import { IconName } from "../../../constants/IconName";
+import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
+import { AccountType } from "../../../domain/types/User";
+import { useAuth } from "../../../providers/AuthProvider/hooks";
+import { Prefectures } from "../../../constants/Prefectures";
+import { RouteProp } from "@react-navigation/native";
 
 export interface ProfileEditScreenProps {
+  route: RouteProp<any, any>;
   navigation: NativeStackNavigationProp<any, any>;
 }
 
+export const MenteeGradeLabel = {
+  [MenteeGrade.GRADE_1]: "高校1年生",
+  [MenteeGrade.GRADE_2]: "高校2年生",
+  [MenteeGrade.GRADE_3]: "高校3年生",
+  [MenteeGrade.PREPARE]: "浪人生",
+  [MenteeGrade.BELOW]: "中学生以下",
+};
+
+export const MentorGradeLabel = {
+  [MentorGrade.GRADE_1]: "大学1年生",
+  [MentorGrade.GRADE_2]: "大学2年生",
+  [MentorGrade.GRADE_3]: "大学3年生",
+  [MentorGrade.GRADE_4]: "大学4年生",
+};
+
 export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
+  route,
   navigation,
 }) => {
   const {
+    accountType,
     userName,
-    school,
-    grade,
-    schoolChoice,
+    mentorGrade,
+    menteeGrade,
+    currentSchoolArea,
+    schoolOfChoice,
+    college,
+    formerSchoolArea,
     description,
     isSubmitting,
     setUserName,
-    setSchool,
-    setGrade,
-    setSchoolChoice,
+    onMentorGradeChange,
+    onMenteeGradeChange,
+    setCurrentSchoolArea,
+    setSchoolOfChoice,
+    setCollege,
+    setFormerSchoolArea,
     setDescription,
     saveProfile,
-  } = useProfileEdit(navigation);
+  } = useProfileEdit(route, navigation);
   const insets = useSafeAreaInsets();
+
+  const { user } = useAuth();
 
   return (
     <KeyboardAvoidingView
@@ -56,15 +93,16 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
               <Pressable
                 position="relative"
                 onPress={() => {
-                  navigation.navigate(ScreenName.PROFILE, {
-                    screen: ScreenName.PROFILE_MAIN,
+                  navigation.navigate(ScreenName.MAIN, {
+                    screen: ScreenName.PROFILE,
+                    params: { screen: ScreenName.PROFILE_MAIN },
                   });
                 }}
               >
-                <Icon
-                  as={<MaterialIcons name={"arrow-back"} />}
+                <CustomMaterialIcon
                   size="28px"
                   color={Color.MAIN}
+                  name={IconName.ARROW_BACK}
                 />
               </Pressable>
             </Box>
@@ -77,11 +115,13 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
             >
               <Box>
                 <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
-                  プロフィール編集
+                  {user?.isProfileFilled
+                    ? "プロフィール編集"
+                    : "プロフィール作成"}
                 </CustomText>
               </Box>
-              <Icon
-                as={<MaterialIcons name={"edit"} />}
+              <CustomMaterialIcon
+                name={IconName.EDIT}
                 size="16px"
                 color={Color.TEXT}
               />
@@ -90,40 +130,162 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
           <VStack space="16px" marginX="36px" marginTop="16px">
             <ProfileInput
               value={userName}
-              iconName="circle"
-              iconColor={Color.USER_PINK}
+              iconName={IconName.CIRCLE}
+              iconColor={Color.MAIN}
               label="ユーザー名"
-              placeholder="manabu1111"
+              placeholder="例) manabu1111"
               onChange={setUserName}
             />
-            <ProfileInput
-              value={grade}
-              iconName="import-contacts"
-              iconColor={Color.GRADE_GREEN}
-              label="学年"
-              placeholder="大学1年生"
-              onChange={setGrade}
-            />
-            <ProfileInput
-              value={schoolChoice}
-              iconName="flag"
-              iconColor={Color.COLLEGE_ORANGE}
-              label="志望校"
-              placeholder="大学・学部"
-              onChange={setSchoolChoice}
-            />
-            <ProfileInput
-              value={school}
-              iconName="school"
-              iconColor={Color.COLLEGE_ORANGE}
-              label="大学"
-              placeholder="大学・学部"
-              onChange={setSchool}
-            />
+            <HStack alignItems="center" space="6px" flexDirection="row">
+              <CustomMaterialIcon
+                name={IconName.CONTACT}
+                size="16px"
+                color={Color.MAIN}
+              />
+              <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
+                学年
+              </CustomText>
+            </HStack>
+            {accountType === AccountType.MENTOR ? (
+              <Select
+                selectedValue={mentorGrade}
+                placeholder="学年を選択"
+                onValueChange={onMentorGradeChange}
+                borderRadius="10px"
+                backgroundColor={Color.WHITE_100}
+                borderWidth="0px"
+                height="40px"
+                shadow={2}
+                placeholderTextColor={Color.MEDIUM_GRAY}
+                fontWeight={600}
+                marginTop="-8px"
+              >
+                {MentorGradeList.map((grade) => (
+                  <Select.Item
+                    key={grade}
+                    label={MentorGradeLabel[grade]}
+                    value={grade}
+                  />
+                ))}
+              </Select>
+            ) : (
+              <Select
+                selectedValue={menteeGrade}
+                placeholder="学年を選択"
+                onValueChange={onMenteeGradeChange}
+                borderRadius="10px"
+                backgroundColor={Color.WHITE_100}
+                borderWidth="0px"
+                height="40px"
+                shadow={2}
+                placeholderTextColor={Color.MEDIUM_GRAY}
+                fontWeight={600}
+                marginTop="-8px"
+              >
+                {MenteeGradeList.map((grade) => (
+                  <Select.Item
+                    key={grade}
+                    label={MenteeGradeLabel[grade]}
+                    value={grade}
+                  />
+                ))}
+              </Select>
+            )}
+
+            {accountType == AccountType.MENTEE && (
+              <>
+                <HStack alignItems="center" space="6px" flexDirection="row">
+                  <CustomMaterialIcon
+                    name={IconName.SCHOOL}
+                    size="16px"
+                    color={Color.MAIN}
+                  />
+                  <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
+                    学校(都道府県)
+                  </CustomText>
+                </HStack>
+                <Select
+                  selectedValue={currentSchoolArea}
+                  placeholder="通っている学校の都道府県を選択"
+                  onValueChange={setCurrentSchoolArea}
+                  borderRadius="10px"
+                  backgroundColor={Color.WHITE_100}
+                  borderWidth="0px"
+                  height="40px"
+                  shadow={2}
+                  placeholderTextColor={Color.MEDIUM_GRAY}
+                  fontWeight={600}
+                  marginTop="-8px"
+                >
+                  {Prefectures.map((prefecture) => (
+                    <Select.Item
+                      key={prefecture}
+                      label={prefecture}
+                      value={prefecture}
+                    />
+                  ))}
+                </Select>
+              </>
+            )}
+            {accountType === AccountType.MENTEE && (
+              <ProfileInput
+                value={schoolOfChoice}
+                iconName={IconName.FLAG}
+                iconColor={Color.MAIN}
+                label="志望校"
+                placeholder="大学・学部"
+                onChange={setSchoolOfChoice}
+              />
+            )}
+            {accountType === AccountType.MENTOR && (
+              <ProfileInput
+                value={college}
+                iconName={IconName.SCHOOL}
+                iconColor={Color.MAIN}
+                label="大学"
+                placeholder="大学・学部"
+                onChange={setCollege}
+              />
+            )}
+            {accountType === AccountType.MENTOR && (
+              <>
+                <HStack alignItems="center" space="6px" flexDirection="row">
+                  <CustomMaterialIcon
+                    name={IconName.SCHOOL}
+                    size="16px"
+                    color={Color.MAIN}
+                  />
+                  <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
+                    出身校(都道府県)
+                  </CustomText>
+                </HStack>
+                <Select
+                  selectedValue={formerSchoolArea}
+                  placeholder="通っていた学校の都道府県を選択"
+                  onValueChange={setFormerSchoolArea}
+                  borderRadius="10px"
+                  backgroundColor={Color.WHITE_100}
+                  borderWidth="0px"
+                  height="40px"
+                  shadow={2}
+                  placeholderTextColor={Color.MEDIUM_GRAY}
+                  fontWeight={600}
+                  marginTop="-8px"
+                >
+                  {Prefectures.map((prefecture) => (
+                    <Select.Item
+                      key={prefecture}
+                      label={prefecture}
+                      value={prefecture}
+                    />
+                  ))}
+                </Select>
+              </>
+            )}
             <ProfileInput
               value={description}
-              iconName="accessibility"
-              iconColor={Color.DESCRIPTION_PURPLE}
+              iconName={IconName.ACCESSIBILITY}
+              iconColor={Color.MAIN}
               label="自己紹介"
               placeholder="どのような情報を提供したいか（得意教科、大学のサークル活動など）"
               onChange={setDescription}
@@ -132,7 +294,7 @@ export const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
           </VStack>
           <Box alignSelf="center" marginTop="24px">
             <CapsuleButton
-              text="保存"
+              text={user?.isProfileFilled ? "保存" : "作成"}
               onPress={saveProfile}
               isLoading={isSubmitting}
             />

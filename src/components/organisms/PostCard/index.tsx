@@ -1,11 +1,12 @@
 import * as React from "react";
-import { Box, VStack, HStack, Divider, Icon, Text } from "native-base";
+import { Box, VStack, HStack, Divider, Text } from "native-base";
 import { Color } from "../../../constants/Color";
 import { AlignedHashtags } from "../../molecules/AlignedHashtags";
 import { CustomText } from "../../atoms/Text";
 import { FontType } from "../../../constants/Font";
 import { HashTagDisplayMode } from "../../atoms/Hashtag";
-import { MaterialIcons } from "@expo/vector-icons";
+import { IconName } from "../../../constants/IconName";
+import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
 
 export enum PostCardType {
   PLANE = "plane",
@@ -19,15 +20,15 @@ export enum PostCardType {
 
 interface PostPreviewProps {
   type: PostCardType;
-  authorName: string;
-  postTime: number;
-  likeNum: number;
-  commentNum: number;
-  saveNum: number;
   title: string;
   body: string;
+  authorName: string;
+  postTime?: number;
+  likeNum?: number;
+  commentNum?: number;
+  saveNum?: number;
   tags?: any;
-  onTagPress: (name: string) => void;
+  onTagPress?: (name: string) => void;
 }
 
 const BackgroundColor = {
@@ -56,7 +57,7 @@ const PostCard: React.FC<PostPreviewProps> = ({
     type === PostCardType.PREVIEW
       ? HashTagDisplayMode.PRIMARY
       : HashTagDisplayMode.TLNORMAL;
-  const actionButtonSize = 6;
+  const actionButtonSize = "6px";
 
   return (
     <Box
@@ -67,56 +68,62 @@ const PostCard: React.FC<PostPreviewProps> = ({
       width="100%"
     >
       <VStack display="flex">
-        <HStack alignItems="center" height="36px">
-          <CustomText color={Color.TEXT} fontType={FontType.EXSMALL_BOLD}>
-            {authorName}
-          </CustomText>
-          <Box display="flex" flexDirection="row">
-            {postTime != 0 && (
+        <HStack
+          alignItems="center"
+          height="36px"
+          justifyContent="space-between"
+          mb="8px"
+        >
+          <HStack alignItems="center" space="8px">
+            <Box
+              height="32px"
+              width="32px"
+              borderRadius="16px"
+              backgroundColor={Color.MEDIUM_GRAY}
+            />
+            <CustomText color={Color.TEXT} fontType={FontType.EXSMALL_BOLD}>
+              {authorName}
+            </CustomText>
+          </HStack>
+          <HStack>
+            {postTime && (
               <Text color={Color.TEXT}>
                 {postTime + "時間前"}
                 {/* TODO いい感じに表示を変える */}
               </Text>
             )}
-            {type == "like" && (
-              <Icon
-                as={<MaterialIcons name={"favorite"} />}
+            {type == PostCardType.LIKE && (
+              <CustomMaterialIcon
+                name={IconName.LIKE}
                 size={actionButtonSize}
                 color={Color.MAIN}
-                mt="3px"
-                mr="4px"
               />
             )}
-            {type == "like" && likeNum != 0 && (
+            {type == PostCardType.LIKE && likeNum && (
               <Text color={Color.TEXT}> {likeNum}</Text>
             )}
-            {type == "detail" && (
-              <Icon
-                as={<MaterialIcons name={"chat-bubble-outline"} />}
+            {type == PostCardType.DETAIL && (
+              <CustomMaterialIcon
+                name={IconName.CHAT}
                 size={actionButtonSize}
                 color={Color.MAIN}
-                mt="3px"
-                mr="4px"
               />
             )}
-            {type == "detail" && commentNum != 0 && (
+            {type == PostCardType.DETAIL && commentNum && (
               <Text color={Color.TEXT}> {commentNum}</Text>
             )}
-            {(type == "save" || type == "tl") && (
-              <Icon
-                as={<MaterialIcons name={"turned-in-not"} />}
+            {(type == PostCardType.SAVE || type == PostCardType.TL) && (
+              <CustomMaterialIcon
+                name={IconName.SAVE}
                 size={actionButtonSize}
                 color={Color.MAIN}
-                mt="3px"
-                mr="4px"
               />
             )}
-            {type == "tl" && saveNum != 0 && (
+            {type == PostCardType.TL && saveNum && (
               <Text color={Color.TEXT}> {saveNum}</Text>
             )}
-          </Box>
+          </HStack>
         </HStack>
-
         <Divider
           width="100%"
           height="0"

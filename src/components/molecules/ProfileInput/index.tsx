@@ -1,14 +1,15 @@
 import * as React from "react";
-import { Icon, Input, VStack, Box, HStack } from "native-base";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Color } from "../../../constants/Color";
+import { Input, VStack, Box, HStack } from "native-base";
+import { Color, ColorType } from "../../../constants/Color";
 import { CustomText } from "../../atoms/Text";
 import { FontType } from "../../../constants/Font";
+import { CustomMaterialIcon } from "../../atoms/MaterialIcon";
+import { IconName } from "../../../constants/IconName";
 
 interface ProfileInputProps {
   value: string;
-  iconName: string;
-  iconColor: string;
+  iconName: IconName;
+  iconColor: ColorType;
   label: string;
   placeholder: string;
   isTextarea?: boolean;
@@ -27,11 +28,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
   return (
     <VStack space="6px">
       <HStack alignItems="center" space="6px" flexDirection="row">
-        <Icon
-          as={<MaterialIcons name={iconName as any} />}
-          size="16px"
-          color={iconColor}
-        />
+        <CustomMaterialIcon name={iconName} size="16px" color={iconColor} />
         <CustomText fontType={FontType.SMALL_BOLD} color={Color.TEXT}>
           {label}
         </CustomText>
@@ -54,7 +51,7 @@ export const ProfileInput: React.FC<ProfileInputProps> = ({
             onChangeText={(text) => {
               onChange(text);
             }}
-            autoCompleteType="off"
+            autoComplete="off"
             textAlignVertical="top"
             alignItems="flex-start"
             paddingTop="8px"

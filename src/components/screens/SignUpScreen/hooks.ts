@@ -5,11 +5,12 @@ import { useAuth } from "../../../providers/AuthProvider/hooks";
 import { EmailPattern } from "../../../constants/RegEx";
 import { AlertButtonStyle, useAlert } from "../../../utils/useAlert";
 import { UserRepository } from "../../../repositories/UserRepository";
+import { AccountType } from "../../../domain/types/User";
 
 const RequiredPasswordLength = 8;
 
 export const useSignUp = () => {
-  const { setUserId } = useAuth();
+  const { setUser } = useAuth();
   const { emitAlert } = useAlert();
 
   const [email, setEmail] = useState("");
@@ -106,18 +107,24 @@ export const useSignUp = () => {
 
   const createUser = useCallback(
     async (id: string, email: string) => {
-      await userRepository.create({
+      const initialUser = {
         id,
         email,
-        userName: null,
-        school: "",
-        grade: "",
-        schoolChoice: "",
+        isProfileFilled: false,
+        userName: "",
+        type: AccountType.MENTEE,
+        grade: null,
+        currentSchoolArea: null,
+        schoolOfChoice: null,
+        college: null,
+        formerSchoolArea: null,
         description: "",
-      });
-      setUserId(id);
+        followingTags: [],
+      };
+      await userRepository.create(initialUser);
+      setUser(initialUser);
     },
-    [userRepository, setUserId]
+    [userRepository, setUser]
   );
 
   const signUp = useCallback(

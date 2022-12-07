@@ -1,11 +1,19 @@
+export enum PostType {
+  ASK = "ask",
+  TELL = "tell",
+}
+
 export interface Post {
+  type: PostType;
   authorId: string;
   title: string;
   body: string;
-  likes: string[]; // いいねをつけたユーザーのidの配列
-  hashTags: string[]; // ハッシュタグ(#を含まない)の配列
+  likeCount: number;
+  saveCount: number;
+  commentCount: number;
+  tags: string[];
+  nGrams: string[];
   createdAt: Date;
-  comments: Comment[];
 }
 
 export interface Comment {
