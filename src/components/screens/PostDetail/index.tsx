@@ -59,12 +59,21 @@ export const PostDetailScreen: React.FC = () => {
   });
 
   const insets = useSafeAreaInsets();
-  const actionButtonSize = "6";
+  const actionButtonSize = "24px";
 
   useEffect(() => {
     //データを取ってくる関数 型注釈てきとーです
     const fetchData = async (): Promise<Post | any> => {};
   }, []);
+
+  const dummyIcon = (
+    <Box
+      height="32px"
+      width="32px"
+      borderRadius="16px"
+      backgroundColor={Color.MEDIUM_GRAY}
+    />
+  );
 
   return (
     <KeyboardAvoidingView
@@ -82,26 +91,16 @@ export const PostDetailScreen: React.FC = () => {
               <ThreeDotsIcon />
             </Box>
           </View>
-          <HStack mt="5" alignItems="center">
-            <Box
-              display="flex"
-              flexDirection="row"
-              mr="auto"
-              alignItems="center"
-            >
-              <Box
-                height="32px"
-                width="32px"
-                borderRadius="16px"
-                backgroundColor={Color.MEDIUM_GRAY}
-              />
+          <HStack mt="5" alignItems="center" height="36px" mb="8px">
+            <HStack alignItems="center" space="8px">
+              {dummyIcon}
               <Box>
                 <CustomText color={Color.TEXT} fontType={FontType.EXSMALL_BOLD}>
                   {"ぴよ子"}
                 </CustomText>
               </Box>
-            </Box>
-            <Box display="flex" flexDirection="row" ml="auto">
+            </HStack>
+            <HStack ml="auto">
               <Text color={Color.TEXT}>
                 {calculateAgeOfComment(postData.createdAt)}
               </Text>
@@ -123,7 +122,7 @@ export const PostDetailScreen: React.FC = () => {
                 color={Color.MAIN}
               />
               <Text color={Color.TEXT}> {postData.saveCount}</Text>
-            </Box>
+            </HStack>
           </HStack>
           <Divider
             width="100%"

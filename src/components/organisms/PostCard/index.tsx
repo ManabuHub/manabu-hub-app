@@ -57,7 +57,7 @@ const PostCard: React.FC<PostPreviewProps> = ({
     type === PostCardType.PREVIEW
       ? HashTagDisplayMode.PRIMARY
       : HashTagDisplayMode.TLNORMAL;
-  const actionButtonSize = "6px";
+  const actionButtonSize = "24px";
 
   return (
     <Box
