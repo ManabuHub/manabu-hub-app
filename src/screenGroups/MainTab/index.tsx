@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
 import { Tabbar } from "../../components/organisms/Tabbar";
 import { HomeScreen } from "../../components/screens/HomeScreen";
+import { SearchScreen } from "../../components/screens/SearchScreen";
 import { ScreenName } from "../../constants/ScreenName";
 import { ProfileStack } from "../ProfileStack";
 
@@ -18,7 +19,7 @@ export const MainTab: React.FC = () => {
       tabBar={(props) => <Tabbar {...props} />}
     >
       <Tab.Screen name={ScreenName.HOME} component={HomeScreen} />
-      <Tab.Screen name={ScreenName.SEARCH} component={HomeScreen} />
+      <Tab.Screen name={ScreenName.SEARCH} component={SearchScreen} />
       <Tab.Screen name={ScreenName.PLACEHOLDER} component={PlaceHolder} />
       <Tab.Screen name={ScreenName.NOTIFICATION} component={HomeScreen} />
       <Tab.Screen name={ScreenName.PROFILE} component={ProfileStack} />
