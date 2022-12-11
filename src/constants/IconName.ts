@@ -29,4 +29,7 @@ export enum IconName {
   SETTING = "settings",
   BOOK = "menu-book",
   DESCRIPTION = "portrait",
+  SEARCH = "search",
+  TAG = "tag",
+  MENU = "menu",
 }
